@@ -53,9 +53,10 @@ export class NameToPic extends NameToPicUI {
                     this.bigImg.width = this.bigImg.height * bmpscal;
                 }
             }
+            SoundManager.playSound("res/sound/duile.mp3");
         } else {
             this.lblcuo.label = "错误：" + ++DataManager.nameToPicNum.cw;
-            this.list.getCell(index).visible = false;
+            SoundManager.playSound("res/sound/budui.mp3");
         }
     }
     private onSayName(): void {
