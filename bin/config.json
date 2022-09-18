@@ -1,0 +1,582 @@
+{
+    "0": [
+        {
+            "id": 1,
+            "name": "爸爸",
+            "yin": "",
+            "img": "content/ren/img/baba.jpg",
+            "sound": "content/ren/sound/baba.mp3"
+        },
+        {
+            "id": 2,
+            "name": "妈妈",
+            "img": "content/ren/img/mama.jpg",
+            "sound": "content/ren/sound/mama.mp3"
+        },
+        {
+            "id": 3,
+            "name": "爷爷",
+            "img": "content/ren/img/yeye.jpg",
+            "sound": "content/ren/sound/yeye.mp3"
+        },
+        {
+            "id": 4,
+            "name": "奶奶",
+            "img": "content/ren/img/nainai.jpg",
+            "sound": "content/ren/sound/nainai.mp3"
+        },
+        {
+            "id": 5,
+            "name": "外公",
+            "img": "content/ren/img/waigong.jpg",
+            "sound": "content/ren/sound/waigong.mp3"
+        },
+        {
+            "id": 5,
+            "name": "外婆",
+            "img": "content/ren/img/waipo.jpg",
+            "sound": "content/ren/sound/waipo.mp3"
+        },
+        {
+            "id": 5,
+            "name": "叔叔",
+            "img": "content/ren/img/shushu.jpg",
+            "sound": "content/ren/sound/shushu.mp3"
+        },
+        {
+            "id": 5,
+            "name": "阿姨",
+            "img": "content/ren/img/ayi.jpg",
+            "sound": "content/ren/sound/ayi.mp3"
+        },
+		{
+            "id": 5,
+            "name": "舅舅",
+            "img": "content/ren/img/jiujiu.jpg",
+            "sound": "content/ren/sound/jiujiu.mp3"
+        },
+        {
+            "id": 5,
+            "name": "哥哥",
+            "img": "content/ren/img/gege.jpg",
+            "sound": "content/ren/sound/gege.mp3"
+        },
+        {
+            "id": 5,
+            "name": "姐姐",
+            "img": "content/ren/img/jiejie.jpg",
+            "sound": "content/ren/sound/jiejie.mp3"
+        },
+        {
+            "id": 5,
+            "name": "弟弟",
+            "img": "content/ren/img/didi.jpg",
+            "sound": "content/ren/sound/didi.mp3"
+        },
+        {
+            "id": 5,
+            "name": "妹妹",
+            "img": "content/ren/img/meimei.jpg",
+            "sound": "content/ren/sound/meimei.mp3"
+        },
+        {
+            "id": 5,
+            "name": "老师",
+            "img": "content/ren/img/laoshi.jpg",
+            "sound": "content/ren/sound/laoshi.mp3"
+        },
+        {
+            "id": 5,
+            "name": "医生",
+            "img": "content/ren/img/yisheng.jpg",
+            "sound": "content/ren/sound/yisheng.mp3"
+        },
+        {
+            "id": 5,
+            "name": "护士",
+            "img": "content/ren/img/hushi.jpg",
+            "sound": "content/ren/sound/hushi.mp3"
+        },
+        {
+            "id": 5,
+            "name": "消防员",
+            "img": "content/ren/img/xiaofangyuan.jpg",
+            "sound": "content/ren/sound/xiaofangyuan.mp3"
+        },
+        {
+            "id": 5,
+            "name": "警察",
+            "img": "content/ren/img/jingcha.jpg",
+            "sound": "content/ren/sound/jingcha.mp3"
+        }
+    ],
+    "1": [
+        {
+            "id": 1,
+            "pin": "mao",
+            "name": "猫",
+            "img": "content/animal/img/mao.jpg",
+            "sound": "content/animal/sound/mao.mp3",
+            "voice": "content/animal/voice/mao.mp3"
+        },
+        {
+            "id": 2,
+            "name": "狗",
+            "img": "content/animal/img/gou.jpg",
+            "sound": "content/animal/sound/gou.mp3",
+            "voice": "content/animal/voice/gou.mp3"
+        },
+        {
+            "id": 3,
+            "name": "猪",
+            "img": "content/animal/img/zhu.jpg",
+            "sound": "content/animal/sound/zhu.mp3",
+            "voice": "content/animal/voice/zhu.mp3"
+        },
+        {
+            "id": 4,
+            "name": "牛",
+            "img": "content/animal/img/niu.jpg",
+            "sound": "content/animal/sound/niu.mp3",
+            "voice": "content/animal/voice/niu.mp3"
+        },
+        {
+            "id": 5,
+            "name": "山羊",
+            "img": "content/animal/img/yang.jpg",
+            "sound": "content/animal/sound/shanyang.mp3",
+            "voice": "content/animal/voice/shanyang.mp3"
+        },
+        {
+            "id": 6,
+            "name": "马",
+            "img": "content/animal/img/ma.jpg",
+            "sound": "content/animal/sound/ma.mp3",
+            "voice": "content/animal/voice/ma.mp3"
+        },
+		{
+            "id": 19,
+            "name": "大象",
+            "img": "content/animal/img/daxiang.jpg",
+            "sound": "content/animal/sound/daxiang.mp3",
+            "voice": "content/animal/voice/daxiang.mp3"
+        },
+        {
+            "id": 20,
+            "name": "长颈鹿",
+            "img": "content/animal/img/changjinglu.jpg",
+            "sound": "content/animal/sound/changjinglu.mp3",
+            "voice": "content/animal/voice/changjinglu.mp3"
+        },
+        {
+            "id": 21,
+            "name": "狮子",
+            "img": "content/animal/img/shizi.jpg",
+            "sound": "content/animal/sound/shizi.mp3",
+            "voice": "content/animal/voice/shizi.mp3"
+        },
+        {
+            "id": 22,
+            "name": "老虎",
+            "img": "content/animal/img/laohu.jpg",
+            "sound": "content/animal/sound/laohu.mp3",
+            "voice": "content/animal/voice/laohu.mp3"
+        },
+        {
+            "id": 23,
+            "name": "骆驼",
+            "img": "content/animal/img/luotuo.jpg",
+            "sound": "content/animal/sound/luotuo.mp3",
+            "voice": "content/animal/voice/luotuo.mp3"
+        },
+        {
+            "id": 24,
+            "name": "熊猫",
+            "img": "content/animal/img/xiongmao.jpg",
+            "sound": "content/animal/sound/xiongmao.mp3",
+            "voice": "content/animal/voice/xiongmao.mp3"
+        },
+        {
+            "id": 7,
+            "name": "公鸡",
+            "img": "content/animal/img/gongji.jpg",
+            "sound": "content/animal/sound/gongji.mp3",
+            "voice": "content/animal/voice/gongji.mp3"
+        },
+        {
+            "id": 8,
+            "name": "母鸡",
+            "img": "content/animal/img/muji.jpg",
+            "sound": "content/animal/sound/muji.mp3",
+            "voice": "content/animal/voice/muji.mp3"
+        },
+        {
+            "id": 8,
+            "name": "鸭子",
+            "img": "content/animal/img/yazi.jpg",
+            "sound": "content/animal/sound/yazi.mp3",
+            "voice": "content/animal/voice/yazi.mp3"
+        },
+        {
+            "id": 9,
+            "name": "鹅",
+            "img": "content/animal/img/e.jpg",
+            "sound": "content/animal/sound/e.mp3",
+            "voice": "content/animal/voice/e.mp3"
+        },
+        {
+            "id": 10,
+            "name": "小鸟",
+            "img": "content/animal/img/xiaoniao.jpg",
+            "sound": "content/animal/sound/xiaoniao.mp3",
+            "voice": "content/animal/voice/xiaoniao.mp3"
+        },
+        {
+            "id": 11,
+            "name": "猫头鹰",
+            "img": "content/animal/img/maotouying.jpg",
+            "sound": "content/animal/sound/maotouying.mp3",
+            "voice": "content/animal/voice/maotouying.mp3"
+        },
+        {
+            "id": 12,
+            "name": "企鹅",
+            "img": "content/animal/img/qie.jpg",
+            "sound": "content/animal/sound/qie.mp3",
+            "voice": "content/animal/voice/qie.mp3"
+        },
+        {
+            "id": 13,
+            "name": "乌鸦",
+            "img": "content/animal/img/wuya.jpg",
+            "sound": "content/animal/sound/wuya.mp3",
+            "voice": "content/animal/voice/wuya.mp3"
+        },
+        {
+            "id": 14,
+            "name": "海豚",
+            "img": "content/animal/img/haitun.jpg",
+            "sound": "content/animal/sound/haitun.mp3",
+            "voice": "content/animal/voice/haitun.mp3"
+        },
+        {
+            "id": 15,
+            "name": "青蛙",
+            "img": "content/animal/img/qingwa.jpg",
+            "sound": "content/animal/sound/qingwa.mp3",
+            "voice": "content/animal/voice/qingwa.mp3"
+        },
+        {
+            "id": 16,
+            "name": "蛇",
+            "img": "content/animal/img/she.jpg",
+            "sound": "content/animal/sound/she.mp3",
+            "voice": "content/animal/voice/she.mp3"
+        },
+        {
+            "id": 17,
+            "name": "蜜蜂",
+            "img": "content/animal/img/mifeng.jpg",
+            "sound": "content/animal/sound/mifeng.mp3",
+            "voice": "content/animal/voice/mifeng.mp3"
+        },
+        {
+            "id": 18,
+            "name": "蟋蟀",
+            "img": "content/animal/img/xishuai.jpg",
+            "sound": "content/animal/sound/xishuai.mp3",
+            "voice": "content/animal/voice/xishuai.mp3"
+        },
+        {
+            "id": 25,
+            "name": "蚊子",
+            "img": "content/animal/img/wenzi.jpg",
+            "sound": "content/animal/sound/wenzi.mp3",
+            "voice": "content/animal/voice/wenzi.mp3"
+        }
+    ],
+    "2": [
+        {
+            "id": 1,
+            "yin": "",
+            "name": "橘子",
+            "img": "content/guoshu/img/juzi.jpg",
+            "sound": "content/guoshu/sound/juzi.mp3"
+        },
+        {
+            "id": 2,
+            "name": "苹果",
+            "yin": "",
+            "img": "content/guoshu/img/pingguo.jpg",
+            "sound": "content/guoshu/sound/pingguo.mp3"
+        },
+        {
+            "id": 3,
+            "name": "香蕉",
+            "yin": "",
+            "img": "content/guoshu/img/xiangjiao.jpg",
+            "sound": "content/guoshu/sound/xiangjiao.mp3"
+        },
+        {
+            "id": 4,
+            "name": "梨子",
+            "yin": "",
+            "img": "content/guoshu/img/lizi.jpg",
+            "sound": "content/guoshu/sound/lizi.mp3"
+        },
+        {
+            "id": 6,
+            "name": "西瓜",
+            "yin": "",
+            "img": "content/guoshu/img/xigua.jpg",
+            "sound": "content/guoshu/sound/xigua.mp3"
+        },
+        {
+            "id": 7,
+            "name": "桃子",
+            "yin": "",
+            "img": "content/guoshu/img/taozi.jpg",
+            "sound": "content/guoshu/sound/taozi.mp3"
+        },
+        {
+            "id": 5,
+            "name": "葡萄",
+            "yin": "",
+            "img": "content/guoshu/img/putao.jpg",
+            "sound": "content/guoshu/sound/putao.mp3"
+        },
+        {
+            "id": 5,
+            "name": "草莓",
+            "yin": "",
+            "img": "content/guoshu/img/caomei.jpg",
+            "sound": "content/guoshu/sound/caomei.mp3"
+        },
+        {
+            "id": 5,
+            "name": "石榴",
+            "yin": "",
+            "img": "content/guoshu/img/shiliu.jpg",
+            "sound": "content/guoshu/sound/shiliu.mp3"
+        },
+        {
+            "id": 5,
+            "name": "猕猴桃",
+            "yin": "",
+            "img": "content/guoshu/img/mihoutao.jpg",
+            "sound": "content/guoshu/sound/mihoutao.mp3"
+        },
+        {
+            "id": 5,
+            "name": "白菜",
+            "yin": "",
+            "img": "content/guoshu/img/baicai.jpg",
+            "sound": "content/guoshu/sound/baicai.mp3"
+        },
+        {
+            "id": 5,
+            "name": "萝卜",
+            "yin": "",
+            "img": "content/guoshu/img/luobo.jpg",
+            "sound": "content/guoshu/sound/luobo.mp3"
+        },
+        {
+            "id": 5,
+            "name": "胡萝卜",
+            "yin": "",
+            "img": "content/guoshu/img/huluobo.jpg",
+            "sound": "content/guoshu/sound/huluobo.mp3"
+        },
+        {
+            "id": 5,
+            "name": "冬瓜",
+            "yin": "",
+            "img": "content/guoshu/img/donggua.jpg",
+            "sound": "content/guoshu/sound/donggua.mp3"
+        },
+        {
+            "id": 5,
+            "name": "南瓜",
+            "yin": "",
+            "img": "content/guoshu/img/nangua.jpg",
+            "sound": "content/guoshu/sound/nangua.mp3"
+        },
+        {
+            "id": 5,
+            "name": "黄瓜",
+            "yin": "",
+            "img": "content/guoshu/img/huanggua.jpg",
+            "sound": "content/guoshu/sound/huanggua.mp3"
+        },
+        {
+            "id": 5,
+            "name": "茄子",
+            "yin": "",
+            "img": "content/guoshu/img/qiezi.jpg",
+            "sound": "content/guoshu/sound/qiezi.mp3"
+        },
+        {
+            "id": 5,
+            "name": "辣椒",
+            "yin": "",
+            "img": "content/guoshu/img/lajiao.jpg",
+            "sound": "content/guoshu/sound/lajiao.mp3"
+        },
+        {
+            "id": 5,
+            "name": "蘑菇",
+            "yin": "",
+            "img": "content/guoshu/img/mogu.jpg",
+            "sound": "content/guoshu/sound/mogu.mp3"
+        },
+        {
+            "id": 5,
+            "name": "玉米",
+            "yin": "",
+            "img": "content/guoshu/img/yumi.jpg",
+            "sound": "content/guoshu/sound/yumi.mp3"
+        },
+        {
+            "id": 5,
+            "name": "桃花",
+            "yin": "",
+            "img": "content/guoshu/img/taohua.jpg",
+            "sound": "content/guoshu/sound/taohua.mp3"
+        },
+        {
+            "id": 5,
+            "name": "荷花",
+            "yin": "",
+            "img": "content/guoshu/img/hehua.jpg",
+            "sound": "content/guoshu/sound/hehua.mp3"
+        },
+        {
+            "id": 5,
+            "name": "野菊花",
+            "yin": "",
+            "img": "content/guoshu/img/yejuhua.jpg",
+            "sound": "content/guoshu/sound/yejuhua.mp3"
+        },
+        {
+            "id": 5,
+            "name": "梅花",
+            "yin": "",
+            "img": "content/guoshu/img/meihua.jpg",
+            "sound": "content/guoshu/sound/meihua.mp3"
+        }
+        ,
+        {
+            "id": 5,
+            "name": "竹子",
+            "yin": "",
+            "img": "content/guoshu/img/zhuzi.jpg",
+            "sound": "content/guoshu/sound/zhuzi.mp3"
+        }
+    ],
+    "3": [
+		{
+            "id": 1,
+            "name": "自行车",
+            "yin": "",
+            "img": "content/tool/img/zixingche.jpg",
+            "sound": "content/tool/sound/zixingche.mp3",
+            "voice": "content/tool/voice/zixingche.mp3"
+        },
+		{
+            "id": 1,
+            "name": "摩托车",
+            "yin": "",
+            "img": "content/tool/img/motuoche.jpg",
+            "sound": "content/tool/sound/motuoche.mp3",
+            "voice": "content/tool/voice/motuoche.mp3"
+        },
+        {
+            "id": 1,
+            "name": "汽车",
+            "yin": "",
+            "img": "content/tool/img/qiche.jpg",
+            "sound": "content/tool/sound/qiche.mp3",
+            "voice": "content/tool/voice/qiche.mp3"
+        },
+        {
+            "id": 2,
+            "name": "火车",
+            "yin": "",
+            "img": "content/tool/img/huoche.jpg",
+            "sound": "content/tool/sound/huoche.mp3",
+            "voice": "content/tool/voice/huoche.mp3"
+        },
+        {
+            "id": 3,
+            "name": "高铁",
+            "yin": "",
+            "img": "content/tool/img/gaotie.jpg",
+            "sound": "content/tool/sound/gaotie.mp3",
+            "voice": "content/tool/voice/gaotie.mp3"
+        },
+        {
+            "id": 3,
+            "name": "飞机",
+            "yin": "",
+            "img": "content/tool/img/feiji.jpg",
+            "sound": "content/tool/sound/feiji.mp3",
+            "voice": "content/tool/voice/feiji.mp3"
+        },
+        {
+            "id": 3,
+            "name": "直升机",
+            "yin": "",
+            "img": "content/tool/img/zhishengji.jpg",
+            "sound": "content/tool/sound/zhishengji.mp3",
+            "voice": "content/tool/voice/zhishengji.mp3"
+        },
+        {
+            "id": 5,
+            "name": "火箭",
+            "yin": "",
+            "img": "content/tool/img/huojian.jpg",
+            "sound": "content/tool/sound/huojian.mp3",
+            "voice": "content/tool/voice/huojian.mp3"
+        },
+        {
+            "id": 4,
+            "name": "轮船",
+            "yin": "",
+            "img": "content/tool/img/lunchuan.jpg",
+            "sound": "content/tool/sound/lunchuan.mp3",
+            "voice": "content/tool/voice/lunchuan.mp3"
+        },
+        {
+            "id": 4,
+            "name": "军舰",
+            "yin": "",
+            "img": "content/tool/img/junjian.jpg",
+            "sound": "content/tool/sound/junjian.mp3",
+            "voice": "content/tool/voice/lunchuan.mp3"
+        },
+        {
+            "id": 4,
+            "name": "航母",
+            "yin": "",
+            "img": "content/tool/img/hangmu.jpg",
+            "sound": "content/tool/sound/hangmu.mp3",
+            "voice": "content/tool/voice/lunchuan.mp3"
+        },
+        {
+            "id": 6,
+            "name": "枪",
+            "yin": "",
+            "img": "content/tool/img/qiang.jpg",
+            "sound": "content/tool/sound/qiang.mp3",
+            "voice": "content/tool/voice/qiang.mp3"
+        },
+        {
+            "id": 6,
+            "name": "坦克",
+            "yin": "",
+            "img": "content/tool/img/tanke.jpg",
+            "sound": "content/tool/sound/tanke.mp3",
+            "voice": "content/tool/voice/tanke.mp3"
+        }
+    ]
+}

@@ -1,0 +1,1 @@
+"undefined"!=typeof swan&&"undefined"!=typeof swanGlobal?(require("swan-game-adapter.js"),require("libs/laya.bdmini.js")):"undefined"!=typeof wx&&(require("weapp-adapter.js"),require("libs/min/laya-d6d8a092e4.wxmini.min.js"),wx.showShareMenu({withShareTicket:!0,menus:["shareAppMessage","shareTimeline"]})),window.loadLib=require,require("index-cff564b7dd.js");

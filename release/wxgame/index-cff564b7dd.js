@@ -1,0 +1,1 @@
+window.screenOrientation="portrait",loadLib("laya-290fd42039.js"),loadLib("js/bundle-8588c0ea88.js");
