@@ -23428,6 +23428,152 @@
      ClassUtils.regClass("laya.ui.UIComponent", UIComponent);
      ClassUtils.regClass("Laya.UIComponent", UIComponent);
 
+     class Script extends Component {
+         get isSingleton() {
+             return false;
+         }
+         _onAwake() {
+             this.onAwake();
+             if (this.onStart !== Script.prototype.onStart) {
+                 ILaya.startTimer.callLater(this, this.onStart);
+             }
+         }
+         _onEnable() {
+             var proto = Script.prototype;
+             if (this.onTriggerEnter !== proto.onTriggerEnter) {
+                 this.owner.on(Event.TRIGGER_ENTER, this, this.onTriggerEnter);
+             }
+             if (this.onTriggerStay !== proto.onTriggerStay) {
+                 this.owner.on(Event.TRIGGER_STAY, this, this.onTriggerStay);
+             }
+             if (this.onTriggerExit !== proto.onTriggerExit) {
+                 this.owner.on(Event.TRIGGER_EXIT, this, this.onTriggerExit);
+             }
+             if (this.onMouseDown !== proto.onMouseDown) {
+                 this.owner.on(Event.MOUSE_DOWN, this, this.onMouseDown);
+             }
+             if (this.onMouseUp !== proto.onMouseUp) {
+                 this.owner.on(Event.MOUSE_UP, this, this.onMouseUp);
+             }
+             if (this.onClick !== proto.onClick) {
+                 this.owner.on(Event.CLICK, this, this.onClick);
+             }
+             if (this.onStageMouseDown !== proto.onStageMouseDown) {
+                 ILaya.stage.on(Event.MOUSE_DOWN, this, this.onStageMouseDown);
+             }
+             if (this.onStageMouseUp !== proto.onStageMouseUp) {
+                 ILaya.stage.on(Event.MOUSE_UP, this, this.onStageMouseUp);
+             }
+             if (this.onStageClick !== proto.onStageClick) {
+                 ILaya.stage.on(Event.CLICK, this, this.onStageClick);
+             }
+             if (this.onStageMouseMove !== proto.onStageMouseMove) {
+                 ILaya.stage.on(Event.MOUSE_MOVE, this, this.onStageMouseMove);
+             }
+             if (this.onDoubleClick !== proto.onDoubleClick) {
+                 this.owner.on(Event.DOUBLE_CLICK, this, this.onDoubleClick);
+             }
+             if (this.onRightClick !== proto.onRightClick) {
+                 this.owner.on(Event.RIGHT_CLICK, this, this.onRightClick);
+             }
+             if (this.onMouseMove !== proto.onMouseMove) {
+                 this.owner.on(Event.MOUSE_MOVE, this, this.onMouseMove);
+             }
+             if (this.onMouseOver !== proto.onMouseOver) {
+                 this.owner.on(Event.MOUSE_OVER, this, this.onMouseOver);
+             }
+             if (this.onMouseOut !== proto.onMouseOut) {
+                 this.owner.on(Event.MOUSE_OUT, this, this.onMouseOut);
+             }
+             if (this.onKeyDown !== proto.onKeyDown) {
+                 ILaya.stage.on(Event.KEY_DOWN, this, this.onKeyDown);
+             }
+             if (this.onKeyPress !== proto.onKeyPress) {
+                 ILaya.stage.on(Event.KEY_PRESS, this, this.onKeyPress);
+             }
+             if (this.onKeyUp !== proto.onKeyUp) {
+                 ILaya.stage.on(Event.KEY_UP, this, this.onKeyUp);
+             }
+             if (this.onUpdate !== proto.onUpdate) {
+                 ILaya.updateTimer.frameLoop(1, this, this.onUpdate);
+             }
+             if (this.onLateUpdate !== proto.onLateUpdate) {
+                 ILaya.lateTimer.frameLoop(1, this, this.onLateUpdate);
+             }
+             if (this.onPreRender !== proto.onPreRender) {
+                 ILaya.lateTimer.frameLoop(1, this, this.onPreRender);
+             }
+             this.onEnable();
+         }
+         _onDisable() {
+             this.owner.offAllCaller(this);
+             ILaya.stage.offAllCaller(this);
+             ILaya.startTimer.clearAll(this);
+             ILaya.updateTimer.clearAll(this);
+             ILaya.lateTimer.clearAll(this);
+         }
+         _isScript() {
+             return true;
+         }
+         _onDestroy() {
+             this.onDestroy();
+         }
+         onAwake() {
+         }
+         onEnable() {
+         }
+         onStart() {
+         }
+         onTriggerEnter(other, self, contact) {
+         }
+         onTriggerStay(other, self, contact) {
+         }
+         onTriggerExit(other, self, contact) {
+         }
+         onMouseDown(e) {
+         }
+         onMouseUp(e) {
+         }
+         onClick(e) {
+         }
+         onStageMouseDown(e) {
+         }
+         onStageMouseUp(e) {
+         }
+         onStageClick(e) {
+         }
+         onStageMouseMove(e) {
+         }
+         onDoubleClick(e) {
+         }
+         onRightClick(e) {
+         }
+         onMouseMove(e) {
+         }
+         onMouseOver(e) {
+         }
+         onMouseOut(e) {
+         }
+         onKeyDown(e) {
+         }
+         onKeyPress(e) {
+         }
+         onKeyUp(e) {
+         }
+         onUpdate() {
+         }
+         onLateUpdate() {
+         }
+         onPreRender() {
+         }
+         onPostRender() {
+         }
+         onDisable() {
+         }
+         onDestroy() {
+         }
+     }
+
      class Styles {
      }
      Styles.defaultSizeGrid = [4, 4, 4, 4, 0];
@@ -23613,283 +23759,6 @@
      }
      ClassUtils.regClass("laya.ui.AutoBitmap", AutoBitmap);
      ClassUtils.regClass("Laya.AutoBitmap", AutoBitmap);
-
-     class Image extends UIComponent {
-         constructor(skin = null) {
-             super();
-             this.skin = skin;
-         }
-         destroy(destroyChild = true) {
-             super.destroy(destroyChild);
-             this._bitmap && this._bitmap.destroy();
-             this._bitmap = null;
-         }
-         dispose() {
-             this.destroy(true);
-             ILaya.loader.clearRes(this._skin);
-         }
-         createChildren() {
-             this.graphics = this._bitmap = new AutoBitmap();
-             this._bitmap.autoCacheCmd = false;
-         }
-         get skin() {
-             return this._skin;
-         }
-         set skin(value) {
-             if (this._skin != value) {
-                 this._skin = value;
-                 if (value) {
-                     var source = Loader.getRes(value);
-                     if (source) {
-                         this.source = source;
-                         this.onCompResize();
-                     }
-                     else
-                         ILaya.loader.load(this._skin, Handler.create(this, this.setSource, [this._skin]), null, Loader.IMAGE, 1, true, this._group);
-                 }
-                 else {
-                     this.source = null;
-                 }
-             }
-         }
-         get source() {
-             return this._bitmap.source;
-         }
-         set source(value) {
-             if (!this._bitmap)
-                 return;
-             this._bitmap.source = value;
-             this.event(Event.LOADED);
-             this.repaint();
-         }
-         get group() {
-             return this._group;
-         }
-         set group(value) {
-             if (value && this._skin)
-                 Loader.setGroup(this._skin, value);
-             this._group = value;
-         }
-         setSource(url, img = null) {
-             if (url === this._skin && img) {
-                 this.source = img;
-                 this.onCompResize();
-             }
-         }
-         measureWidth() {
-             return this._bitmap.width;
-         }
-         measureHeight() {
-             return this._bitmap.height;
-         }
-         set width(value) {
-             super.width = value;
-             this._bitmap.width = value == 0 ? 0.0000001 : value;
-         }
-         get width() {
-             return super.width;
-         }
-         set height(value) {
-             super.height = value;
-             this._bitmap.height = value == 0 ? 0.0000001 : value;
-         }
-         get height() {
-             return super.height;
-         }
-         get sizeGrid() {
-             if (this._bitmap.sizeGrid)
-                 return this._bitmap.sizeGrid.join(",");
-             return null;
-         }
-         set sizeGrid(value) {
-             this._bitmap.sizeGrid = UIUtils.fillArray(Styles.defaultSizeGrid, value, Number);
-         }
-         set dataSource(value) {
-             this._dataSource = value;
-             if (typeof (value) == 'string')
-                 this.skin = value;
-             else
-                 super.dataSource = value;
-         }
-         get dataSource() {
-             return super.dataSource;
-         }
-     }
-     ILaya.regClass(Image);
-     ClassUtils.regClass("laya.ui.Image", Image);
-     ClassUtils.regClass("Laya.Image", Image);
-
-     class Label extends UIComponent {
-         constructor(text = "") {
-             super();
-             this.text = text;
-         }
-         destroy(destroyChild = true) {
-             super.destroy(destroyChild);
-             this._tf = null;
-         }
-         createChildren() {
-             this.addChild(this._tf = new Text());
-         }
-         get text() {
-             return this._tf.text;
-         }
-         set text(value) {
-             if (this._tf.text != value) {
-                 if (value)
-                     value = UIUtils.adptString(value + "");
-                 this._tf.text = value;
-                 this.event(Event.CHANGE);
-                 if (!this._width || !this._height)
-                     this.onCompResize();
-             }
-         }
-         changeText(text) {
-             this._tf.changeText(text);
-         }
-         get wordWrap() {
-             return this._tf.wordWrap;
-         }
-         set wordWrap(value) {
-             this._tf.wordWrap = value;
-         }
-         get color() {
-             return this._tf.color;
-         }
-         set color(value) {
-             this._tf.color = value;
-         }
-         get font() {
-             return this._tf.font;
-         }
-         set font(value) {
-             this._tf.font = value;
-         }
-         get align() {
-             return this._tf.align;
-         }
-         set align(value) {
-             this._tf.align = value;
-         }
-         get valign() {
-             return this._tf.valign;
-         }
-         set valign(value) {
-             this._tf.valign = value;
-         }
-         get bold() {
-             return this._tf.bold;
-         }
-         set bold(value) {
-             this._tf.bold = value;
-         }
-         get italic() {
-             return this._tf.italic;
-         }
-         set italic(value) {
-             this._tf.italic = value;
-         }
-         get leading() {
-             return this._tf.leading;
-         }
-         set leading(value) {
-             this._tf.leading = value;
-         }
-         get fontSize() {
-             return this._tf.fontSize;
-         }
-         set fontSize(value) {
-             this._tf.fontSize = value;
-         }
-         get padding() {
-             return this._tf.padding.join(",");
-         }
-         set padding(value) {
-             this._tf.padding = UIUtils.fillArray(Styles.labelPadding, value, Number);
-         }
-         get bgColor() {
-             return this._tf.bgColor;
-         }
-         set bgColor(value) {
-             this._tf.bgColor = value;
-         }
-         get borderColor() {
-             return this._tf.borderColor;
-         }
-         set borderColor(value) {
-             this._tf.borderColor = value;
-         }
-         get stroke() {
-             return this._tf.stroke;
-         }
-         set stroke(value) {
-             this._tf.stroke = value;
-         }
-         get strokeColor() {
-             return this._tf.strokeColor;
-         }
-         set strokeColor(value) {
-             this._tf.strokeColor = value;
-         }
-         get textField() {
-             return this._tf;
-         }
-         measureWidth() {
-             return this._tf.width;
-         }
-         measureHeight() {
-             return this._tf.height;
-         }
-         get width() {
-             if (this._width || this._tf.text)
-                 return super.width;
-             return 0;
-         }
-         set width(value) {
-             super.width = value;
-             this._tf.width = value;
-         }
-         get height() {
-             if (this._height || this._tf.text)
-                 return super.height;
-             return 0;
-         }
-         set height(value) {
-             super.height = value;
-             this._tf.height = value;
-         }
-         set dataSource(value) {
-             this._dataSource = value;
-             if (typeof (value) == 'number' || typeof (value) == 'string')
-                 this.text = value + "";
-             else
-                 super.dataSource = value;
-         }
-         get dataSource() {
-             return super.dataSource;
-         }
-         get overflow() {
-             return this._tf.overflow;
-         }
-         set overflow(value) {
-             this._tf.overflow = value;
-         }
-         get underline() {
-             return this._tf.underline;
-         }
-         set underline(value) {
-             this._tf.underline = value;
-         }
-         get underlineColor() {
-             return this._tf.underlineColor;
-         }
-         set underlineColor(value) {
-             this._tf.underlineColor = value;
-         }
-     }
-     ILaya.regClass(Label);
-     ClassUtils.regClass("laya.ui.Label", Label);
-     ClassUtils.regClass("Laya.Label", Label);
 
      class Button extends UIComponent {
          constructor(skin = null, label = "") {
@@ -24214,6 +24083,1766 @@
      ILaya.regClass(Button);
      ClassUtils.regClass("laya.ui.Button", Button);
      ClassUtils.regClass("Laya.Button", Button);
+
+     class Box extends UIComponent {
+         set dataSource(value) {
+             this._dataSource = value;
+             for (var name in value) {
+                 var comp = this.getChildByName(name);
+                 if (comp)
+                     comp.dataSource = value[name];
+                 else if (name in this && !(this[name] instanceof Function))
+                     this[name] = value[name];
+             }
+         }
+         get dataSource() {
+             return super.dataSource;
+         }
+         get bgColor() {
+             return this._bgColor;
+         }
+         set bgColor(value) {
+             this._bgColor = value;
+             if (value) {
+                 this._onResize(null);
+                 this.on(Event.RESIZE, this, this._onResize);
+             }
+             else {
+                 this.graphics.clear();
+                 this.off(Event.RESIZE, this, this._onResize);
+             }
+         }
+         _onResize(e) {
+             this.graphics.clear();
+             this.graphics.drawRect(0, 0, this.width, this.height, this._bgColor);
+         }
+     }
+     ILaya.regClass(Box);
+     ClassUtils.regClass("laya.ui.Box", Box);
+     ClassUtils.regClass("Laya.Box", Box);
+
+     class Label extends UIComponent {
+         constructor(text = "") {
+             super();
+             this.text = text;
+         }
+         destroy(destroyChild = true) {
+             super.destroy(destroyChild);
+             this._tf = null;
+         }
+         createChildren() {
+             this.addChild(this._tf = new Text());
+         }
+         get text() {
+             return this._tf.text;
+         }
+         set text(value) {
+             if (this._tf.text != value) {
+                 if (value)
+                     value = UIUtils.adptString(value + "");
+                 this._tf.text = value;
+                 this.event(Event.CHANGE);
+                 if (!this._width || !this._height)
+                     this.onCompResize();
+             }
+         }
+         changeText(text) {
+             this._tf.changeText(text);
+         }
+         get wordWrap() {
+             return this._tf.wordWrap;
+         }
+         set wordWrap(value) {
+             this._tf.wordWrap = value;
+         }
+         get color() {
+             return this._tf.color;
+         }
+         set color(value) {
+             this._tf.color = value;
+         }
+         get font() {
+             return this._tf.font;
+         }
+         set font(value) {
+             this._tf.font = value;
+         }
+         get align() {
+             return this._tf.align;
+         }
+         set align(value) {
+             this._tf.align = value;
+         }
+         get valign() {
+             return this._tf.valign;
+         }
+         set valign(value) {
+             this._tf.valign = value;
+         }
+         get bold() {
+             return this._tf.bold;
+         }
+         set bold(value) {
+             this._tf.bold = value;
+         }
+         get italic() {
+             return this._tf.italic;
+         }
+         set italic(value) {
+             this._tf.italic = value;
+         }
+         get leading() {
+             return this._tf.leading;
+         }
+         set leading(value) {
+             this._tf.leading = value;
+         }
+         get fontSize() {
+             return this._tf.fontSize;
+         }
+         set fontSize(value) {
+             this._tf.fontSize = value;
+         }
+         get padding() {
+             return this._tf.padding.join(",");
+         }
+         set padding(value) {
+             this._tf.padding = UIUtils.fillArray(Styles.labelPadding, value, Number);
+         }
+         get bgColor() {
+             return this._tf.bgColor;
+         }
+         set bgColor(value) {
+             this._tf.bgColor = value;
+         }
+         get borderColor() {
+             return this._tf.borderColor;
+         }
+         set borderColor(value) {
+             this._tf.borderColor = value;
+         }
+         get stroke() {
+             return this._tf.stroke;
+         }
+         set stroke(value) {
+             this._tf.stroke = value;
+         }
+         get strokeColor() {
+             return this._tf.strokeColor;
+         }
+         set strokeColor(value) {
+             this._tf.strokeColor = value;
+         }
+         get textField() {
+             return this._tf;
+         }
+         measureWidth() {
+             return this._tf.width;
+         }
+         measureHeight() {
+             return this._tf.height;
+         }
+         get width() {
+             if (this._width || this._tf.text)
+                 return super.width;
+             return 0;
+         }
+         set width(value) {
+             super.width = value;
+             this._tf.width = value;
+         }
+         get height() {
+             if (this._height || this._tf.text)
+                 return super.height;
+             return 0;
+         }
+         set height(value) {
+             super.height = value;
+             this._tf.height = value;
+         }
+         set dataSource(value) {
+             this._dataSource = value;
+             if (typeof (value) == 'number' || typeof (value) == 'string')
+                 this.text = value + "";
+             else
+                 super.dataSource = value;
+         }
+         get dataSource() {
+             return super.dataSource;
+         }
+         get overflow() {
+             return this._tf.overflow;
+         }
+         set overflow(value) {
+             this._tf.overflow = value;
+         }
+         get underline() {
+             return this._tf.underline;
+         }
+         set underline(value) {
+             this._tf.underline = value;
+         }
+         get underlineColor() {
+             return this._tf.underlineColor;
+         }
+         set underlineColor(value) {
+             this._tf.underlineColor = value;
+         }
+     }
+     ILaya.regClass(Label);
+     ClassUtils.regClass("laya.ui.Label", Label);
+     ClassUtils.regClass("Laya.Label", Label);
+
+     class Image extends UIComponent {
+         constructor(skin = null) {
+             super();
+             this.skin = skin;
+         }
+         destroy(destroyChild = true) {
+             super.destroy(destroyChild);
+             this._bitmap && this._bitmap.destroy();
+             this._bitmap = null;
+         }
+         dispose() {
+             this.destroy(true);
+             ILaya.loader.clearRes(this._skin);
+         }
+         createChildren() {
+             this.graphics = this._bitmap = new AutoBitmap();
+             this._bitmap.autoCacheCmd = false;
+         }
+         get skin() {
+             return this._skin;
+         }
+         set skin(value) {
+             if (this._skin != value) {
+                 this._skin = value;
+                 if (value) {
+                     var source = Loader.getRes(value);
+                     if (source) {
+                         this.source = source;
+                         this.onCompResize();
+                     }
+                     else
+                         ILaya.loader.load(this._skin, Handler.create(this, this.setSource, [this._skin]), null, Loader.IMAGE, 1, true, this._group);
+                 }
+                 else {
+                     this.source = null;
+                 }
+             }
+         }
+         get source() {
+             return this._bitmap.source;
+         }
+         set source(value) {
+             if (!this._bitmap)
+                 return;
+             this._bitmap.source = value;
+             this.event(Event.LOADED);
+             this.repaint();
+         }
+         get group() {
+             return this._group;
+         }
+         set group(value) {
+             if (value && this._skin)
+                 Loader.setGroup(this._skin, value);
+             this._group = value;
+         }
+         setSource(url, img = null) {
+             if (url === this._skin && img) {
+                 this.source = img;
+                 this.onCompResize();
+             }
+         }
+         measureWidth() {
+             return this._bitmap.width;
+         }
+         measureHeight() {
+             return this._bitmap.height;
+         }
+         set width(value) {
+             super.width = value;
+             this._bitmap.width = value == 0 ? 0.0000001 : value;
+         }
+         get width() {
+             return super.width;
+         }
+         set height(value) {
+             super.height = value;
+             this._bitmap.height = value == 0 ? 0.0000001 : value;
+         }
+         get height() {
+             return super.height;
+         }
+         get sizeGrid() {
+             if (this._bitmap.sizeGrid)
+                 return this._bitmap.sizeGrid.join(",");
+             return null;
+         }
+         set sizeGrid(value) {
+             this._bitmap.sizeGrid = UIUtils.fillArray(Styles.defaultSizeGrid, value, Number);
+         }
+         set dataSource(value) {
+             this._dataSource = value;
+             if (typeof (value) == 'string')
+                 this.skin = value;
+             else
+                 super.dataSource = value;
+         }
+         get dataSource() {
+             return super.dataSource;
+         }
+     }
+     ILaya.regClass(Image);
+     ClassUtils.regClass("laya.ui.Image", Image);
+     ClassUtils.regClass("Laya.Image", Image);
+
+     class Slider extends UIComponent {
+         constructor(skin = null) {
+             super();
+             this.isVertical = true;
+             this.showLabel = true;
+             this._max = 100;
+             this._min = 0;
+             this._tick = 1;
+             this._value = 0;
+             if (!Slider.label) {
+                 Slider.label = new Label();
+             }
+             this.skin = skin;
+         }
+         destroy(destroyChild = true) {
+             super.destroy(destroyChild);
+             this._bg && this._bg.destroy(destroyChild);
+             this._bar && this._bar.destroy(destroyChild);
+             this._progress && this._progress.destroy(destroyChild);
+             this._bg = null;
+             this._bar = null;
+             this._progress = null;
+             this.changeHandler = null;
+         }
+         createChildren() {
+             this.addChild(this._bg = new Image());
+             this.addChild(this._bar = new Button());
+         }
+         initialize() {
+             this._bar.on(Event.MOUSE_DOWN, this, this.onBarMouseDown);
+             this._bg.sizeGrid = this._bar.sizeGrid = "4,4,4,4,0";
+             if (this._progress)
+                 this._progress.sizeGrid = this._bar.sizeGrid;
+             this.allowClickBack = true;
+         }
+         onBarMouseDown(e) {
+             var Laya = ILaya;
+             this._globalSacle || (this._globalSacle = new Point());
+             this._globalSacle.setTo(this.globalScaleX || 0.01, this.globalScaleY || 0.01);
+             this._maxMove = this.isVertical ? (this.height - this._bar.height) : (this.width - this._bar.width);
+             this._tx = Laya.stage.mouseX;
+             this._ty = Laya.stage.mouseY;
+             Laya.stage.on(Event.MOUSE_MOVE, this, this.mouseMove);
+             Laya.stage.once(Event.MOUSE_UP, this, this.mouseUp);
+             Laya.stage.once(Event.MOUSE_OUT, this, this.mouseUp);
+             this.showValueText();
+         }
+         showValueText() {
+             if (this.showLabel) {
+                 var label = Slider.label;
+                 this.addChild(label);
+                 label.textField.changeText(this._value + "");
+                 if (this.isVertical) {
+                     label.x = this._bar._x + 20;
+                     label.y = (this._bar.height - label.height) * 0.5 + this._bar._y;
+                 }
+                 else {
+                     label.y = this._bar._y - 20;
+                     label.x = (this._bar.width - label.width) * 0.5 + this._bar._x;
+                 }
+             }
+         }
+         hideValueText() {
+             Slider.label && Slider.label.removeSelf();
+         }
+         mouseUp(e) {
+             let stage = ILaya.stage;
+             stage.off(Event.MOUSE_MOVE, this, this.mouseMove);
+             stage.off(Event.MOUSE_UP, this, this.mouseUp);
+             stage.off(Event.MOUSE_OUT, this, this.mouseUp);
+             this.sendChangeEvent(Event.CHANGED);
+             this.hideValueText();
+         }
+         mouseMove(e) {
+             let stage = ILaya.stage;
+             var oldValue = this._value;
+             if (this.isVertical) {
+                 this._bar.y += (stage.mouseY - this._ty) / this._globalSacle.y;
+                 if (this._bar._y > this._maxMove)
+                     this._bar.y = this._maxMove;
+                 else if (this._bar._y < 0)
+                     this._bar.y = 0;
+                 this._value = this._bar._y / this._maxMove * (this._max - this._min) + this._min;
+                 if (this._progress)
+                     this._progress.height = this._bar._y + 0.5 * this._bar.height;
+             }
+             else {
+                 this._bar.x += (stage.mouseX - this._tx) / this._globalSacle.x;
+                 if (this._bar._x > this._maxMove)
+                     this._bar.x = this._maxMove;
+                 else if (this._bar._x < 0)
+                     this._bar.x = 0;
+                 this._value = this._bar._x / this._maxMove * (this._max - this._min) + this._min;
+                 if (this._progress)
+                     this._progress.width = this._bar._x + 0.5 * this._bar.width;
+             }
+             this._tx = stage.mouseX;
+             this._ty = stage.mouseY;
+             if (this._tick != 0) {
+                 var pow = Math.pow(10, (this._tick + "").length - 1);
+                 this._value = Math.round(Math.round(this._value / this._tick) * this._tick * pow) / pow;
+             }
+             if (this._value != oldValue) {
+                 this.sendChangeEvent();
+             }
+             this.showValueText();
+         }
+         sendChangeEvent(type = Event.CHANGE) {
+             this.event(type);
+             this.changeHandler && this.changeHandler.runWith(this._value);
+         }
+         get skin() {
+             return this._skin;
+         }
+         set skin(value) {
+             if (this._skin != value) {
+                 this._skin = value;
+                 if (this._skin && !Loader.getRes(this._skin)) {
+                     ILaya.loader.load([this._skin, this._skin.replace(".png", "$bar.png")], Handler.create(this, this._skinLoaded));
+                 }
+                 else {
+                     this._skinLoaded();
+                 }
+             }
+         }
+         _skinLoaded() {
+             this._bg.skin = this._skin;
+             this._bar.skin = this._skin.replace(".png", "$bar.png");
+             var progressSkin = this._skin.replace(".png", "$progress.png");
+             if (Loader.getRes(progressSkin)) {
+                 if (!this._progress) {
+                     this.addChild(this._progress = new Image());
+                     this._progress.sizeGrid = this._bar.sizeGrid;
+                     this.setChildIndex(this._progress, 1);
+                 }
+                 this._progress.skin = progressSkin;
+             }
+             this.setBarPoint();
+             this.callLater(this.changeValue);
+             this._sizeChanged();
+             this.event(Event.LOADED);
+         }
+         setBarPoint() {
+             if (this.isVertical)
+                 this._bar.x = Math.round((this._bg.width - this._bar.width) * 0.5);
+             else
+                 this._bar.y = Math.round((this._bg.height - this._bar.height) * 0.5);
+         }
+         measureWidth() {
+             return Math.max(this._bg.width, this._bar.width);
+         }
+         measureHeight() {
+             return Math.max(this._bg.height, this._bar.height);
+         }
+         _sizeChanged() {
+             super._sizeChanged();
+             if (this.isVertical)
+                 this._bg.height = this.height;
+             else
+                 this._bg.width = this.width;
+             this.setBarPoint();
+             this.changeValue();
+         }
+         get sizeGrid() {
+             return this._bg.sizeGrid;
+         }
+         set sizeGrid(value) {
+             this._bg.sizeGrid = value;
+             this._bar.sizeGrid = value;
+             if (this._progress)
+                 this._progress.sizeGrid = this._bar.sizeGrid;
+         }
+         setSlider(min, max, value) {
+             this._value = -1;
+             this._min = min;
+             this._max = max > min ? max : min;
+             this.value = value < min ? min : value > max ? max : value;
+         }
+         get tick() {
+             return this._tick;
+         }
+         set tick(value) {
+             if (this._tick != value) {
+                 this._tick = value;
+                 this.callLater(this.changeValue);
+             }
+         }
+         changeValue() {
+             if (this.tick != 0) {
+                 var pow = Math.pow(10, (this._tick + "").length - 1);
+                 this._value = Math.round(Math.round(this._value / this._tick) * this._tick * pow) / pow;
+             }
+             this._value = this._value > this._max ? this._max : this._value < this._min ? this._min : this._value;
+             var num = this._max - this._min;
+             if (num === 0)
+                 num = 1;
+             if (this.isVertical) {
+                 this._bar.y = (this._value - this._min) / num * (this.height - this._bar.height);
+                 if (this._progress)
+                     this._progress.height = this._bar._y + 0.5 * this._bar.height;
+             }
+             else {
+                 this._bar.x = (this._value - this._min) / num * (this.width - this._bar.width);
+                 if (this._progress)
+                     this._progress.width = this._bar._x + 0.5 * this._bar.width;
+             }
+         }
+         get max() {
+             return this._max;
+         }
+         set max(value) {
+             if (this._max != value) {
+                 this._max = value;
+                 this.callLater(this.changeValue);
+             }
+         }
+         get min() {
+             return this._min;
+         }
+         set min(value) {
+             if (this._min != value) {
+                 this._min = value;
+                 this.callLater(this.changeValue);
+             }
+         }
+         get value() {
+             return this._value;
+         }
+         set value(num) {
+             if (this._value != num) {
+                 var oldValue = this._value;
+                 this._value = num;
+                 this.changeValue();
+                 if (this._value != oldValue) {
+                     this.sendChangeEvent();
+                 }
+             }
+         }
+         get allowClickBack() {
+             return this._allowClickBack;
+         }
+         set allowClickBack(value) {
+             if (this._allowClickBack != value) {
+                 this._allowClickBack = value;
+                 if (value)
+                     this._bg.on(Event.MOUSE_DOWN, this, this.onBgMouseDown);
+                 else
+                     this._bg.off(Event.MOUSE_DOWN, this, this.onBgMouseDown);
+             }
+         }
+         onBgMouseDown(e) {
+             var point = this._bg.getMousePoint();
+             if (this.isVertical)
+                 this.value = point.y / (this.height - this._bar.height) * (this._max - this._min) + this._min;
+             else
+                 this.value = point.x / (this.width - this._bar.width) * (this._max - this._min) + this._min;
+         }
+         set dataSource(value) {
+             this._dataSource = value;
+             if (typeof (value) == 'number' || typeof (value) == 'string')
+                 this.value = Number(value);
+             else
+                 super.dataSource = value;
+         }
+         get dataSource() {
+             return super.dataSource;
+         }
+         get bar() {
+             return this._bar;
+         }
+     }
+     Slider.label = null;
+     ILaya.regClass(Slider);
+     ClassUtils.regClass("laya.ui.Slider", Slider);
+     ClassUtils.regClass("Laya.Slider", Slider);
+
+     class UIConfig {
+     }
+     UIConfig.touchScrollEnable = true;
+     UIConfig.mouseWheelEnable = true;
+     UIConfig.showButtons = true;
+     UIConfig.popupBgColor = "#000000";
+     UIConfig.popupBgAlpha = 0.5;
+     UIConfig.closeDialogOnSide = true;
+     window.UIConfig = UIConfig;
+
+     class ScrollBar extends UIComponent {
+         constructor(skin = null) {
+             super();
+             this.rollRatio = 0.97;
+             this.scaleBar = true;
+             this.autoHide = false;
+             this.elasticDistance = 0;
+             this.elasticBackTime = 500;
+             this._showButtons = UIConfig.showButtons;
+             this._scrollSize = 1;
+             this._thumbPercent = 1;
+             this._lastOffset = 0;
+             this._checkElastic = false;
+             this._isElastic = false;
+             this._hide = false;
+             this._clickOnly = true;
+             this._touchScrollEnable = UIConfig.touchScrollEnable;
+             this._mouseWheelEnable = UIConfig.mouseWheelEnable;
+             this.skin = skin;
+             this.max = 1;
+         }
+         destroy(destroyChild = true) {
+             this.stopScroll();
+             this.target = null;
+             super.destroy(destroyChild);
+             this.upButton && this.upButton.destroy(destroyChild);
+             this.downButton && this.downButton.destroy(destroyChild);
+             this.slider && this.slider.destroy(destroyChild);
+             this.upButton = this.downButton = null;
+             this.slider = null;
+             this.changeHandler = null;
+             this._offsets = null;
+         }
+         createChildren() {
+             this.addChild(this.slider = new Slider());
+             this.addChild(this.upButton = new Button());
+             this.addChild(this.downButton = new Button());
+         }
+         initialize() {
+             this.slider.showLabel = false;
+             this.slider.tick = 0;
+             this.slider.on(Event.CHANGE, this, this.onSliderChange);
+             this.slider.setSlider(0, 0, 0);
+             this.upButton.on(Event.MOUSE_DOWN, this, this.onButtonMouseDown);
+             this.downButton.on(Event.MOUSE_DOWN, this, this.onButtonMouseDown);
+         }
+         onSliderChange() {
+             if (this._value != this.slider.value)
+                 this.value = this.slider.value;
+         }
+         onButtonMouseDown(e) {
+             var isUp = e.currentTarget === this.upButton;
+             this.slide(isUp);
+             ILaya.timer.once(Styles.scrollBarDelayTime, this, this.startLoop, [isUp]);
+             ILaya.stage.once(Event.MOUSE_UP, this, this.onStageMouseUp);
+         }
+         startLoop(isUp) {
+             ILaya.timer.frameLoop(1, this, this.slide, [isUp]);
+         }
+         slide(isUp) {
+             if (isUp)
+                 this.value -= this._scrollSize;
+             else
+                 this.value += this._scrollSize;
+         }
+         onStageMouseUp(e) {
+             ILaya.timer.clear(this, this.startLoop);
+             ILaya.timer.clear(this, this.slide);
+         }
+         get skin() {
+             return this._skin;
+         }
+         set skin(value) {
+             if (value == " ")
+                 return;
+             if (this._skin != value) {
+                 this._skin = value;
+                 if (this._skin && !Loader.getRes(this._skin)) {
+                     ILaya.loader.load([this._skin, this._skin.replace(".png", "$up.png"), this._skin.replace(".png", "$down.png"), this._skin.replace(".png", "$bar.png")], Handler.create(this, this._skinLoaded));
+                 }
+                 else {
+                     this._skinLoaded();
+                 }
+             }
+         }
+         _skinLoaded() {
+             this.slider.skin = this._skin;
+             this.callLater(this.changeScrollBar);
+             this._sizeChanged();
+             this.event(Event.LOADED);
+         }
+         changeScrollBar() {
+             this.upButton.visible = this._showButtons;
+             this.downButton.visible = this._showButtons;
+             if (this._showButtons) {
+                 this.upButton.skin = this._skin.replace(".png", "$up.png");
+                 this.downButton.skin = this._skin.replace(".png", "$down.png");
+             }
+             if (this.slider.isVertical)
+                 this.slider.y = this._showButtons ? this.upButton.height : 0;
+             else
+                 this.slider.x = this._showButtons ? this.upButton.width : 0;
+             this.resetPositions();
+             this.repaint();
+         }
+         _sizeChanged() {
+             super._sizeChanged();
+             this.repaint();
+             this.resetPositions();
+             this.event(Event.CHANGE);
+             this.changeHandler && this.changeHandler.runWith(this.value);
+         }
+         resetPositions() {
+             if (this.slider.isVertical)
+                 this.slider.height = this.height - (this._showButtons ? (this.upButton.height + this.downButton.height) : 0);
+             else
+                 this.slider.width = this.width - (this._showButtons ? (this.upButton.width + this.downButton.width) : 0);
+             this.resetButtonPosition();
+         }
+         resetButtonPosition() {
+             if (this.slider.isVertical)
+                 this.downButton.y = this.slider._y + this.slider.height;
+             else
+                 this.downButton.x = this.slider._x + this.slider.width;
+         }
+         measureWidth() {
+             if (this.slider.isVertical)
+                 return this.slider.width;
+             return 100;
+         }
+         measureHeight() {
+             if (this.slider.isVertical)
+                 return 100;
+             return this.slider.height;
+         }
+         setScroll(min, max, value) {
+             this.runCallLater(this._sizeChanged);
+             this.slider.setSlider(min, max, value);
+             this.slider.bar.visible = max > 0;
+             if (!this._hide && this.autoHide)
+                 this.visible = false;
+         }
+         get max() {
+             return this.slider.max;
+         }
+         set max(value) {
+             this.slider.max = value;
+         }
+         get min() {
+             return this.slider.min;
+         }
+         set min(value) {
+             this.slider.min = value;
+         }
+         get value() {
+             return this._value;
+         }
+         set value(v) {
+             if (v !== this._value) {
+                 this._value = v;
+                 if (!this._isElastic) {
+                     if (this.slider["_value"] != v) {
+                         this.slider["_value"] = v;
+                         this.slider.changeValue();
+                     }
+                     this._value = this.slider["_value"];
+                 }
+                 this.event(Event.CHANGE);
+                 this.changeHandler && this.changeHandler.runWith(this._value);
+             }
+         }
+         get isVertical() {
+             return this.slider.isVertical;
+         }
+         set isVertical(value) {
+             this.slider.isVertical = value;
+         }
+         get sizeGrid() {
+             return this.slider.sizeGrid;
+         }
+         set sizeGrid(value) {
+             this.slider.sizeGrid = value;
+         }
+         get scrollSize() {
+             return this._scrollSize;
+         }
+         set scrollSize(value) {
+             this._scrollSize = value;
+         }
+         set dataSource(value) {
+             this._dataSource = value;
+             if (typeof (value) == 'number' || typeof (value) == 'string')
+                 this.value = Number(value);
+             else
+                 super.dataSource = value;
+         }
+         get dataSource() {
+             return super.dataSource;
+         }
+         get thumbPercent() {
+             return this._thumbPercent;
+         }
+         set thumbPercent(value) {
+             this.runCallLater(this.changeScrollBar);
+             this.runCallLater(this._sizeChanged);
+             value = value >= 1 ? 0.99 : value;
+             this._thumbPercent = value;
+             if (this.scaleBar) {
+                 if (this.slider.isVertical)
+                     this.slider.bar.height = Math.max(this.slider.height * value, Styles.scrollBarMinNum);
+                 else
+                     this.slider.bar.width = Math.max(this.slider.width * value, Styles.scrollBarMinNum);
+             }
+         }
+         get target() {
+             return this._target;
+         }
+         set target(value) {
+             if (this._target) {
+                 this._target.off(Event.MOUSE_WHEEL, this, this.onTargetMouseWheel);
+                 this._target.off(Event.MOUSE_DOWN, this, this.onTargetMouseDown);
+             }
+             this._target = value;
+             if (value) {
+                 this._mouseWheelEnable && this._target.on(Event.MOUSE_WHEEL, this, this.onTargetMouseWheel);
+                 this._touchScrollEnable && this._target.on(Event.MOUSE_DOWN, this, this.onTargetMouseDown);
+             }
+         }
+         get hide() {
+             return this._hide;
+         }
+         set hide(value) {
+             this._hide = value;
+             this.visible = !value;
+         }
+         get showButtons() {
+             return this._showButtons;
+         }
+         set showButtons(value) {
+             this._showButtons = value;
+             this.callLater(this.changeScrollBar);
+         }
+         get touchScrollEnable() {
+             return this._touchScrollEnable;
+         }
+         set touchScrollEnable(value) {
+             this._touchScrollEnable = value;
+             this.target = this._target;
+         }
+         get mouseWheelEnable() {
+             return this._mouseWheelEnable;
+         }
+         set mouseWheelEnable(value) {
+             this._mouseWheelEnable = value;
+             this.target = this._target;
+         }
+         onTargetMouseWheel(e) {
+             this.value -= e.delta * this._scrollSize;
+             this.target = this._target;
+         }
+         onTargetMouseDown(e) {
+             if ((this.isLockedFun) && !this.isLockedFun(e))
+                 return;
+             this.event(Event.END);
+             this._clickOnly = true;
+             this._lastOffset = 0;
+             this._checkElastic = false;
+             this._lastPoint || (this._lastPoint = new Point());
+             this._lastPoint.setTo(ILaya.stage.mouseX, ILaya.stage.mouseY);
+             ILaya.timer.clear(this, this.tweenMove);
+             Tween.clearTween(this);
+             ILaya.stage.once(Event.MOUSE_UP, this, this.onStageMouseUp2);
+             ILaya.stage.once(Event.MOUSE_OUT, this, this.onStageMouseUp2);
+             ILaya.timer.frameLoop(1, this, this.loop);
+         }
+         startDragForce() {
+             this._clickOnly = true;
+             this._lastOffset = 0;
+             this._checkElastic = false;
+             this._lastPoint || (this._lastPoint = new Point());
+             this._lastPoint.setTo(ILaya.stage.mouseX, ILaya.stage.mouseY);
+             ILaya.timer.clear(this, this.tweenMove);
+             Tween.clearTween(this);
+             ILaya.stage.once(Event.MOUSE_UP, this, this.onStageMouseUp2);
+             ILaya.stage.once(Event.MOUSE_OUT, this, this.onStageMouseUp2);
+             ILaya.timer.frameLoop(1, this, this.loop);
+         }
+         cancelDragOp() {
+             ILaya.stage.off(Event.MOUSE_UP, this, this.onStageMouseUp2);
+             ILaya.stage.off(Event.MOUSE_OUT, this, this.onStageMouseUp2);
+             ILaya.timer.clear(this, this.tweenMove);
+             ILaya.timer.clear(this, this.loop);
+             this._target.mouseEnabled = true;
+         }
+         checkTriggers(isTweenMove = false) {
+             if (this.value >= 0 && this.value - this._lastOffset <= 0) {
+                 if ((this.triggerDownDragLimit) && this.triggerDownDragLimit(isTweenMove)) {
+                     this.cancelDragOp();
+                     this.value = 0;
+                     return true;
+                 }
+             }
+             if (this.value <= this.max && (this.value - this._lastOffset >= this.max)) {
+                 if ((this.triggerUpDragLimit) && this.triggerUpDragLimit(isTweenMove)) {
+                     this.cancelDragOp();
+                     this.value = this.max;
+                     return true;
+                 }
+             }
+             return false;
+         }
+         get lastOffset() {
+             return this._lastOffset;
+         }
+         startTweenMoveForce(lastOffset) {
+             this._lastOffset = lastOffset;
+             ILaya.timer.frameLoop(1, this, this.tweenMove, [200]);
+         }
+         loop() {
+             var mouseY = ILaya.stage.mouseY;
+             var mouseX = ILaya.stage.mouseX;
+             this._lastOffset = this.isVertical ? (mouseY - this._lastPoint.y) : (mouseX - this._lastPoint.x);
+             if (this._clickOnly) {
+                 if (Math.abs(this._lastOffset * (this.isVertical ? ILaya.stage._canvasTransform.getScaleY() : ILaya.stage._canvasTransform.getScaleX())) > 1) {
+                     this._clickOnly = false;
+                     if (this.checkTriggers())
+                         return;
+                     this._offsets || (this._offsets = []);
+                     this._offsets.length = 0;
+                     this._target.mouseEnabled = false;
+                     if (!this.hide && this.autoHide) {
+                         this.alpha = 1;
+                         this.visible = true;
+                     }
+                     this.event(Event.START);
+                 }
+                 else
+                     return;
+             }
+             else {
+                 if (this.checkTriggers())
+                     return;
+             }
+             this._offsets.push(this._lastOffset);
+             this._lastPoint.x = mouseX;
+             this._lastPoint.y = mouseY;
+             if (this._lastOffset === 0)
+                 return;
+             if (!this._checkElastic) {
+                 if (this.elasticDistance > 0) {
+                     if (!this._checkElastic && this._lastOffset != 0) {
+                         if ((this._lastOffset > 0 && this._value <= this.min) || (this._lastOffset < 0 && this._value >= this.max)) {
+                             this._isElastic = true;
+                             this._checkElastic = true;
+                         }
+                         else {
+                             this._isElastic = false;
+                         }
+                     }
+                 }
+                 else {
+                     this._checkElastic = true;
+                 }
+             }
+             if (this._isElastic) {
+                 if (this._value <= this.min) {
+                     if (this._lastOffset > 0) {
+                         this.value -= this._lastOffset * Math.max(0, (1 - ((this.min - this._value) / this.elasticDistance)));
+                     }
+                     else {
+                         this.value -= this._lastOffset * 0.5;
+                         if (this._value >= this.min)
+                             this._checkElastic = false;
+                     }
+                 }
+                 else if (this._value >= this.max) {
+                     if (this._lastOffset < 0) {
+                         this.value -= this._lastOffset * Math.max(0, (1 - ((this._value - this.max) / this.elasticDistance)));
+                     }
+                     else {
+                         this.value -= this._lastOffset * 0.5;
+                         if (this._value <= this.max)
+                             this._checkElastic = false;
+                     }
+                 }
+             }
+             else {
+                 this.value -= this._lastOffset;
+             }
+         }
+         onStageMouseUp2(e) {
+             ILaya.stage.off(Event.MOUSE_UP, this, this.onStageMouseUp2);
+             ILaya.stage.off(Event.MOUSE_OUT, this, this.onStageMouseUp2);
+             ILaya.timer.clear(this, this.loop);
+             if (this._clickOnly) {
+                 if (this._value >= this.min && this._value <= this.max)
+                     return;
+             }
+             this._target.mouseEnabled = true;
+             if (this._isElastic) {
+                 if (this._value < this.min) {
+                     Tween.to(this, { value: this.min }, this.elasticBackTime, Ease.sineOut, Handler.create(this, this.elasticOver));
+                 }
+                 else if (this._value > this.max) {
+                     Tween.to(this, { value: this.max }, this.elasticBackTime, Ease.sineOut, Handler.create(this, this.elasticOver));
+                 }
+             }
+             else {
+                 if (!this._offsets)
+                     return;
+                 if (this._offsets.length < 1) {
+                     this._offsets[0] = this.isVertical ? ILaya.stage.mouseY - this._lastPoint.y : ILaya.stage.mouseX - this._lastPoint.x;
+                 }
+                 var offset = 0;
+                 var n = Math.min(this._offsets.length, 3);
+                 for (var i = 0; i < n; i++) {
+                     offset += this._offsets[this._offsets.length - 1 - i];
+                 }
+                 this._lastOffset = offset / n;
+                 offset = Math.abs(this._lastOffset);
+                 if (offset < 2) {
+                     this.event(Event.END);
+                     return;
+                 }
+                 if (offset > 250)
+                     this._lastOffset = this._lastOffset > 0 ? 250 : -250;
+                 var dis = Math.round(Math.abs(this.elasticDistance * (this._lastOffset / 150)));
+                 ILaya.timer.frameLoop(1, this, this.tweenMove, [dis]);
+             }
+         }
+         elasticOver() {
+             this._isElastic = false;
+             if (!this.hide && this.autoHide) {
+                 Tween.to(this, { alpha: 0 }, 500);
+             }
+             this.event(Event.END);
+         }
+         tweenMove(maxDistance) {
+             this._lastOffset *= this.rollRatio;
+             if (this.checkTriggers(true)) {
+                 return;
+             }
+             var tarSpeed;
+             if (maxDistance > 0) {
+                 if (this._lastOffset > 0 && this.value <= this.min) {
+                     this._isElastic = true;
+                     tarSpeed = -(this.min - maxDistance - this.value) * 0.5;
+                     if (this._lastOffset > tarSpeed)
+                         this._lastOffset = tarSpeed;
+                 }
+                 else if (this._lastOffset < 0 && this.value >= this.max) {
+                     this._isElastic = true;
+                     tarSpeed = -(this.max + maxDistance - this.value) * 0.5;
+                     if (this._lastOffset < tarSpeed)
+                         this._lastOffset = tarSpeed;
+                 }
+             }
+             this.value -= this._lastOffset;
+             if (Math.abs(this._lastOffset) < 0.1) {
+                 ILaya.timer.clear(this, this.tweenMove);
+                 if (this._isElastic) {
+                     if (this._value < this.min) {
+                         Tween.to(this, { value: this.min }, this.elasticBackTime, Ease.sineOut, Handler.create(this, this.elasticOver));
+                     }
+                     else if (this._value > this.max) {
+                         Tween.to(this, { value: this.max }, this.elasticBackTime, Ease.sineOut, Handler.create(this, this.elasticOver));
+                     }
+                     else {
+                         this.elasticOver();
+                     }
+                     return;
+                 }
+                 this.event(Event.END);
+                 if (!this.hide && this.autoHide) {
+                     Tween.to(this, { alpha: 0 }, 500);
+                 }
+             }
+         }
+         stopScroll() {
+             this.onStageMouseUp2(null);
+             ILaya.timer.clear(this, this.tweenMove);
+             Tween.clearTween(this);
+         }
+         get tick() {
+             return this.slider.tick;
+         }
+         set tick(value) {
+             this.slider.tick = value;
+         }
+     }
+     ILaya.regClass(ScrollBar);
+     ClassUtils.regClass("laya.ui.ScrollBar", ScrollBar);
+     ClassUtils.regClass("Laya.ScrollBar", ScrollBar);
+
+     class VScrollBar extends ScrollBar {
+     }
+     ILaya.regClass(VScrollBar);
+     ClassUtils.regClass("laya.ui.VScrollBar", VScrollBar);
+     ClassUtils.regClass("Laya.VScrollBar", VScrollBar);
+
+     class HScrollBar extends ScrollBar {
+         initialize() {
+             super.initialize();
+             this.slider.isVertical = false;
+         }
+     }
+     ILaya.regClass(HScrollBar);
+     ClassUtils.regClass("laya.ui.HScrollBar", HScrollBar);
+     ClassUtils.regClass("Laya.HScrollBar", HScrollBar);
+
+     class List extends Box {
+         constructor() {
+             super(...arguments);
+             this.selectEnable = false;
+             this.totalPage = 0;
+             this._$componentType = "List";
+             this._repeatX = 0;
+             this._repeatY = 0;
+             this._repeatX2 = 0;
+             this._repeatY2 = 0;
+             this._spaceX = 0;
+             this._spaceY = 0;
+             this._cells = [];
+             this._startIndex = 0;
+             this._selectedIndex = -1;
+             this._page = 0;
+             this._isVertical = true;
+             this._cellSize = 20;
+             this._cellOffset = 0;
+             this._createdLine = 0;
+             this._offset = new Point();
+             this._usedCache = null;
+             this._elasticEnabled = false;
+             this._preLen = 0;
+         }
+         destroy(destroyChild = true) {
+             this._content && this._content.destroy(destroyChild);
+             this._scrollBar && this._scrollBar.destroy(destroyChild);
+             super.destroy(destroyChild);
+             this._content = null;
+             this._scrollBar = null;
+             this._itemRender = null;
+             this._cells = null;
+             this._array = null;
+             this.selectHandler = this.renderHandler = this.mouseHandler = null;
+         }
+         createChildren() {
+             this.addChild(this._content = new Box());
+         }
+         set cacheAs(value) {
+             super.cacheAs = value;
+             if (this._scrollBar) {
+                 this._usedCache = null;
+                 if (value !== "none")
+                     this._scrollBar.on(Event.START, this, this.onScrollStart);
+                 else
+                     this._scrollBar.off(Event.START, this, this.onScrollStart);
+             }
+         }
+         get cacheAs() {
+             return super.cacheAs;
+         }
+         onScrollStart() {
+             this._usedCache || (this._usedCache = super.cacheAs);
+             super.cacheAs = "none";
+             this._scrollBar.once(Event.END, this, this.onScrollEnd);
+         }
+         onScrollEnd() {
+             super.cacheAs = this._usedCache || 'none';
+         }
+         get content() {
+             return this._content;
+         }
+         get vScrollBarSkin() {
+             return this._scrollBar ? this._scrollBar.skin : null;
+         }
+         set vScrollBarSkin(value) {
+             this._removePreScrollBar();
+             var scrollBar = new VScrollBar();
+             scrollBar.name = "scrollBar";
+             scrollBar.right = 0;
+             scrollBar.skin = value;
+             scrollBar.elasticDistance = this._elasticEnabled ? 200 : 0;
+             this.scrollBar = scrollBar;
+             this.addChild(scrollBar);
+             this._setCellChanged();
+         }
+         _removePreScrollBar() {
+             var preNode = this.removeChildByName("scrollBar");
+             if (preNode)
+                 preNode.destroy(true);
+         }
+         get hScrollBarSkin() {
+             return this._scrollBar ? this._scrollBar.skin : null;
+         }
+         set hScrollBarSkin(value) {
+             this._removePreScrollBar();
+             var scrollBar = new HScrollBar();
+             scrollBar.name = "scrollBar";
+             scrollBar.bottom = 0;
+             scrollBar.skin = value;
+             scrollBar.elasticDistance = this._elasticEnabled ? 200 : 0;
+             this.scrollBar = scrollBar;
+             this.addChild(scrollBar);
+             this._setCellChanged();
+         }
+         get scrollBar() {
+             return this._scrollBar;
+         }
+         set scrollBar(value) {
+             if (this._scrollBar != value) {
+                 this._scrollBar = value;
+                 if (value) {
+                     this._isVertical = this._scrollBar.isVertical;
+                     this.addChild(this._scrollBar);
+                     this._scrollBar.on(Event.CHANGE, this, this.onScrollBarChange);
+                 }
+             }
+         }
+         get itemRender() {
+             return this._itemRender;
+         }
+         set itemRender(value) {
+             if (this._itemRender != value) {
+                 this._itemRender = value;
+                 for (var i = this._cells.length - 1; i > -1; i--) {
+                     this._cells[i].destroy();
+                 }
+                 this._cells.length = 0;
+                 this._setCellChanged();
+             }
+         }
+         set width(value) {
+             if (value != this._width) {
+                 super.width = value;
+                 this._setCellChanged();
+             }
+         }
+         get width() {
+             return super.width;
+         }
+         set height(value) {
+             if (value != this._height) {
+                 super.height = value;
+                 this._setCellChanged();
+             }
+         }
+         get height() {
+             return super.height;
+         }
+         get repeatX() {
+             return this._repeatX > 0 ? this._repeatX : this._repeatX2 > 0 ? this._repeatX2 : 1;
+         }
+         set repeatX(value) {
+             this._repeatX = value;
+             this._setCellChanged();
+         }
+         get repeatY() {
+             return this._repeatY > 0 ? this._repeatY : this._repeatY2 > 0 ? this._repeatY2 : 1;
+         }
+         set repeatY(value) {
+             this._repeatY = value;
+             this._setCellChanged();
+         }
+         get spaceX() {
+             return this._spaceX;
+         }
+         set spaceX(value) {
+             this._spaceX = value;
+             this._setCellChanged();
+         }
+         get spaceY() {
+             return this._spaceY;
+         }
+         set spaceY(value) {
+             this._spaceY = value;
+             this._setCellChanged();
+         }
+         changeCells() {
+             this._cellChanged = false;
+             if (this._itemRender) {
+                 this.scrollBar = this.getChildByName("scrollBar");
+                 var cell = this._getOneCell();
+                 var cellWidth = (cell.width + this._spaceX) || 1;
+                 var cellHeight = (cell.height + this._spaceY) || 1;
+                 if (this._width > 0)
+                     this._repeatX2 = this._isVertical ? Math.round(this._width / cellWidth) : Math.ceil(this._width / cellWidth);
+                 if (this._height > 0)
+                     this._repeatY2 = this._isVertical ? Math.ceil(this._height / cellHeight) : Math.round(this._height / cellHeight);
+                 var listWidth = this._width ? this._width : (cellWidth * this.repeatX - this._spaceX);
+                 var listHeight = this._height ? this._height : (cellHeight * this.repeatY - this._spaceY);
+                 this._cellSize = this._isVertical ? cellHeight : cellWidth;
+                 this._cellOffset = this._isVertical ? (cellHeight * Math.max(this._repeatY2, this._repeatY) - listHeight - this._spaceY) : (cellWidth * Math.max(this._repeatX2, this._repeatX) - listWidth - this._spaceX);
+                 if (this._isVertical && this.vScrollBarSkin)
+                     this._scrollBar.height = listHeight;
+                 else if (!this._isVertical && this.hScrollBarSkin)
+                     this._scrollBar.width = listWidth;
+                 this.setContentSize(listWidth, listHeight);
+                 var numX = this._isVertical ? this.repeatX : this.repeatY;
+                 var numY = (this._isVertical ? this.repeatY : this.repeatX) + (this._scrollBar ? 1 : 0);
+                 this._createItems(0, numX, numY);
+                 this._createdLine = numY;
+                 if (this._array) {
+                     this.array = this._array;
+                     this.runCallLater(this.renderItems);
+                 }
+             }
+         }
+         _getOneCell() {
+             if (this._cells.length === 0) {
+                 var item = this.createItem();
+                 this._offset.setTo(item._x, item._y);
+                 if (this.cacheContent)
+                     return item;
+                 this._cells.push(item);
+             }
+             return this._cells[0];
+         }
+         _createItems(startY, numX, numY) {
+             var box = this._content;
+             var cell = this._getOneCell();
+             var cellWidth = cell.width + this._spaceX;
+             var cellHeight = cell.height + this._spaceY;
+             if (this.cacheContent) {
+                 var cacheBox = new Box();
+                 cacheBox.cacheAs = "normal";
+                 cacheBox.pos((this._isVertical ? 0 : startY) * cellWidth, (this._isVertical ? startY : 0) * cellHeight);
+                 this._content.addChild(cacheBox);
+                 box = cacheBox;
+             }
+             else {
+                 var arr = [];
+                 for (var i = this._cells.length - 1; i > -1; i--) {
+                     var item = this._cells[i];
+                     item.removeSelf();
+                     arr.push(item);
+                 }
+                 this._cells.length = 0;
+             }
+             for (var k = startY; k < numY; k++) {
+                 for (var l = 0; l < numX; l++) {
+                     if (arr && arr.length) {
+                         cell = arr.pop();
+                     }
+                     else {
+                         cell = this.createItem();
+                     }
+                     cell.x = (this._isVertical ? l : k) * cellWidth - box._x;
+                     cell.y = (this._isVertical ? k : l) * cellHeight - box._y;
+                     cell.name = "item" + (k * numX + l);
+                     box.addChild(cell);
+                     this.addCell(cell);
+                 }
+             }
+         }
+         createItem() {
+             var arr = [];
+             if (typeof (this._itemRender) == "function") {
+                 var box = new this._itemRender();
+             }
+             else {
+                 box = SceneUtils.createComp(this._itemRender, null, null, arr);
+             }
+             if (arr.length == 0 && box["_watchMap"]) {
+                 var watchMap = box["_watchMap"];
+                 for (var name in watchMap) {
+                     var a = watchMap[name];
+                     for (var i = 0; i < a.length; i++) {
+                         var watcher = a[i];
+                         arr.push(watcher.comp, watcher.prop, watcher.value);
+                     }
+                 }
+             }
+             if (arr.length)
+                 box["_$bindData"] = arr;
+             return box;
+         }
+         addCell(cell) {
+             cell.on(Event.CLICK, this, this.onCellMouse);
+             cell.on(Event.RIGHT_CLICK, this, this.onCellMouse);
+             cell.on(Event.MOUSE_OVER, this, this.onCellMouse);
+             cell.on(Event.MOUSE_OUT, this, this.onCellMouse);
+             cell.on(Event.MOUSE_DOWN, this, this.onCellMouse);
+             cell.on(Event.MOUSE_UP, this, this.onCellMouse);
+             this._cells.push(cell);
+         }
+         _afterInited() {
+             this.initItems();
+         }
+         initItems() {
+             if (!this._itemRender && this.getChildByName("item0") != null) {
+                 this.repeatX = 1;
+                 var count;
+                 count = 0;
+                 for (var i = 0; i < 10000; i++) {
+                     var cell = this.getChildByName("item" + i);
+                     if (cell) {
+                         this.addCell(cell);
+                         count++;
+                         continue;
+                     }
+                     break;
+                 }
+                 this.repeatY = count;
+             }
+         }
+         setContentSize(width, height) {
+             this._content.width = width;
+             this._content.height = height;
+             if (this._scrollBar || this._offset.x != 0 || this._offset.y != 0) {
+                 this._content._style.scrollRect || (this._content.scrollRect = Rectangle.create());
+                 this._content._style.scrollRect.setTo(-this._offset.x, -this._offset.y, width, height);
+                 this._content.scrollRect = this._content.scrollRect;
+             }
+             this.event(Event.RESIZE);
+         }
+         onCellMouse(e) {
+             if (e.type === Event.MOUSE_DOWN)
+                 this._isMoved = false;
+             var cell = e.currentTarget;
+             var index = this._startIndex + this._cells.indexOf(cell);
+             if (index < 0)
+                 return;
+             if (e.type === Event.CLICK || e.type === Event.RIGHT_CLICK) {
+                 if (this.selectEnable && !this._isMoved)
+                     this.selectedIndex = index;
+                 else
+                     this.changeCellState(cell, true, 0);
+             }
+             else if ((e.type === Event.MOUSE_OVER || e.type === Event.MOUSE_OUT) && this._selectedIndex !== index) {
+                 this.changeCellState(cell, e.type === Event.MOUSE_OVER, 0);
+             }
+             this.mouseHandler && this.mouseHandler.runWith([e, index]);
+         }
+         changeCellState(cell, visible, index) {
+             var selectBox = cell.getChildByName("selectBox");
+             if (selectBox) {
+                 this.selectEnable = true;
+                 selectBox.visible = visible;
+                 selectBox.index = index;
+             }
+         }
+         _sizeChanged() {
+             super._sizeChanged();
+             this.setContentSize(this.width, this.height);
+             if (this._scrollBar)
+                 this.callLater(this.onScrollBarChange);
+         }
+         onScrollBarChange(e = null) {
+             this.runCallLater(this.changeCells);
+             var scrollValue = this._scrollBar.value;
+             var lineX = (this._isVertical ? this.repeatX : this.repeatY);
+             var lineY = (this._isVertical ? this.repeatY : this.repeatX);
+             var scrollLine = Math.floor(scrollValue / this._cellSize);
+             if (!this.cacheContent) {
+                 var index = scrollLine * lineX;
+                 var num = 0;
+                 let down = true;
+                 var toIndex = 0;
+                 if (index > this._startIndex) {
+                     num = index - this._startIndex;
+                     toIndex = this._startIndex + lineX * (lineY + 1);
+                     this._isMoved = true;
+                 }
+                 else if (index < this._startIndex) {
+                     num = this._startIndex - index;
+                     down = false;
+                     toIndex = this._startIndex - 1;
+                     this._isMoved = true;
+                 }
+                 for (var i = 0; i < num; i++) {
+                     if (down) {
+                         var cell = this._cells.shift();
+                         this._cells[this._cells.length] = cell;
+                         var cellIndex = toIndex + i;
+                     }
+                     else {
+                         cell = this._cells.pop();
+                         this._cells.unshift(cell);
+                         cellIndex = toIndex - i;
+                     }
+                     var pos = Math.floor(cellIndex / lineX) * this._cellSize;
+                     this._isVertical ? cell.y = pos : cell.x = pos;
+                     this.renderItem(cell, cellIndex);
+                 }
+                 this._startIndex = index;
+                 this.changeSelectStatus();
+             }
+             else {
+                 num = (lineY + 1);
+                 if (this._createdLine - scrollLine < num) {
+                     this._createItems(this._createdLine, lineX, this._createdLine + num);
+                     this.renderItems(this._createdLine * lineX, 0);
+                     this._createdLine += num;
+                 }
+             }
+             var r = this._content._style.scrollRect;
+             if (this._isVertical) {
+                 r.y = scrollValue - this._offset.y;
+                 r.x = -this._offset.x;
+             }
+             else {
+                 r.y = -this._offset.y;
+                 r.x = scrollValue - this._offset.x;
+             }
+             this._content.scrollRect = r;
+         }
+         posCell(cell, cellIndex) {
+             if (!this._scrollBar)
+                 return;
+             var lineX = (this._isVertical ? this.repeatX : this.repeatY);
+             var pos = Math.floor(cellIndex / lineX) * this._cellSize;
+             this._isVertical ? cell._y = pos : cell.x = pos;
+         }
+         get selectedIndex() {
+             return this._selectedIndex;
+         }
+         set selectedIndex(value) {
+             if (this._selectedIndex != value) {
+                 this._selectedIndex = value;
+                 this.changeSelectStatus();
+                 this.event(Event.CHANGE);
+                 this.selectHandler && this.selectHandler.runWith(value);
+                 this.startIndex = this._startIndex;
+             }
+         }
+         changeSelectStatus() {
+             for (var i = 0, n = this._cells.length; i < n; i++) {
+                 this.changeCellState(this._cells[i], this._selectedIndex === this._startIndex + i, 1);
+             }
+         }
+         get selectedItem() {
+             if (!this._array)
+                 return null;
+             return this._selectedIndex != -1 ? this._array[this._selectedIndex] : null;
+         }
+         set selectedItem(value) {
+             this._array && (this.selectedIndex = this._array.indexOf(value));
+         }
+         get selection() {
+             return this.getCell(this._selectedIndex);
+         }
+         set selection(value) {
+             this.selectedIndex = this._startIndex + this._cells.indexOf(value);
+         }
+         get startIndex() {
+             return this._startIndex;
+         }
+         set startIndex(value) {
+             this._startIndex = value > 0 ? value : 0;
+             this.callLater(this.renderItems);
+         }
+         renderItems(from = 0, to = 0) {
+             for (var i = from, n = to || this._cells.length; i < n; i++) {
+                 this.renderItem(this._cells[i], this._startIndex + i);
+             }
+             this.changeSelectStatus();
+         }
+         renderItem(cell, index) {
+             if (this._array && index >= 0 && index < this._array.length) {
+                 cell.visible = true;
+                 if (cell["_$bindData"]) {
+                     cell["_dataSource"] = this._array[index];
+                     this._bindData(cell, this._array[index]);
+                 }
+                 else
+                     cell.dataSource = this._array[index];
+                 if (!this.cacheContent) {
+                     this.posCell(cell, index);
+                 }
+                 if (this.hasListener(Event.RENDER))
+                     this.event(Event.RENDER, [cell, index]);
+                 if (this.renderHandler)
+                     this.renderHandler.runWith([cell, index]);
+             }
+             else {
+                 cell.visible = false;
+                 cell.dataSource = null;
+             }
+         }
+         _bindData(cell, data) {
+             var arr = cell._$bindData;
+             for (var i = 0, n = arr.length; i < n; i++) {
+                 var ele = arr[i++];
+                 var prop = arr[i++];
+                 var value = arr[i];
+                 var fun = UIUtils.getBindFun(value);
+                 ele[prop] = fun.call(this, data);
+             }
+         }
+         get array() {
+             return this._array;
+         }
+         set array(value) {
+             this.runCallLater(this.changeCells);
+             this._array = value || [];
+             this._preLen = this._array.length;
+             var length = this._array.length;
+             this.totalPage = Math.ceil(length / (this.repeatX * this.repeatY));
+             this._selectedIndex = this._selectedIndex < length ? this._selectedIndex : length - 1;
+             this.startIndex = this._startIndex;
+             if (this._scrollBar) {
+                 this._scrollBar.stopScroll();
+                 var numX = this._isVertical ? this.repeatX : this.repeatY;
+                 var numY = this._isVertical ? this.repeatY : this.repeatX;
+                 var lineCount = Math.ceil(length / numX);
+                 var total = this._cellOffset > 0 ? this.totalPage + 1 : this.totalPage;
+                 if (total > 1 && lineCount >= numY) {
+                     this._scrollBar.scrollSize = this._cellSize;
+                     this._scrollBar.thumbPercent = numY / lineCount;
+                     this._scrollBar.setScroll(0, (lineCount - numY) * this._cellSize + this._cellOffset, this._scrollBar.value);
+                     this._scrollBar.target = this._content;
+                 }
+                 else {
+                     this._scrollBar.setScroll(0, 0, 0);
+                     this._scrollBar.target = this._content;
+                 }
+             }
+         }
+         updateArray(array) {
+             this._array = array;
+             if (this._array) {
+                 let freshStart = this._preLen - this._startIndex;
+                 if (freshStart >= 0)
+                     this.renderItems(freshStart);
+                 this._preLen = this._array.length;
+             }
+             if (this._scrollBar) {
+                 var length = array.length;
+                 var numX = this._isVertical ? this.repeatX : this.repeatY;
+                 var numY = this._isVertical ? this.repeatY : this.repeatX;
+                 var lineCount = Math.ceil(length / numX);
+                 if (lineCount >= numY) {
+                     this._scrollBar.thumbPercent = numY / lineCount;
+                     this._scrollBar.slider["_max"] = (lineCount - numY) * this._cellSize + this._cellOffset;
+                 }
+             }
+         }
+         get page() {
+             return this._page;
+         }
+         set page(value) {
+             this._page = value;
+             if (this._array) {
+                 this._page = value > 0 ? value : 0;
+                 this._page = this._page < this.totalPage ? this._page : this.totalPage - 1;
+                 this.startIndex = this._page * this.repeatX * this.repeatY;
+             }
+         }
+         get length() {
+             return this._array ? this._array.length : 0;
+         }
+         set dataSource(value) {
+             this._dataSource = value;
+             if (typeof (value) == 'number' || typeof (value) == 'string')
+                 this.selectedIndex = parseInt(value);
+             else if (value instanceof Array)
+                 this.array = value;
+             else
+                 super.dataSource = value;
+         }
+         get dataSource() {
+             return super.dataSource;
+         }
+         get cells() {
+             this.runCallLater(this.changeCells);
+             return this._cells;
+         }
+         get elasticEnabled() {
+             return this._elasticEnabled;
+         }
+         set elasticEnabled(value) {
+             this._elasticEnabled = value;
+             if (this._scrollBar) {
+                 this._scrollBar.elasticDistance = value ? 200 : 0;
+             }
+         }
+         refresh() {
+             this.array = this._array;
+         }
+         getItem(index) {
+             if (!this._array)
+                 return null;
+             if (index > -1 && index < this._array.length) {
+                 return this._array[index];
+             }
+             return null;
+         }
+         changeItem(index, source) {
+             if (index > -1 && this._array && index < this._array.length) {
+                 this._array[index] = source;
+                 if (index >= this._startIndex && index < this._startIndex + this._cells.length) {
+                     this.renderItem(this.getCell(index), index);
+                 }
+             }
+         }
+         setItem(index, source) {
+             this.changeItem(index, source);
+         }
+         addItem(source) {
+             if (!this.array) {
+                 this.array = [source];
+             }
+             else {
+                 this._array.push(source);
+             }
+             this.array = this._array;
+         }
+         addItemAt(souce, index) {
+             this._array.splice(index, 0, souce);
+             this.array = this._array;
+         }
+         deleteItem(index) {
+             if (this._array) {
+                 this._array.splice(index, 1);
+                 this.array = this._array;
+             }
+         }
+         getCell(index) {
+             this.runCallLater(this.changeCells);
+             if (index > -1 && this._cells) {
+                 return this._cells[(index - this._startIndex) % this._cells.length];
+             }
+             return null;
+         }
+         scrollTo(index) {
+             if (this._scrollBar) {
+                 var numX = this._isVertical ? this.repeatX : this.repeatY;
+                 this._scrollBar.value = Math.floor(index / numX) * this._cellSize;
+             }
+             else {
+                 this.startIndex = index;
+             }
+         }
+         tweenTo(index, time = 200, complete = null) {
+             if (this._scrollBar) {
+                 this._scrollBar.stopScroll();
+                 var numX = this._isVertical ? this.repeatX : this.repeatY;
+                 Tween.to(this._scrollBar, { value: Math.floor(index / numX) * this._cellSize }, time, null, complete, 0, true);
+             }
+             else {
+                 this.startIndex = index;
+                 if (complete)
+                     complete.run();
+             }
+         }
+         _setCellChanged() {
+             if (!this._cellChanged) {
+                 this._cellChanged = true;
+                 this.callLater(this.changeCells);
+             }
+         }
+         commitMeasure() {
+             this.runCallLater(this.changeCells);
+         }
+     }
+     ILaya.regClass(List);
+     ClassUtils.regClass("laya.ui.List", List);
+     ClassUtils.regClass("Laya.List", List);
 
      class GraphicAnimation extends FrameAnimation {
          constructor() {
@@ -25238,43 +26867,6 @@
      ClassUtils.regClass("laya.display.Scene", Scene);
      ClassUtils.regClass("Laya.Scene", Scene);
 
-     class Box extends UIComponent {
-         set dataSource(value) {
-             this._dataSource = value;
-             for (var name in value) {
-                 var comp = this.getChildByName(name);
-                 if (comp)
-                     comp.dataSource = value[name];
-                 else if (name in this && !(this[name] instanceof Function))
-                     this[name] = value[name];
-             }
-         }
-         get dataSource() {
-             return super.dataSource;
-         }
-         get bgColor() {
-             return this._bgColor;
-         }
-         set bgColor(value) {
-             this._bgColor = value;
-             if (value) {
-                 this._onResize(null);
-                 this.on(Event.RESIZE, this, this._onResize);
-             }
-             else {
-                 this.graphics.clear();
-                 this.off(Event.RESIZE, this, this._onResize);
-             }
-         }
-         _onResize(e) {
-             this.graphics.clear();
-             this.graphics.drawRect(0, 0, this.width, this.height, this._bgColor);
-         }
-     }
-     ILaya.regClass(Box);
-     ClassUtils.regClass("laya.ui.Box", Box);
-     ClassUtils.regClass("Laya.Box", Box);
-
      class CheckBox extends Button {
          constructor(skin = null, label = "") {
              super(skin, label);
@@ -26028,802 +27620,6 @@
      ClassUtils.regClass("laya.ui.TextInput", TextInput);
      ClassUtils.regClass("Laya.TextInput", TextInput);
 
-     class Slider extends UIComponent {
-         constructor(skin = null) {
-             super();
-             this.isVertical = true;
-             this.showLabel = true;
-             this._max = 100;
-             this._min = 0;
-             this._tick = 1;
-             this._value = 0;
-             if (!Slider.label) {
-                 Slider.label = new Label();
-             }
-             this.skin = skin;
-         }
-         destroy(destroyChild = true) {
-             super.destroy(destroyChild);
-             this._bg && this._bg.destroy(destroyChild);
-             this._bar && this._bar.destroy(destroyChild);
-             this._progress && this._progress.destroy(destroyChild);
-             this._bg = null;
-             this._bar = null;
-             this._progress = null;
-             this.changeHandler = null;
-         }
-         createChildren() {
-             this.addChild(this._bg = new Image());
-             this.addChild(this._bar = new Button());
-         }
-         initialize() {
-             this._bar.on(Event.MOUSE_DOWN, this, this.onBarMouseDown);
-             this._bg.sizeGrid = this._bar.sizeGrid = "4,4,4,4,0";
-             if (this._progress)
-                 this._progress.sizeGrid = this._bar.sizeGrid;
-             this.allowClickBack = true;
-         }
-         onBarMouseDown(e) {
-             var Laya = ILaya;
-             this._globalSacle || (this._globalSacle = new Point());
-             this._globalSacle.setTo(this.globalScaleX || 0.01, this.globalScaleY || 0.01);
-             this._maxMove = this.isVertical ? (this.height - this._bar.height) : (this.width - this._bar.width);
-             this._tx = Laya.stage.mouseX;
-             this._ty = Laya.stage.mouseY;
-             Laya.stage.on(Event.MOUSE_MOVE, this, this.mouseMove);
-             Laya.stage.once(Event.MOUSE_UP, this, this.mouseUp);
-             Laya.stage.once(Event.MOUSE_OUT, this, this.mouseUp);
-             this.showValueText();
-         }
-         showValueText() {
-             if (this.showLabel) {
-                 var label = Slider.label;
-                 this.addChild(label);
-                 label.textField.changeText(this._value + "");
-                 if (this.isVertical) {
-                     label.x = this._bar._x + 20;
-                     label.y = (this._bar.height - label.height) * 0.5 + this._bar._y;
-                 }
-                 else {
-                     label.y = this._bar._y - 20;
-                     label.x = (this._bar.width - label.width) * 0.5 + this._bar._x;
-                 }
-             }
-         }
-         hideValueText() {
-             Slider.label && Slider.label.removeSelf();
-         }
-         mouseUp(e) {
-             let stage = ILaya.stage;
-             stage.off(Event.MOUSE_MOVE, this, this.mouseMove);
-             stage.off(Event.MOUSE_UP, this, this.mouseUp);
-             stage.off(Event.MOUSE_OUT, this, this.mouseUp);
-             this.sendChangeEvent(Event.CHANGED);
-             this.hideValueText();
-         }
-         mouseMove(e) {
-             let stage = ILaya.stage;
-             var oldValue = this._value;
-             if (this.isVertical) {
-                 this._bar.y += (stage.mouseY - this._ty) / this._globalSacle.y;
-                 if (this._bar._y > this._maxMove)
-                     this._bar.y = this._maxMove;
-                 else if (this._bar._y < 0)
-                     this._bar.y = 0;
-                 this._value = this._bar._y / this._maxMove * (this._max - this._min) + this._min;
-                 if (this._progress)
-                     this._progress.height = this._bar._y + 0.5 * this._bar.height;
-             }
-             else {
-                 this._bar.x += (stage.mouseX - this._tx) / this._globalSacle.x;
-                 if (this._bar._x > this._maxMove)
-                     this._bar.x = this._maxMove;
-                 else if (this._bar._x < 0)
-                     this._bar.x = 0;
-                 this._value = this._bar._x / this._maxMove * (this._max - this._min) + this._min;
-                 if (this._progress)
-                     this._progress.width = this._bar._x + 0.5 * this._bar.width;
-             }
-             this._tx = stage.mouseX;
-             this._ty = stage.mouseY;
-             if (this._tick != 0) {
-                 var pow = Math.pow(10, (this._tick + "").length - 1);
-                 this._value = Math.round(Math.round(this._value / this._tick) * this._tick * pow) / pow;
-             }
-             if (this._value != oldValue) {
-                 this.sendChangeEvent();
-             }
-             this.showValueText();
-         }
-         sendChangeEvent(type = Event.CHANGE) {
-             this.event(type);
-             this.changeHandler && this.changeHandler.runWith(this._value);
-         }
-         get skin() {
-             return this._skin;
-         }
-         set skin(value) {
-             if (this._skin != value) {
-                 this._skin = value;
-                 if (this._skin && !Loader.getRes(this._skin)) {
-                     ILaya.loader.load([this._skin, this._skin.replace(".png", "$bar.png")], Handler.create(this, this._skinLoaded));
-                 }
-                 else {
-                     this._skinLoaded();
-                 }
-             }
-         }
-         _skinLoaded() {
-             this._bg.skin = this._skin;
-             this._bar.skin = this._skin.replace(".png", "$bar.png");
-             var progressSkin = this._skin.replace(".png", "$progress.png");
-             if (Loader.getRes(progressSkin)) {
-                 if (!this._progress) {
-                     this.addChild(this._progress = new Image());
-                     this._progress.sizeGrid = this._bar.sizeGrid;
-                     this.setChildIndex(this._progress, 1);
-                 }
-                 this._progress.skin = progressSkin;
-             }
-             this.setBarPoint();
-             this.callLater(this.changeValue);
-             this._sizeChanged();
-             this.event(Event.LOADED);
-         }
-         setBarPoint() {
-             if (this.isVertical)
-                 this._bar.x = Math.round((this._bg.width - this._bar.width) * 0.5);
-             else
-                 this._bar.y = Math.round((this._bg.height - this._bar.height) * 0.5);
-         }
-         measureWidth() {
-             return Math.max(this._bg.width, this._bar.width);
-         }
-         measureHeight() {
-             return Math.max(this._bg.height, this._bar.height);
-         }
-         _sizeChanged() {
-             super._sizeChanged();
-             if (this.isVertical)
-                 this._bg.height = this.height;
-             else
-                 this._bg.width = this.width;
-             this.setBarPoint();
-             this.changeValue();
-         }
-         get sizeGrid() {
-             return this._bg.sizeGrid;
-         }
-         set sizeGrid(value) {
-             this._bg.sizeGrid = value;
-             this._bar.sizeGrid = value;
-             if (this._progress)
-                 this._progress.sizeGrid = this._bar.sizeGrid;
-         }
-         setSlider(min, max, value) {
-             this._value = -1;
-             this._min = min;
-             this._max = max > min ? max : min;
-             this.value = value < min ? min : value > max ? max : value;
-         }
-         get tick() {
-             return this._tick;
-         }
-         set tick(value) {
-             if (this._tick != value) {
-                 this._tick = value;
-                 this.callLater(this.changeValue);
-             }
-         }
-         changeValue() {
-             if (this.tick != 0) {
-                 var pow = Math.pow(10, (this._tick + "").length - 1);
-                 this._value = Math.round(Math.round(this._value / this._tick) * this._tick * pow) / pow;
-             }
-             this._value = this._value > this._max ? this._max : this._value < this._min ? this._min : this._value;
-             var num = this._max - this._min;
-             if (num === 0)
-                 num = 1;
-             if (this.isVertical) {
-                 this._bar.y = (this._value - this._min) / num * (this.height - this._bar.height);
-                 if (this._progress)
-                     this._progress.height = this._bar._y + 0.5 * this._bar.height;
-             }
-             else {
-                 this._bar.x = (this._value - this._min) / num * (this.width - this._bar.width);
-                 if (this._progress)
-                     this._progress.width = this._bar._x + 0.5 * this._bar.width;
-             }
-         }
-         get max() {
-             return this._max;
-         }
-         set max(value) {
-             if (this._max != value) {
-                 this._max = value;
-                 this.callLater(this.changeValue);
-             }
-         }
-         get min() {
-             return this._min;
-         }
-         set min(value) {
-             if (this._min != value) {
-                 this._min = value;
-                 this.callLater(this.changeValue);
-             }
-         }
-         get value() {
-             return this._value;
-         }
-         set value(num) {
-             if (this._value != num) {
-                 var oldValue = this._value;
-                 this._value = num;
-                 this.changeValue();
-                 if (this._value != oldValue) {
-                     this.sendChangeEvent();
-                 }
-             }
-         }
-         get allowClickBack() {
-             return this._allowClickBack;
-         }
-         set allowClickBack(value) {
-             if (this._allowClickBack != value) {
-                 this._allowClickBack = value;
-                 if (value)
-                     this._bg.on(Event.MOUSE_DOWN, this, this.onBgMouseDown);
-                 else
-                     this._bg.off(Event.MOUSE_DOWN, this, this.onBgMouseDown);
-             }
-         }
-         onBgMouseDown(e) {
-             var point = this._bg.getMousePoint();
-             if (this.isVertical)
-                 this.value = point.y / (this.height - this._bar.height) * (this._max - this._min) + this._min;
-             else
-                 this.value = point.x / (this.width - this._bar.width) * (this._max - this._min) + this._min;
-         }
-         set dataSource(value) {
-             this._dataSource = value;
-             if (typeof (value) == 'number' || typeof (value) == 'string')
-                 this.value = Number(value);
-             else
-                 super.dataSource = value;
-         }
-         get dataSource() {
-             return super.dataSource;
-         }
-         get bar() {
-             return this._bar;
-         }
-     }
-     Slider.label = null;
-     ILaya.regClass(Slider);
-     ClassUtils.regClass("laya.ui.Slider", Slider);
-     ClassUtils.regClass("Laya.Slider", Slider);
-
-     class UIConfig {
-     }
-     UIConfig.touchScrollEnable = true;
-     UIConfig.mouseWheelEnable = true;
-     UIConfig.showButtons = true;
-     UIConfig.popupBgColor = "#000000";
-     UIConfig.popupBgAlpha = 0.5;
-     UIConfig.closeDialogOnSide = true;
-     window.UIConfig = UIConfig;
-
-     class ScrollBar extends UIComponent {
-         constructor(skin = null) {
-             super();
-             this.rollRatio = 0.97;
-             this.scaleBar = true;
-             this.autoHide = false;
-             this.elasticDistance = 0;
-             this.elasticBackTime = 500;
-             this._showButtons = UIConfig.showButtons;
-             this._scrollSize = 1;
-             this._thumbPercent = 1;
-             this._lastOffset = 0;
-             this._checkElastic = false;
-             this._isElastic = false;
-             this._hide = false;
-             this._clickOnly = true;
-             this._touchScrollEnable = UIConfig.touchScrollEnable;
-             this._mouseWheelEnable = UIConfig.mouseWheelEnable;
-             this.skin = skin;
-             this.max = 1;
-         }
-         destroy(destroyChild = true) {
-             this.stopScroll();
-             this.target = null;
-             super.destroy(destroyChild);
-             this.upButton && this.upButton.destroy(destroyChild);
-             this.downButton && this.downButton.destroy(destroyChild);
-             this.slider && this.slider.destroy(destroyChild);
-             this.upButton = this.downButton = null;
-             this.slider = null;
-             this.changeHandler = null;
-             this._offsets = null;
-         }
-         createChildren() {
-             this.addChild(this.slider = new Slider());
-             this.addChild(this.upButton = new Button());
-             this.addChild(this.downButton = new Button());
-         }
-         initialize() {
-             this.slider.showLabel = false;
-             this.slider.tick = 0;
-             this.slider.on(Event.CHANGE, this, this.onSliderChange);
-             this.slider.setSlider(0, 0, 0);
-             this.upButton.on(Event.MOUSE_DOWN, this, this.onButtonMouseDown);
-             this.downButton.on(Event.MOUSE_DOWN, this, this.onButtonMouseDown);
-         }
-         onSliderChange() {
-             if (this._value != this.slider.value)
-                 this.value = this.slider.value;
-         }
-         onButtonMouseDown(e) {
-             var isUp = e.currentTarget === this.upButton;
-             this.slide(isUp);
-             ILaya.timer.once(Styles.scrollBarDelayTime, this, this.startLoop, [isUp]);
-             ILaya.stage.once(Event.MOUSE_UP, this, this.onStageMouseUp);
-         }
-         startLoop(isUp) {
-             ILaya.timer.frameLoop(1, this, this.slide, [isUp]);
-         }
-         slide(isUp) {
-             if (isUp)
-                 this.value -= this._scrollSize;
-             else
-                 this.value += this._scrollSize;
-         }
-         onStageMouseUp(e) {
-             ILaya.timer.clear(this, this.startLoop);
-             ILaya.timer.clear(this, this.slide);
-         }
-         get skin() {
-             return this._skin;
-         }
-         set skin(value) {
-             if (value == " ")
-                 return;
-             if (this._skin != value) {
-                 this._skin = value;
-                 if (this._skin && !Loader.getRes(this._skin)) {
-                     ILaya.loader.load([this._skin, this._skin.replace(".png", "$up.png"), this._skin.replace(".png", "$down.png"), this._skin.replace(".png", "$bar.png")], Handler.create(this, this._skinLoaded));
-                 }
-                 else {
-                     this._skinLoaded();
-                 }
-             }
-         }
-         _skinLoaded() {
-             this.slider.skin = this._skin;
-             this.callLater(this.changeScrollBar);
-             this._sizeChanged();
-             this.event(Event.LOADED);
-         }
-         changeScrollBar() {
-             this.upButton.visible = this._showButtons;
-             this.downButton.visible = this._showButtons;
-             if (this._showButtons) {
-                 this.upButton.skin = this._skin.replace(".png", "$up.png");
-                 this.downButton.skin = this._skin.replace(".png", "$down.png");
-             }
-             if (this.slider.isVertical)
-                 this.slider.y = this._showButtons ? this.upButton.height : 0;
-             else
-                 this.slider.x = this._showButtons ? this.upButton.width : 0;
-             this.resetPositions();
-             this.repaint();
-         }
-         _sizeChanged() {
-             super._sizeChanged();
-             this.repaint();
-             this.resetPositions();
-             this.event(Event.CHANGE);
-             this.changeHandler && this.changeHandler.runWith(this.value);
-         }
-         resetPositions() {
-             if (this.slider.isVertical)
-                 this.slider.height = this.height - (this._showButtons ? (this.upButton.height + this.downButton.height) : 0);
-             else
-                 this.slider.width = this.width - (this._showButtons ? (this.upButton.width + this.downButton.width) : 0);
-             this.resetButtonPosition();
-         }
-         resetButtonPosition() {
-             if (this.slider.isVertical)
-                 this.downButton.y = this.slider._y + this.slider.height;
-             else
-                 this.downButton.x = this.slider._x + this.slider.width;
-         }
-         measureWidth() {
-             if (this.slider.isVertical)
-                 return this.slider.width;
-             return 100;
-         }
-         measureHeight() {
-             if (this.slider.isVertical)
-                 return 100;
-             return this.slider.height;
-         }
-         setScroll(min, max, value) {
-             this.runCallLater(this._sizeChanged);
-             this.slider.setSlider(min, max, value);
-             this.slider.bar.visible = max > 0;
-             if (!this._hide && this.autoHide)
-                 this.visible = false;
-         }
-         get max() {
-             return this.slider.max;
-         }
-         set max(value) {
-             this.slider.max = value;
-         }
-         get min() {
-             return this.slider.min;
-         }
-         set min(value) {
-             this.slider.min = value;
-         }
-         get value() {
-             return this._value;
-         }
-         set value(v) {
-             if (v !== this._value) {
-                 this._value = v;
-                 if (!this._isElastic) {
-                     if (this.slider["_value"] != v) {
-                         this.slider["_value"] = v;
-                         this.slider.changeValue();
-                     }
-                     this._value = this.slider["_value"];
-                 }
-                 this.event(Event.CHANGE);
-                 this.changeHandler && this.changeHandler.runWith(this._value);
-             }
-         }
-         get isVertical() {
-             return this.slider.isVertical;
-         }
-         set isVertical(value) {
-             this.slider.isVertical = value;
-         }
-         get sizeGrid() {
-             return this.slider.sizeGrid;
-         }
-         set sizeGrid(value) {
-             this.slider.sizeGrid = value;
-         }
-         get scrollSize() {
-             return this._scrollSize;
-         }
-         set scrollSize(value) {
-             this._scrollSize = value;
-         }
-         set dataSource(value) {
-             this._dataSource = value;
-             if (typeof (value) == 'number' || typeof (value) == 'string')
-                 this.value = Number(value);
-             else
-                 super.dataSource = value;
-         }
-         get dataSource() {
-             return super.dataSource;
-         }
-         get thumbPercent() {
-             return this._thumbPercent;
-         }
-         set thumbPercent(value) {
-             this.runCallLater(this.changeScrollBar);
-             this.runCallLater(this._sizeChanged);
-             value = value >= 1 ? 0.99 : value;
-             this._thumbPercent = value;
-             if (this.scaleBar) {
-                 if (this.slider.isVertical)
-                     this.slider.bar.height = Math.max(this.slider.height * value, Styles.scrollBarMinNum);
-                 else
-                     this.slider.bar.width = Math.max(this.slider.width * value, Styles.scrollBarMinNum);
-             }
-         }
-         get target() {
-             return this._target;
-         }
-         set target(value) {
-             if (this._target) {
-                 this._target.off(Event.MOUSE_WHEEL, this, this.onTargetMouseWheel);
-                 this._target.off(Event.MOUSE_DOWN, this, this.onTargetMouseDown);
-             }
-             this._target = value;
-             if (value) {
-                 this._mouseWheelEnable && this._target.on(Event.MOUSE_WHEEL, this, this.onTargetMouseWheel);
-                 this._touchScrollEnable && this._target.on(Event.MOUSE_DOWN, this, this.onTargetMouseDown);
-             }
-         }
-         get hide() {
-             return this._hide;
-         }
-         set hide(value) {
-             this._hide = value;
-             this.visible = !value;
-         }
-         get showButtons() {
-             return this._showButtons;
-         }
-         set showButtons(value) {
-             this._showButtons = value;
-             this.callLater(this.changeScrollBar);
-         }
-         get touchScrollEnable() {
-             return this._touchScrollEnable;
-         }
-         set touchScrollEnable(value) {
-             this._touchScrollEnable = value;
-             this.target = this._target;
-         }
-         get mouseWheelEnable() {
-             return this._mouseWheelEnable;
-         }
-         set mouseWheelEnable(value) {
-             this._mouseWheelEnable = value;
-             this.target = this._target;
-         }
-         onTargetMouseWheel(e) {
-             this.value -= e.delta * this._scrollSize;
-             this.target = this._target;
-         }
-         onTargetMouseDown(e) {
-             if ((this.isLockedFun) && !this.isLockedFun(e))
-                 return;
-             this.event(Event.END);
-             this._clickOnly = true;
-             this._lastOffset = 0;
-             this._checkElastic = false;
-             this._lastPoint || (this._lastPoint = new Point());
-             this._lastPoint.setTo(ILaya.stage.mouseX, ILaya.stage.mouseY);
-             ILaya.timer.clear(this, this.tweenMove);
-             Tween.clearTween(this);
-             ILaya.stage.once(Event.MOUSE_UP, this, this.onStageMouseUp2);
-             ILaya.stage.once(Event.MOUSE_OUT, this, this.onStageMouseUp2);
-             ILaya.timer.frameLoop(1, this, this.loop);
-         }
-         startDragForce() {
-             this._clickOnly = true;
-             this._lastOffset = 0;
-             this._checkElastic = false;
-             this._lastPoint || (this._lastPoint = new Point());
-             this._lastPoint.setTo(ILaya.stage.mouseX, ILaya.stage.mouseY);
-             ILaya.timer.clear(this, this.tweenMove);
-             Tween.clearTween(this);
-             ILaya.stage.once(Event.MOUSE_UP, this, this.onStageMouseUp2);
-             ILaya.stage.once(Event.MOUSE_OUT, this, this.onStageMouseUp2);
-             ILaya.timer.frameLoop(1, this, this.loop);
-         }
-         cancelDragOp() {
-             ILaya.stage.off(Event.MOUSE_UP, this, this.onStageMouseUp2);
-             ILaya.stage.off(Event.MOUSE_OUT, this, this.onStageMouseUp2);
-             ILaya.timer.clear(this, this.tweenMove);
-             ILaya.timer.clear(this, this.loop);
-             this._target.mouseEnabled = true;
-         }
-         checkTriggers(isTweenMove = false) {
-             if (this.value >= 0 && this.value - this._lastOffset <= 0) {
-                 if ((this.triggerDownDragLimit) && this.triggerDownDragLimit(isTweenMove)) {
-                     this.cancelDragOp();
-                     this.value = 0;
-                     return true;
-                 }
-             }
-             if (this.value <= this.max && (this.value - this._lastOffset >= this.max)) {
-                 if ((this.triggerUpDragLimit) && this.triggerUpDragLimit(isTweenMove)) {
-                     this.cancelDragOp();
-                     this.value = this.max;
-                     return true;
-                 }
-             }
-             return false;
-         }
-         get lastOffset() {
-             return this._lastOffset;
-         }
-         startTweenMoveForce(lastOffset) {
-             this._lastOffset = lastOffset;
-             ILaya.timer.frameLoop(1, this, this.tweenMove, [200]);
-         }
-         loop() {
-             var mouseY = ILaya.stage.mouseY;
-             var mouseX = ILaya.stage.mouseX;
-             this._lastOffset = this.isVertical ? (mouseY - this._lastPoint.y) : (mouseX - this._lastPoint.x);
-             if (this._clickOnly) {
-                 if (Math.abs(this._lastOffset * (this.isVertical ? ILaya.stage._canvasTransform.getScaleY() : ILaya.stage._canvasTransform.getScaleX())) > 1) {
-                     this._clickOnly = false;
-                     if (this.checkTriggers())
-                         return;
-                     this._offsets || (this._offsets = []);
-                     this._offsets.length = 0;
-                     this._target.mouseEnabled = false;
-                     if (!this.hide && this.autoHide) {
-                         this.alpha = 1;
-                         this.visible = true;
-                     }
-                     this.event(Event.START);
-                 }
-                 else
-                     return;
-             }
-             else {
-                 if (this.checkTriggers())
-                     return;
-             }
-             this._offsets.push(this._lastOffset);
-             this._lastPoint.x = mouseX;
-             this._lastPoint.y = mouseY;
-             if (this._lastOffset === 0)
-                 return;
-             if (!this._checkElastic) {
-                 if (this.elasticDistance > 0) {
-                     if (!this._checkElastic && this._lastOffset != 0) {
-                         if ((this._lastOffset > 0 && this._value <= this.min) || (this._lastOffset < 0 && this._value >= this.max)) {
-                             this._isElastic = true;
-                             this._checkElastic = true;
-                         }
-                         else {
-                             this._isElastic = false;
-                         }
-                     }
-                 }
-                 else {
-                     this._checkElastic = true;
-                 }
-             }
-             if (this._isElastic) {
-                 if (this._value <= this.min) {
-                     if (this._lastOffset > 0) {
-                         this.value -= this._lastOffset * Math.max(0, (1 - ((this.min - this._value) / this.elasticDistance)));
-                     }
-                     else {
-                         this.value -= this._lastOffset * 0.5;
-                         if (this._value >= this.min)
-                             this._checkElastic = false;
-                     }
-                 }
-                 else if (this._value >= this.max) {
-                     if (this._lastOffset < 0) {
-                         this.value -= this._lastOffset * Math.max(0, (1 - ((this._value - this.max) / this.elasticDistance)));
-                     }
-                     else {
-                         this.value -= this._lastOffset * 0.5;
-                         if (this._value <= this.max)
-                             this._checkElastic = false;
-                     }
-                 }
-             }
-             else {
-                 this.value -= this._lastOffset;
-             }
-         }
-         onStageMouseUp2(e) {
-             ILaya.stage.off(Event.MOUSE_UP, this, this.onStageMouseUp2);
-             ILaya.stage.off(Event.MOUSE_OUT, this, this.onStageMouseUp2);
-             ILaya.timer.clear(this, this.loop);
-             if (this._clickOnly) {
-                 if (this._value >= this.min && this._value <= this.max)
-                     return;
-             }
-             this._target.mouseEnabled = true;
-             if (this._isElastic) {
-                 if (this._value < this.min) {
-                     Tween.to(this, { value: this.min }, this.elasticBackTime, Ease.sineOut, Handler.create(this, this.elasticOver));
-                 }
-                 else if (this._value > this.max) {
-                     Tween.to(this, { value: this.max }, this.elasticBackTime, Ease.sineOut, Handler.create(this, this.elasticOver));
-                 }
-             }
-             else {
-                 if (!this._offsets)
-                     return;
-                 if (this._offsets.length < 1) {
-                     this._offsets[0] = this.isVertical ? ILaya.stage.mouseY - this._lastPoint.y : ILaya.stage.mouseX - this._lastPoint.x;
-                 }
-                 var offset = 0;
-                 var n = Math.min(this._offsets.length, 3);
-                 for (var i = 0; i < n; i++) {
-                     offset += this._offsets[this._offsets.length - 1 - i];
-                 }
-                 this._lastOffset = offset / n;
-                 offset = Math.abs(this._lastOffset);
-                 if (offset < 2) {
-                     this.event(Event.END);
-                     return;
-                 }
-                 if (offset > 250)
-                     this._lastOffset = this._lastOffset > 0 ? 250 : -250;
-                 var dis = Math.round(Math.abs(this.elasticDistance * (this._lastOffset / 150)));
-                 ILaya.timer.frameLoop(1, this, this.tweenMove, [dis]);
-             }
-         }
-         elasticOver() {
-             this._isElastic = false;
-             if (!this.hide && this.autoHide) {
-                 Tween.to(this, { alpha: 0 }, 500);
-             }
-             this.event(Event.END);
-         }
-         tweenMove(maxDistance) {
-             this._lastOffset *= this.rollRatio;
-             if (this.checkTriggers(true)) {
-                 return;
-             }
-             var tarSpeed;
-             if (maxDistance > 0) {
-                 if (this._lastOffset > 0 && this.value <= this.min) {
-                     this._isElastic = true;
-                     tarSpeed = -(this.min - maxDistance - this.value) * 0.5;
-                     if (this._lastOffset > tarSpeed)
-                         this._lastOffset = tarSpeed;
-                 }
-                 else if (this._lastOffset < 0 && this.value >= this.max) {
-                     this._isElastic = true;
-                     tarSpeed = -(this.max + maxDistance - this.value) * 0.5;
-                     if (this._lastOffset < tarSpeed)
-                         this._lastOffset = tarSpeed;
-                 }
-             }
-             this.value -= this._lastOffset;
-             if (Math.abs(this._lastOffset) < 0.1) {
-                 ILaya.timer.clear(this, this.tweenMove);
-                 if (this._isElastic) {
-                     if (this._value < this.min) {
-                         Tween.to(this, { value: this.min }, this.elasticBackTime, Ease.sineOut, Handler.create(this, this.elasticOver));
-                     }
-                     else if (this._value > this.max) {
-                         Tween.to(this, { value: this.max }, this.elasticBackTime, Ease.sineOut, Handler.create(this, this.elasticOver));
-                     }
-                     else {
-                         this.elasticOver();
-                     }
-                     return;
-                 }
-                 this.event(Event.END);
-                 if (!this.hide && this.autoHide) {
-                     Tween.to(this, { alpha: 0 }, 500);
-                 }
-             }
-         }
-         stopScroll() {
-             this.onStageMouseUp2(null);
-             ILaya.timer.clear(this, this.tweenMove);
-             Tween.clearTween(this);
-         }
-         get tick() {
-             return this.slider.tick;
-         }
-         set tick(value) {
-             this.slider.tick = value;
-         }
-     }
-     ILaya.regClass(ScrollBar);
-     ClassUtils.regClass("laya.ui.ScrollBar", ScrollBar);
-     ClassUtils.regClass("Laya.ScrollBar", ScrollBar);
-
-     class VScrollBar extends ScrollBar {
-     }
-     ILaya.regClass(VScrollBar);
-     ClassUtils.regClass("laya.ui.VScrollBar", VScrollBar);
-     ClassUtils.regClass("Laya.VScrollBar", VScrollBar);
-
-     class HScrollBar extends ScrollBar {
-         initialize() {
-             super.initialize();
-             this.slider.isVertical = false;
-         }
-     }
-     ILaya.regClass(HScrollBar);
-     ClassUtils.regClass("laya.ui.HScrollBar", HScrollBar);
-     ClassUtils.regClass("Laya.HScrollBar", HScrollBar);
-
      class TextArea extends TextInput {
          constructor(text = "") {
              super(text);
@@ -27456,656 +28252,6 @@
      ILaya.regClass(Clip);
      ClassUtils.regClass("laya.ui.Clip", Clip);
      ClassUtils.regClass("Laya.Clip", Clip);
-
-     class List extends Box {
-         constructor() {
-             super(...arguments);
-             this.selectEnable = false;
-             this.totalPage = 0;
-             this._$componentType = "List";
-             this._repeatX = 0;
-             this._repeatY = 0;
-             this._repeatX2 = 0;
-             this._repeatY2 = 0;
-             this._spaceX = 0;
-             this._spaceY = 0;
-             this._cells = [];
-             this._startIndex = 0;
-             this._selectedIndex = -1;
-             this._page = 0;
-             this._isVertical = true;
-             this._cellSize = 20;
-             this._cellOffset = 0;
-             this._createdLine = 0;
-             this._offset = new Point();
-             this._usedCache = null;
-             this._elasticEnabled = false;
-             this._preLen = 0;
-         }
-         destroy(destroyChild = true) {
-             this._content && this._content.destroy(destroyChild);
-             this._scrollBar && this._scrollBar.destroy(destroyChild);
-             super.destroy(destroyChild);
-             this._content = null;
-             this._scrollBar = null;
-             this._itemRender = null;
-             this._cells = null;
-             this._array = null;
-             this.selectHandler = this.renderHandler = this.mouseHandler = null;
-         }
-         createChildren() {
-             this.addChild(this._content = new Box());
-         }
-         set cacheAs(value) {
-             super.cacheAs = value;
-             if (this._scrollBar) {
-                 this._usedCache = null;
-                 if (value !== "none")
-                     this._scrollBar.on(Event.START, this, this.onScrollStart);
-                 else
-                     this._scrollBar.off(Event.START, this, this.onScrollStart);
-             }
-         }
-         get cacheAs() {
-             return super.cacheAs;
-         }
-         onScrollStart() {
-             this._usedCache || (this._usedCache = super.cacheAs);
-             super.cacheAs = "none";
-             this._scrollBar.once(Event.END, this, this.onScrollEnd);
-         }
-         onScrollEnd() {
-             super.cacheAs = this._usedCache || 'none';
-         }
-         get content() {
-             return this._content;
-         }
-         get vScrollBarSkin() {
-             return this._scrollBar ? this._scrollBar.skin : null;
-         }
-         set vScrollBarSkin(value) {
-             this._removePreScrollBar();
-             var scrollBar = new VScrollBar();
-             scrollBar.name = "scrollBar";
-             scrollBar.right = 0;
-             scrollBar.skin = value;
-             scrollBar.elasticDistance = this._elasticEnabled ? 200 : 0;
-             this.scrollBar = scrollBar;
-             this.addChild(scrollBar);
-             this._setCellChanged();
-         }
-         _removePreScrollBar() {
-             var preNode = this.removeChildByName("scrollBar");
-             if (preNode)
-                 preNode.destroy(true);
-         }
-         get hScrollBarSkin() {
-             return this._scrollBar ? this._scrollBar.skin : null;
-         }
-         set hScrollBarSkin(value) {
-             this._removePreScrollBar();
-             var scrollBar = new HScrollBar();
-             scrollBar.name = "scrollBar";
-             scrollBar.bottom = 0;
-             scrollBar.skin = value;
-             scrollBar.elasticDistance = this._elasticEnabled ? 200 : 0;
-             this.scrollBar = scrollBar;
-             this.addChild(scrollBar);
-             this._setCellChanged();
-         }
-         get scrollBar() {
-             return this._scrollBar;
-         }
-         set scrollBar(value) {
-             if (this._scrollBar != value) {
-                 this._scrollBar = value;
-                 if (value) {
-                     this._isVertical = this._scrollBar.isVertical;
-                     this.addChild(this._scrollBar);
-                     this._scrollBar.on(Event.CHANGE, this, this.onScrollBarChange);
-                 }
-             }
-         }
-         get itemRender() {
-             return this._itemRender;
-         }
-         set itemRender(value) {
-             if (this._itemRender != value) {
-                 this._itemRender = value;
-                 for (var i = this._cells.length - 1; i > -1; i--) {
-                     this._cells[i].destroy();
-                 }
-                 this._cells.length = 0;
-                 this._setCellChanged();
-             }
-         }
-         set width(value) {
-             if (value != this._width) {
-                 super.width = value;
-                 this._setCellChanged();
-             }
-         }
-         get width() {
-             return super.width;
-         }
-         set height(value) {
-             if (value != this._height) {
-                 super.height = value;
-                 this._setCellChanged();
-             }
-         }
-         get height() {
-             return super.height;
-         }
-         get repeatX() {
-             return this._repeatX > 0 ? this._repeatX : this._repeatX2 > 0 ? this._repeatX2 : 1;
-         }
-         set repeatX(value) {
-             this._repeatX = value;
-             this._setCellChanged();
-         }
-         get repeatY() {
-             return this._repeatY > 0 ? this._repeatY : this._repeatY2 > 0 ? this._repeatY2 : 1;
-         }
-         set repeatY(value) {
-             this._repeatY = value;
-             this._setCellChanged();
-         }
-         get spaceX() {
-             return this._spaceX;
-         }
-         set spaceX(value) {
-             this._spaceX = value;
-             this._setCellChanged();
-         }
-         get spaceY() {
-             return this._spaceY;
-         }
-         set spaceY(value) {
-             this._spaceY = value;
-             this._setCellChanged();
-         }
-         changeCells() {
-             this._cellChanged = false;
-             if (this._itemRender) {
-                 this.scrollBar = this.getChildByName("scrollBar");
-                 var cell = this._getOneCell();
-                 var cellWidth = (cell.width + this._spaceX) || 1;
-                 var cellHeight = (cell.height + this._spaceY) || 1;
-                 if (this._width > 0)
-                     this._repeatX2 = this._isVertical ? Math.round(this._width / cellWidth) : Math.ceil(this._width / cellWidth);
-                 if (this._height > 0)
-                     this._repeatY2 = this._isVertical ? Math.ceil(this._height / cellHeight) : Math.round(this._height / cellHeight);
-                 var listWidth = this._width ? this._width : (cellWidth * this.repeatX - this._spaceX);
-                 var listHeight = this._height ? this._height : (cellHeight * this.repeatY - this._spaceY);
-                 this._cellSize = this._isVertical ? cellHeight : cellWidth;
-                 this._cellOffset = this._isVertical ? (cellHeight * Math.max(this._repeatY2, this._repeatY) - listHeight - this._spaceY) : (cellWidth * Math.max(this._repeatX2, this._repeatX) - listWidth - this._spaceX);
-                 if (this._isVertical && this.vScrollBarSkin)
-                     this._scrollBar.height = listHeight;
-                 else if (!this._isVertical && this.hScrollBarSkin)
-                     this._scrollBar.width = listWidth;
-                 this.setContentSize(listWidth, listHeight);
-                 var numX = this._isVertical ? this.repeatX : this.repeatY;
-                 var numY = (this._isVertical ? this.repeatY : this.repeatX) + (this._scrollBar ? 1 : 0);
-                 this._createItems(0, numX, numY);
-                 this._createdLine = numY;
-                 if (this._array) {
-                     this.array = this._array;
-                     this.runCallLater(this.renderItems);
-                 }
-             }
-         }
-         _getOneCell() {
-             if (this._cells.length === 0) {
-                 var item = this.createItem();
-                 this._offset.setTo(item._x, item._y);
-                 if (this.cacheContent)
-                     return item;
-                 this._cells.push(item);
-             }
-             return this._cells[0];
-         }
-         _createItems(startY, numX, numY) {
-             var box = this._content;
-             var cell = this._getOneCell();
-             var cellWidth = cell.width + this._spaceX;
-             var cellHeight = cell.height + this._spaceY;
-             if (this.cacheContent) {
-                 var cacheBox = new Box();
-                 cacheBox.cacheAs = "normal";
-                 cacheBox.pos((this._isVertical ? 0 : startY) * cellWidth, (this._isVertical ? startY : 0) * cellHeight);
-                 this._content.addChild(cacheBox);
-                 box = cacheBox;
-             }
-             else {
-                 var arr = [];
-                 for (var i = this._cells.length - 1; i > -1; i--) {
-                     var item = this._cells[i];
-                     item.removeSelf();
-                     arr.push(item);
-                 }
-                 this._cells.length = 0;
-             }
-             for (var k = startY; k < numY; k++) {
-                 for (var l = 0; l < numX; l++) {
-                     if (arr && arr.length) {
-                         cell = arr.pop();
-                     }
-                     else {
-                         cell = this.createItem();
-                     }
-                     cell.x = (this._isVertical ? l : k) * cellWidth - box._x;
-                     cell.y = (this._isVertical ? k : l) * cellHeight - box._y;
-                     cell.name = "item" + (k * numX + l);
-                     box.addChild(cell);
-                     this.addCell(cell);
-                 }
-             }
-         }
-         createItem() {
-             var arr = [];
-             if (typeof (this._itemRender) == "function") {
-                 var box = new this._itemRender();
-             }
-             else {
-                 box = SceneUtils.createComp(this._itemRender, null, null, arr);
-             }
-             if (arr.length == 0 && box["_watchMap"]) {
-                 var watchMap = box["_watchMap"];
-                 for (var name in watchMap) {
-                     var a = watchMap[name];
-                     for (var i = 0; i < a.length; i++) {
-                         var watcher = a[i];
-                         arr.push(watcher.comp, watcher.prop, watcher.value);
-                     }
-                 }
-             }
-             if (arr.length)
-                 box["_$bindData"] = arr;
-             return box;
-         }
-         addCell(cell) {
-             cell.on(Event.CLICK, this, this.onCellMouse);
-             cell.on(Event.RIGHT_CLICK, this, this.onCellMouse);
-             cell.on(Event.MOUSE_OVER, this, this.onCellMouse);
-             cell.on(Event.MOUSE_OUT, this, this.onCellMouse);
-             cell.on(Event.MOUSE_DOWN, this, this.onCellMouse);
-             cell.on(Event.MOUSE_UP, this, this.onCellMouse);
-             this._cells.push(cell);
-         }
-         _afterInited() {
-             this.initItems();
-         }
-         initItems() {
-             if (!this._itemRender && this.getChildByName("item0") != null) {
-                 this.repeatX = 1;
-                 var count;
-                 count = 0;
-                 for (var i = 0; i < 10000; i++) {
-                     var cell = this.getChildByName("item" + i);
-                     if (cell) {
-                         this.addCell(cell);
-                         count++;
-                         continue;
-                     }
-                     break;
-                 }
-                 this.repeatY = count;
-             }
-         }
-         setContentSize(width, height) {
-             this._content.width = width;
-             this._content.height = height;
-             if (this._scrollBar || this._offset.x != 0 || this._offset.y != 0) {
-                 this._content._style.scrollRect || (this._content.scrollRect = Rectangle.create());
-                 this._content._style.scrollRect.setTo(-this._offset.x, -this._offset.y, width, height);
-                 this._content.scrollRect = this._content.scrollRect;
-             }
-             this.event(Event.RESIZE);
-         }
-         onCellMouse(e) {
-             if (e.type === Event.MOUSE_DOWN)
-                 this._isMoved = false;
-             var cell = e.currentTarget;
-             var index = this._startIndex + this._cells.indexOf(cell);
-             if (index < 0)
-                 return;
-             if (e.type === Event.CLICK || e.type === Event.RIGHT_CLICK) {
-                 if (this.selectEnable && !this._isMoved)
-                     this.selectedIndex = index;
-                 else
-                     this.changeCellState(cell, true, 0);
-             }
-             else if ((e.type === Event.MOUSE_OVER || e.type === Event.MOUSE_OUT) && this._selectedIndex !== index) {
-                 this.changeCellState(cell, e.type === Event.MOUSE_OVER, 0);
-             }
-             this.mouseHandler && this.mouseHandler.runWith([e, index]);
-         }
-         changeCellState(cell, visible, index) {
-             var selectBox = cell.getChildByName("selectBox");
-             if (selectBox) {
-                 this.selectEnable = true;
-                 selectBox.visible = visible;
-                 selectBox.index = index;
-             }
-         }
-         _sizeChanged() {
-             super._sizeChanged();
-             this.setContentSize(this.width, this.height);
-             if (this._scrollBar)
-                 this.callLater(this.onScrollBarChange);
-         }
-         onScrollBarChange(e = null) {
-             this.runCallLater(this.changeCells);
-             var scrollValue = this._scrollBar.value;
-             var lineX = (this._isVertical ? this.repeatX : this.repeatY);
-             var lineY = (this._isVertical ? this.repeatY : this.repeatX);
-             var scrollLine = Math.floor(scrollValue / this._cellSize);
-             if (!this.cacheContent) {
-                 var index = scrollLine * lineX;
-                 var num = 0;
-                 let down = true;
-                 var toIndex = 0;
-                 if (index > this._startIndex) {
-                     num = index - this._startIndex;
-                     toIndex = this._startIndex + lineX * (lineY + 1);
-                     this._isMoved = true;
-                 }
-                 else if (index < this._startIndex) {
-                     num = this._startIndex - index;
-                     down = false;
-                     toIndex = this._startIndex - 1;
-                     this._isMoved = true;
-                 }
-                 for (var i = 0; i < num; i++) {
-                     if (down) {
-                         var cell = this._cells.shift();
-                         this._cells[this._cells.length] = cell;
-                         var cellIndex = toIndex + i;
-                     }
-                     else {
-                         cell = this._cells.pop();
-                         this._cells.unshift(cell);
-                         cellIndex = toIndex - i;
-                     }
-                     var pos = Math.floor(cellIndex / lineX) * this._cellSize;
-                     this._isVertical ? cell.y = pos : cell.x = pos;
-                     this.renderItem(cell, cellIndex);
-                 }
-                 this._startIndex = index;
-                 this.changeSelectStatus();
-             }
-             else {
-                 num = (lineY + 1);
-                 if (this._createdLine - scrollLine < num) {
-                     this._createItems(this._createdLine, lineX, this._createdLine + num);
-                     this.renderItems(this._createdLine * lineX, 0);
-                     this._createdLine += num;
-                 }
-             }
-             var r = this._content._style.scrollRect;
-             if (this._isVertical) {
-                 r.y = scrollValue - this._offset.y;
-                 r.x = -this._offset.x;
-             }
-             else {
-                 r.y = -this._offset.y;
-                 r.x = scrollValue - this._offset.x;
-             }
-             this._content.scrollRect = r;
-         }
-         posCell(cell, cellIndex) {
-             if (!this._scrollBar)
-                 return;
-             var lineX = (this._isVertical ? this.repeatX : this.repeatY);
-             var pos = Math.floor(cellIndex / lineX) * this._cellSize;
-             this._isVertical ? cell._y = pos : cell.x = pos;
-         }
-         get selectedIndex() {
-             return this._selectedIndex;
-         }
-         set selectedIndex(value) {
-             if (this._selectedIndex != value) {
-                 this._selectedIndex = value;
-                 this.changeSelectStatus();
-                 this.event(Event.CHANGE);
-                 this.selectHandler && this.selectHandler.runWith(value);
-                 this.startIndex = this._startIndex;
-             }
-         }
-         changeSelectStatus() {
-             for (var i = 0, n = this._cells.length; i < n; i++) {
-                 this.changeCellState(this._cells[i], this._selectedIndex === this._startIndex + i, 1);
-             }
-         }
-         get selectedItem() {
-             if (!this._array)
-                 return null;
-             return this._selectedIndex != -1 ? this._array[this._selectedIndex] : null;
-         }
-         set selectedItem(value) {
-             this._array && (this.selectedIndex = this._array.indexOf(value));
-         }
-         get selection() {
-             return this.getCell(this._selectedIndex);
-         }
-         set selection(value) {
-             this.selectedIndex = this._startIndex + this._cells.indexOf(value);
-         }
-         get startIndex() {
-             return this._startIndex;
-         }
-         set startIndex(value) {
-             this._startIndex = value > 0 ? value : 0;
-             this.callLater(this.renderItems);
-         }
-         renderItems(from = 0, to = 0) {
-             for (var i = from, n = to || this._cells.length; i < n; i++) {
-                 this.renderItem(this._cells[i], this._startIndex + i);
-             }
-             this.changeSelectStatus();
-         }
-         renderItem(cell, index) {
-             if (this._array && index >= 0 && index < this._array.length) {
-                 cell.visible = true;
-                 if (cell["_$bindData"]) {
-                     cell["_dataSource"] = this._array[index];
-                     this._bindData(cell, this._array[index]);
-                 }
-                 else
-                     cell.dataSource = this._array[index];
-                 if (!this.cacheContent) {
-                     this.posCell(cell, index);
-                 }
-                 if (this.hasListener(Event.RENDER))
-                     this.event(Event.RENDER, [cell, index]);
-                 if (this.renderHandler)
-                     this.renderHandler.runWith([cell, index]);
-             }
-             else {
-                 cell.visible = false;
-                 cell.dataSource = null;
-             }
-         }
-         _bindData(cell, data) {
-             var arr = cell._$bindData;
-             for (var i = 0, n = arr.length; i < n; i++) {
-                 var ele = arr[i++];
-                 var prop = arr[i++];
-                 var value = arr[i];
-                 var fun = UIUtils.getBindFun(value);
-                 ele[prop] = fun.call(this, data);
-             }
-         }
-         get array() {
-             return this._array;
-         }
-         set array(value) {
-             this.runCallLater(this.changeCells);
-             this._array = value || [];
-             this._preLen = this._array.length;
-             var length = this._array.length;
-             this.totalPage = Math.ceil(length / (this.repeatX * this.repeatY));
-             this._selectedIndex = this._selectedIndex < length ? this._selectedIndex : length - 1;
-             this.startIndex = this._startIndex;
-             if (this._scrollBar) {
-                 this._scrollBar.stopScroll();
-                 var numX = this._isVertical ? this.repeatX : this.repeatY;
-                 var numY = this._isVertical ? this.repeatY : this.repeatX;
-                 var lineCount = Math.ceil(length / numX);
-                 var total = this._cellOffset > 0 ? this.totalPage + 1 : this.totalPage;
-                 if (total > 1 && lineCount >= numY) {
-                     this._scrollBar.scrollSize = this._cellSize;
-                     this._scrollBar.thumbPercent = numY / lineCount;
-                     this._scrollBar.setScroll(0, (lineCount - numY) * this._cellSize + this._cellOffset, this._scrollBar.value);
-                     this._scrollBar.target = this._content;
-                 }
-                 else {
-                     this._scrollBar.setScroll(0, 0, 0);
-                     this._scrollBar.target = this._content;
-                 }
-             }
-         }
-         updateArray(array) {
-             this._array = array;
-             if (this._array) {
-                 let freshStart = this._preLen - this._startIndex;
-                 if (freshStart >= 0)
-                     this.renderItems(freshStart);
-                 this._preLen = this._array.length;
-             }
-             if (this._scrollBar) {
-                 var length = array.length;
-                 var numX = this._isVertical ? this.repeatX : this.repeatY;
-                 var numY = this._isVertical ? this.repeatY : this.repeatX;
-                 var lineCount = Math.ceil(length / numX);
-                 if (lineCount >= numY) {
-                     this._scrollBar.thumbPercent = numY / lineCount;
-                     this._scrollBar.slider["_max"] = (lineCount - numY) * this._cellSize + this._cellOffset;
-                 }
-             }
-         }
-         get page() {
-             return this._page;
-         }
-         set page(value) {
-             this._page = value;
-             if (this._array) {
-                 this._page = value > 0 ? value : 0;
-                 this._page = this._page < this.totalPage ? this._page : this.totalPage - 1;
-                 this.startIndex = this._page * this.repeatX * this.repeatY;
-             }
-         }
-         get length() {
-             return this._array ? this._array.length : 0;
-         }
-         set dataSource(value) {
-             this._dataSource = value;
-             if (typeof (value) == 'number' || typeof (value) == 'string')
-                 this.selectedIndex = parseInt(value);
-             else if (value instanceof Array)
-                 this.array = value;
-             else
-                 super.dataSource = value;
-         }
-         get dataSource() {
-             return super.dataSource;
-         }
-         get cells() {
-             this.runCallLater(this.changeCells);
-             return this._cells;
-         }
-         get elasticEnabled() {
-             return this._elasticEnabled;
-         }
-         set elasticEnabled(value) {
-             this._elasticEnabled = value;
-             if (this._scrollBar) {
-                 this._scrollBar.elasticDistance = value ? 200 : 0;
-             }
-         }
-         refresh() {
-             this.array = this._array;
-         }
-         getItem(index) {
-             if (!this._array)
-                 return null;
-             if (index > -1 && index < this._array.length) {
-                 return this._array[index];
-             }
-             return null;
-         }
-         changeItem(index, source) {
-             if (index > -1 && this._array && index < this._array.length) {
-                 this._array[index] = source;
-                 if (index >= this._startIndex && index < this._startIndex + this._cells.length) {
-                     this.renderItem(this.getCell(index), index);
-                 }
-             }
-         }
-         setItem(index, source) {
-             this.changeItem(index, source);
-         }
-         addItem(source) {
-             if (!this.array) {
-                 this.array = [source];
-             }
-             else {
-                 this._array.push(source);
-             }
-             this.array = this._array;
-         }
-         addItemAt(souce, index) {
-             this._array.splice(index, 0, souce);
-             this.array = this._array;
-         }
-         deleteItem(index) {
-             if (this._array) {
-                 this._array.splice(index, 1);
-                 this.array = this._array;
-             }
-         }
-         getCell(index) {
-             this.runCallLater(this.changeCells);
-             if (index > -1 && this._cells) {
-                 return this._cells[(index - this._startIndex) % this._cells.length];
-             }
-             return null;
-         }
-         scrollTo(index) {
-             if (this._scrollBar) {
-                 var numX = this._isVertical ? this.repeatX : this.repeatY;
-                 this._scrollBar.value = Math.floor(index / numX) * this._cellSize;
-             }
-             else {
-                 this.startIndex = index;
-             }
-         }
-         tweenTo(index, time = 200, complete = null) {
-             if (this._scrollBar) {
-                 this._scrollBar.stopScroll();
-                 var numX = this._isVertical ? this.repeatX : this.repeatY;
-                 Tween.to(this._scrollBar, { value: Math.floor(index / numX) * this._cellSize }, time, null, complete, 0, true);
-             }
-             else {
-                 this.startIndex = index;
-                 if (complete)
-                     complete.run();
-             }
-         }
-         _setCellChanged() {
-             if (!this._cellChanged) {
-                 this._cellChanged = true;
-                 this.callLater(this.changeCells);
-             }
-         }
-         commitMeasure() {
-             this.runCallLater(this.changeCells);
-         }
-     }
-     ILaya.regClass(List);
-     ClassUtils.regClass("laya.ui.List", List);
-     ClassUtils.regClass("Laya.List", List);
 
      class ComboBox extends UIComponent {
          constructor(skin = null, labels = null) {
@@ -29421,152 +29567,6 @@
      ClassUtils.regClass("laya.ui.View", View);
      ClassUtils.regClass("Laya.View", View);
 
-     class Script extends Component {
-         get isSingleton() {
-             return false;
-         }
-         _onAwake() {
-             this.onAwake();
-             if (this.onStart !== Script.prototype.onStart) {
-                 ILaya.startTimer.callLater(this, this.onStart);
-             }
-         }
-         _onEnable() {
-             var proto = Script.prototype;
-             if (this.onTriggerEnter !== proto.onTriggerEnter) {
-                 this.owner.on(Event.TRIGGER_ENTER, this, this.onTriggerEnter);
-             }
-             if (this.onTriggerStay !== proto.onTriggerStay) {
-                 this.owner.on(Event.TRIGGER_STAY, this, this.onTriggerStay);
-             }
-             if (this.onTriggerExit !== proto.onTriggerExit) {
-                 this.owner.on(Event.TRIGGER_EXIT, this, this.onTriggerExit);
-             }
-             if (this.onMouseDown !== proto.onMouseDown) {
-                 this.owner.on(Event.MOUSE_DOWN, this, this.onMouseDown);
-             }
-             if (this.onMouseUp !== proto.onMouseUp) {
-                 this.owner.on(Event.MOUSE_UP, this, this.onMouseUp);
-             }
-             if (this.onClick !== proto.onClick) {
-                 this.owner.on(Event.CLICK, this, this.onClick);
-             }
-             if (this.onStageMouseDown !== proto.onStageMouseDown) {
-                 ILaya.stage.on(Event.MOUSE_DOWN, this, this.onStageMouseDown);
-             }
-             if (this.onStageMouseUp !== proto.onStageMouseUp) {
-                 ILaya.stage.on(Event.MOUSE_UP, this, this.onStageMouseUp);
-             }
-             if (this.onStageClick !== proto.onStageClick) {
-                 ILaya.stage.on(Event.CLICK, this, this.onStageClick);
-             }
-             if (this.onStageMouseMove !== proto.onStageMouseMove) {
-                 ILaya.stage.on(Event.MOUSE_MOVE, this, this.onStageMouseMove);
-             }
-             if (this.onDoubleClick !== proto.onDoubleClick) {
-                 this.owner.on(Event.DOUBLE_CLICK, this, this.onDoubleClick);
-             }
-             if (this.onRightClick !== proto.onRightClick) {
-                 this.owner.on(Event.RIGHT_CLICK, this, this.onRightClick);
-             }
-             if (this.onMouseMove !== proto.onMouseMove) {
-                 this.owner.on(Event.MOUSE_MOVE, this, this.onMouseMove);
-             }
-             if (this.onMouseOver !== proto.onMouseOver) {
-                 this.owner.on(Event.MOUSE_OVER, this, this.onMouseOver);
-             }
-             if (this.onMouseOut !== proto.onMouseOut) {
-                 this.owner.on(Event.MOUSE_OUT, this, this.onMouseOut);
-             }
-             if (this.onKeyDown !== proto.onKeyDown) {
-                 ILaya.stage.on(Event.KEY_DOWN, this, this.onKeyDown);
-             }
-             if (this.onKeyPress !== proto.onKeyPress) {
-                 ILaya.stage.on(Event.KEY_PRESS, this, this.onKeyPress);
-             }
-             if (this.onKeyUp !== proto.onKeyUp) {
-                 ILaya.stage.on(Event.KEY_UP, this, this.onKeyUp);
-             }
-             if (this.onUpdate !== proto.onUpdate) {
-                 ILaya.updateTimer.frameLoop(1, this, this.onUpdate);
-             }
-             if (this.onLateUpdate !== proto.onLateUpdate) {
-                 ILaya.lateTimer.frameLoop(1, this, this.onLateUpdate);
-             }
-             if (this.onPreRender !== proto.onPreRender) {
-                 ILaya.lateTimer.frameLoop(1, this, this.onPreRender);
-             }
-             this.onEnable();
-         }
-         _onDisable() {
-             this.owner.offAllCaller(this);
-             ILaya.stage.offAllCaller(this);
-             ILaya.startTimer.clearAll(this);
-             ILaya.updateTimer.clearAll(this);
-             ILaya.lateTimer.clearAll(this);
-         }
-         _isScript() {
-             return true;
-         }
-         _onDestroy() {
-             this.onDestroy();
-         }
-         onAwake() {
-         }
-         onEnable() {
-         }
-         onStart() {
-         }
-         onTriggerEnter(other, self, contact) {
-         }
-         onTriggerStay(other, self, contact) {
-         }
-         onTriggerExit(other, self, contact) {
-         }
-         onMouseDown(e) {
-         }
-         onMouseUp(e) {
-         }
-         onClick(e) {
-         }
-         onStageMouseDown(e) {
-         }
-         onStageMouseUp(e) {
-         }
-         onStageClick(e) {
-         }
-         onStageMouseMove(e) {
-         }
-         onDoubleClick(e) {
-         }
-         onRightClick(e) {
-         }
-         onMouseMove(e) {
-         }
-         onMouseOver(e) {
-         }
-         onMouseOut(e) {
-         }
-         onKeyDown(e) {
-         }
-         onKeyPress(e) {
-         }
-         onKeyUp(e) {
-         }
-         onUpdate() {
-         }
-         onLateUpdate() {
-         }
-         onPreRender() {
-         }
-         onPostRender() {
-         }
-         onDisable() {
-         }
-         onDestroy() {
-         }
-     }
-
      exports.Box = Box;
      exports.Browser = Browser;
      exports.Button = Button;
@@ -29580,6 +29580,7 @@
      exports.Input = Input;
      exports.Label = Label;
      exports.Laya = Laya;
+     exports.List = List;
      exports.Loader = Loader;
      exports.LocalStorage = LocalStorage;
      exports.MouseManager = MouseManager;

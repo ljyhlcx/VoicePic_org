@@ -1,4 +1,4 @@
-import { Laya } from './../../libs/Laya';
+import { Laya } from '../../libs/Laya';
 import { Box } from "laya/ui/Box";
 import { Image } from "laya/ui/Image";
 import { Texture } from "laya/resource/Texture";

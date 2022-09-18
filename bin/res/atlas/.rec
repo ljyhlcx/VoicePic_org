@@ -2,9 +2,15 @@ D .
 D comp
 P A7631149 anim.png
 P 87F8F2D0 bru.png
+P 3F1472BD btn_1.png
+P 6EDBD886 btn_2.png
 P 654745C6 btnDIY.png
 P 60F9B557 car.png
+P 15C1F09C game1.png
+P B6343D4B game2.png
+P 187A54C6 game3.png
 P 01DDCB80 img_bg.png
+P 890D2140 img_panelbg.png
 P 6C005A2A ren.png
 P DF4C8C55 tab.png
 P A8C79A2F voice.png
@@ -12,5 +18,3 @@ P 7AA658A5 vscroll$bar.png
 P B53538F8 vscroll$down.png
 P 23C8EE54 vscroll$up.png
 P A8A3F159 vscroll.png
-D res
-D sound

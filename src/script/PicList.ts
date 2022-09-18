@@ -1,8 +1,11 @@
-import { UIComponent } from './../../libs/laya/ui/UIComponent';
-import { DataManager } from './../DataManager';
-import { stage, Laya } from './../../libs/Laya';
-import { Point } from './../../libs/laya/maths/Point';
-import { Rectangle } from './../../libs/laya/maths/Rectangle';
+import { PicToVoice } from './PicToVoice';
+import { VoiceToPic } from './VoiceToPic';
+import { NameToPic } from './NameToPic';
+import { UIComponent } from '../../libs/laya/ui/UIComponent';
+import { DataManager } from '../DataManager';
+import { stage, Laya } from '../../libs/Laya';
+import { Point } from '../../libs/laya/maths/Point';
+import { Rectangle } from '../../libs/laya/maths/Rectangle';
 import { MouseManager } from "laya/events/MouseManager";
 import { Event } from "laya/events/Event";
 import { Box } from "laya/ui/Box";
@@ -76,16 +79,21 @@ export class PicList extends PicListUI {
         this.panel.vScrollBar.stopScroll();
         this.panel.vScrollBar.value = 0;
         this.vs.removeChildren();
-        var arr: any[] = this._dataSource[index];
-        this.vs.addChild(this.topspace);
-        for (var i: number = 0, len: number = arr.length; i < len; i++) {
-            var item: PicItem = new PicItem();
-            item.data = arr[i];
-            item.btnDIY.visible = true;//(index == 0);
-            item.btnDIY.on(Event.CLICK, this, this.onDIY, [i]);
-            this.vs.addChild(item);
-            if (i < 4)
-                item.display();
+        this.removeAllGame();
+        if (index >= 4) {
+            this.onTabToGame(index);//切到游戏
+        } else {
+            var arr: any[] = this._dataSource[index];
+            this.vs.addChild(this.topspace);
+            for (var i: number = 0, len: number = arr.length; i < len; i++) {
+                var item: PicItem = new PicItem();
+                item.data = arr[i];
+                item.btnDIY.visible = true;//(index == 0);
+                item.btnDIY.on(Event.CLICK, this, this.onDIY, [i]);
+                this.vs.addChild(item);
+                if (i < 4)
+                    item.display();
+            }
         }
     }
 
@@ -97,6 +105,10 @@ export class PicList extends PicListUI {
                 item.display();
         }
     }
+    /**
+     * 自定义图片内容
+     * @param i 
+     */
     private onDIY(i: number): void {
         var the = this;
         if (window["wx"] && window["wx"].chooseImage) {
@@ -119,5 +131,37 @@ export class PicList extends PicListUI {
                 }
             })
         }
+    }
+    /******************************游戏***************************** */
+    private nameToPic: NameToPic;
+    private voiceToPic: VoiceToPic;
+    private picToVoice: PicToVoice;
+    /**切换到游戏 */
+    private onTabToGame(index: number): void {
+        switch (index) {
+            case 4:
+                if (!this.nameToPic) {
+                    this.nameToPic = new NameToPic();
+                }
+                this.panel.addChild(this.nameToPic);
+                break;
+            case 5:
+                if (!this.voiceToPic) {
+                    this.voiceToPic = new VoiceToPic();
+                }
+                this.panel.addChild(this.voiceToPic);
+                break;
+            case 6:
+                if (!this.picToVoice) {
+                    this.picToVoice = new PicToVoice();
+                }
+                this.panel.addChild(this.picToVoice);
+                break;
+        }
+    }
+    private removeAllGame(): void {
+        if (this.nameToPic) this.nameToPic.removeSelf();
+        if (this.voiceToPic) this.voiceToPic.removeSelf();
+        if (this.picToVoice) this.picToVoice.removeSelf();
     }
 }
