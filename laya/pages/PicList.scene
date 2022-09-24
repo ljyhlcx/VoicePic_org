@@ -60,7 +60,7 @@
                     "x":30,
                     "type":"Box",
                     "searchKey":"Box,tab",
-                    "props":{"x":0,"width":750,"var":"tab","height":150},
+                    "props":{"x":0,"width":1050,"var":"tab","height":150},
                     "nodeParent":45,
                     "label":"tab",
                     "isOpen":true,

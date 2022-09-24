@@ -31,7 +31,7 @@ window.Laya=window.Laya||{};
                 this.createView(NameToPicUI.uiView);
             }
         }
-        NameToPicUI.uiView = { "type": "View", "props": { "width": 720, "top": 0, "bottom": 0 }, "compId": 2, "child": [{ "type": "Button", "props": { "x": 57, "width": 379, "var": "btnName", "stateNum": 1, "skin": "comp/btn_1.png", "sizeGrid": "0,50,0,50", "labelSize": 40, "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "苹果", "height": 89, "bottom": 40 }, "compId": 4 }, { "type": "Button", "props": { "x": 480, "width": 211, "var": "btnNext", "stateNum": 1, "skin": "comp/btn_1.png", "sizeGrid": "0,50,0,50", "labelSize": 40, "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "下一题", "height": 89, "bottom": 40 }, "compId": 5 }, { "type": "Button", "props": { "y": 39, "width": 260, "var": "lblzq", "stateNum": 1, "skin": "comp/btn_1.png", "sizeGrid": "0,50,0,50", "right": 60, "mouseEnabled": false, "labelSize": 35, "labelColors": "#000000,#000000,#ffffff", "label": "正确：0", "height": 89 }, "compId": 6 }, { "type": "Button", "props": { "y": 39, "width": 260, "var": "lblcuo", "stateNum": 1, "skin": "comp/btn_2.png", "sizeGrid": "0,50,0,50", "mouseEnabled": false, "left": 60, "labelSize": 35, "labelColors": "#000000,#000000,#ffffff", "label": "错误：0", "height": 89 }, "compId": 7 }, { "type": "List", "props": { "var": "list", "top": 140, "spaceY": 10, "spaceX": 10, "selectEnable": true, "right": 10, "repeatY": 2, "repeatX": 2, "left": 10, "bottom": 160 }, "compId": 11 }, { "type": "Box", "props": { "var": "bigBox", "top": 140, "right": 10, "left": 10, "bottom": 160 }, "compId": 12, "child": [{ "type": "Image", "props": { "var": "bigImg", "centerY": 0, "centerX": 0 }, "compId": 13 }] }], "loadList": ["comp/btn_1.png", "comp/btn_2.png"], "loadList3D": [] };
+        NameToPicUI.uiView = { "type": "View", "props": { "width": 720, "top": 0, "bottom": 0 }, "compId": 2, "child": [{ "type": "Button", "props": { "y": 50, "width": 260, "var": "lblzq", "stateNum": 1, "skin": "comp/btn_1.png", "sizeGrid": "0,50,0,50", "right": 60, "mouseEnabled": false, "labelSize": 35, "labelColors": "#000000,#000000,#ffffff", "label": "正确：0", "height": 89 }, "compId": 6 }, { "type": "Button", "props": { "y": 50, "width": 260, "var": "lblcuo", "stateNum": 1, "skin": "comp/btn_2.png", "sizeGrid": "0,50,0,50", "mouseEnabled": false, "left": 60, "labelSize": 35, "labelColors": "#000000,#000000,#ffffff", "label": "错误：0", "height": 89 }, "compId": 7 }, { "type": "Button", "props": { "width": 211, "var": "btnNext", "stateNum": 1, "skin": "comp/btn_1.png", "sizeGrid": "0,50,0,50", "right": 45, "labelSize": 40, "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "下一题", "height": 89, "bottom": 40 }, "compId": 5 }, { "type": "Button", "props": { "y": 471, "x": 45, "width": 379, "var": "btnName", "stateNum": 1, "skin": "comp/btn_1.png", "sizeGrid": "0,50,0,50", "labelSize": 40, "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "苹果", "height": 89, "bottom": 40 }, "compId": 4 }, { "type": "List", "props": { "var": "list", "top": 160, "spaceY": 4, "spaceX": 4, "selectEnable": true, "right": 0, "repeatY": 2, "repeatX": 2, "left": 0, "bottom": 160 }, "compId": 11 }, { "type": "Box", "props": { "var": "bigBox", "top": 160, "right": 10, "left": 10, "bottom": 160 }, "compId": 12, "child": [{ "type": "Image", "props": { "var": "bigImg", "centerY": 0, "centerX": 0 }, "compId": 13 }] }], "loadList": ["comp/btn_1.png", "comp/btn_2.png"], "loadList3D": [] };
         ui.NameToPicUI = NameToPicUI;
         REG("ui.NameToPicUI", NameToPicUI);
         class PicItemUI extends Laya.View {
@@ -58,33 +58,34 @@ window.Laya=window.Laya||{};
                 this.createView(PicListUI.uiView);
             }
         }
-        PicListUI.uiView = { "type": "View", "props": { "width": 720, "runtime": "script/GameUI.ts", "height": 1440 }, "compId": 1, "child": [{ "type": "Panel", "props": { "x": 0, "width": 720, "var": "panel", "vScrollBarSkin": "comp/vscroll.png", "top": 0, "bottom": 150 }, "compId": 44, "child": [{ "type": "VBox", "props": { "y": 0, "x": 0, "width": 720, "var": "vs", "space": 25, "align": "left" }, "compId": 29 }] }, { "type": "Panel", "props": { "x": 0, "width": 720, "height": 150, "hScrollBarSkin": "comp/vscroll.png", "bottom": 0 }, "compId": 45, "child": [{ "type": "Box", "props": { "x": 0, "width": 750, "var": "tab", "height": 150 }, "compId": 35, "child": [{ "type": "Button", "props": { "y": 0, "x": 0, "toggle": true, "skin": "comp/tab.png", "selected": true, "labelSize": 20, "labelPadding": "50", "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "认识人物" }, "compId": 42, "child": [{ "type": "Sprite", "props": { "y": 8, "x": 25, "texture": "comp/ren.png", "mouseEnabled": false }, "compId": 43 }] }, { "type": "Button", "props": { "y": 0, "x": 150, "toggle": true, "skin": "comp/tab.png", "labelSize": 20, "labelPadding": "50", "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "动物声音" }, "compId": 40, "child": [{ "type": "Sprite", "props": { "y": 8, "x": 25, "width": 100, "texture": "comp/anim.png", "height": 100, "disabled": true }, "compId": 41 }] }, { "type": "Button", "props": { "y": 0, "x": 300, "toggle": true, "skin": "comp/tab.png", "labelSize": 20, "labelPadding": "50", "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "水果蔬菜" }, "compId": 36, "child": [{ "type": "Sprite", "props": { "y": 8, "x": 25, "texture": "comp/bru.png", "mouseEnabled": false }, "compId": 37 }] }, { "type": "Button", "props": { "y": 0, "x": 450, "toggle": true, "skin": "comp/tab.png", "labelSize": 20, "labelPadding": "50", "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "交通工具" }, "compId": 38, "child": [{ "type": "Sprite", "props": { "y": 8, "x": 25, "width": 100, "texture": "comp/car.png", "mouseEnabled": false, "height": 100 }, "compId": 39 }] }, { "type": "Button", "props": { "y": 0, "x": 600, "toggle": true, "skin": "comp/tab.png", "labelSize": 20, "labelPadding": "50", "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "名称识图" }, "compId": 46, "child": [{ "type": "Sprite", "props": { "y": 8, "x": 25, "width": 100, "texture": "comp/game1.png", "mouseEnabled": false, "height": 100 }, "compId": 47 }] }, { "type": "Button", "props": { "y": 0, "x": 750, "toggle": true, "skin": "comp/tab.png", "labelSize": 20, "labelPadding": "50", "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "看图辨声" }, "compId": 48, "child": [{ "type": "Sprite", "props": { "y": 8, "x": 25, "width": 100, "texture": "comp/game2.png", "mouseEnabled": false, "height": 100 }, "compId": 49 }] }, { "type": "Button", "props": { "y": 0, "x": 900, "toggle": true, "skin": "comp/tab.png", "labelSize": 20, "labelPadding": "50", "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "听声识图" }, "compId": 50, "child": [{ "type": "Sprite", "props": { "y": 8, "x": 25, "width": 100, "texture": "comp/game3.png", "mouseEnabled": false, "height": 100 }, "compId": 51 }] }] }] }], "loadList": ["comp/vscroll.png", "comp/tab.png", "comp/ren.png", "comp/anim.png", "comp/bru.png", "comp/car.png", "comp/game1.png", "comp/game2.png", "comp/game3.png"], "loadList3D": [] };
+        PicListUI.uiView = { "type": "View", "props": { "width": 720, "runtime": "script/GameUI.ts", "height": 1440 }, "compId": 1, "child": [{ "type": "Panel", "props": { "x": 0, "width": 720, "var": "panel", "vScrollBarSkin": "comp/vscroll.png", "top": 0, "bottom": 150 }, "compId": 44, "child": [{ "type": "VBox", "props": { "y": 0, "x": 0, "width": 720, "var": "vs", "space": 25, "align": "left" }, "compId": 29 }] }, { "type": "Panel", "props": { "x": 0, "width": 720, "height": 150, "hScrollBarSkin": "comp/vscroll.png", "bottom": 0 }, "compId": 45, "child": [{ "type": "Box", "props": { "x": 0, "width": 1050, "var": "tab", "height": 150 }, "compId": 35, "child": [{ "type": "Button", "props": { "y": 0, "x": 0, "toggle": true, "skin": "comp/tab.png", "selected": true, "labelSize": 20, "labelPadding": "50", "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "认识人物" }, "compId": 42, "child": [{ "type": "Sprite", "props": { "y": 8, "x": 25, "texture": "comp/ren.png", "mouseEnabled": false }, "compId": 43 }] }, { "type": "Button", "props": { "y": 0, "x": 150, "toggle": true, "skin": "comp/tab.png", "labelSize": 20, "labelPadding": "50", "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "动物声音" }, "compId": 40, "child": [{ "type": "Sprite", "props": { "y": 8, "x": 25, "width": 100, "texture": "comp/anim.png", "height": 100, "disabled": true }, "compId": 41 }] }, { "type": "Button", "props": { "y": 0, "x": 300, "toggle": true, "skin": "comp/tab.png", "labelSize": 20, "labelPadding": "50", "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "水果蔬菜" }, "compId": 36, "child": [{ "type": "Sprite", "props": { "y": 8, "x": 25, "texture": "comp/bru.png", "mouseEnabled": false }, "compId": 37 }] }, { "type": "Button", "props": { "y": 0, "x": 450, "toggle": true, "skin": "comp/tab.png", "labelSize": 20, "labelPadding": "50", "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "交通工具" }, "compId": 38, "child": [{ "type": "Sprite", "props": { "y": 8, "x": 25, "width": 100, "texture": "comp/car.png", "mouseEnabled": false, "height": 100 }, "compId": 39 }] }, { "type": "Button", "props": { "y": 0, "x": 600, "toggle": true, "skin": "comp/tab.png", "labelSize": 20, "labelPadding": "50", "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "名称识图" }, "compId": 46, "child": [{ "type": "Sprite", "props": { "y": 8, "x": 25, "width": 100, "texture": "comp/game1.png", "mouseEnabled": false, "height": 100 }, "compId": 47 }] }, { "type": "Button", "props": { "y": 0, "x": 750, "toggle": true, "skin": "comp/tab.png", "labelSize": 20, "labelPadding": "50", "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "看图辨声" }, "compId": 48, "child": [{ "type": "Sprite", "props": { "y": 8, "x": 25, "width": 100, "texture": "comp/game2.png", "mouseEnabled": false, "height": 100 }, "compId": 49 }] }, { "type": "Button", "props": { "y": 0, "x": 900, "toggle": true, "skin": "comp/tab.png", "labelSize": 20, "labelPadding": "50", "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "听声识图" }, "compId": 50, "child": [{ "type": "Sprite", "props": { "y": 8, "x": 25, "width": 100, "texture": "comp/game3.png", "mouseEnabled": false, "height": 100 }, "compId": 51 }] }] }] }], "loadList": ["comp/vscroll.png", "comp/tab.png", "comp/ren.png", "comp/anim.png", "comp/bru.png", "comp/car.png", "comp/game1.png", "comp/game2.png", "comp/game3.png"], "loadList3D": [] };
         ui.PicListUI = PicListUI;
         REG("ui.PicListUI", PicListUI);
         class PicToVoiceUI extends Laya.View {
             constructor() {
                 super();
-                this.referenceClass = [Laya.View];
+                this.referenceClass = [Laya.Box, Laya.Image, Laya.Button, Laya.View];
             }
             createChildren() {
                 super.createChildren();
                 this.createView(PicToVoiceUI.uiView);
             }
         }
-        PicToVoiceUI.uiView = { "type": "View", "props": { "width": 100, "height": 100 }, "loadList": [], "loadList3D": [] };
+        PicToVoiceUI.uiView = { "type": "View", "props": { "width": 720, "top": 0, "bottom": 0 }, "compId": 2, "child": [{ "type": "Box", "props": { "y": 160, "x": 10, "width": 700, "var": "bigBox", "top": 160, "right": 10, "left": 10, "bottom": 400 }, "compId": 9, "child": [{ "type": "Image", "props": { "var": "bigImg", "centerY": 0, "centerX": 0 }, "compId": 10 }] }, { "type": "Button", "props": { "y": 50, "width": 260, "var": "lblzq", "stateNum": 1, "skin": "comp/btn_1.png", "sizeGrid": "0,50,0,50", "right": 60, "mouseEnabled": false, "labelSize": 35, "labelColors": "#000000,#000000,#ffffff", "label": "正确：0", "height": 89 }, "compId": 7 }, { "type": "Button", "props": { "y": 50, "width": 260, "var": "lblcuo", "stateNum": 1, "skin": "comp/btn_2.png", "sizeGrid": "0,50,0,50", "mouseEnabled": false, "left": 60, "labelSize": 35, "labelColors": "#000000,#000000,#ffffff", "label": "错误：0", "height": 89 }, "compId": 8 }, { "type": "Button", "props": { "width": 224, "var": "btnName", "stateNum": 1, "skin": "comp/btn_1.png", "sizeGrid": "0,50,0,50", "labelSize": 40, "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "height": 89, "centerX": 0, "bottom": 403 }, "compId": 11 }, { "type": "Button", "props": { "width": 211, "var": "btnNext", "stateNum": 1, "skin": "comp/btn_1.png", "sizeGrid": "0,50,0,50", "right": 45, "labelSize": 40, "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "下一题", "height": 89, "bottom": 40 }, "compId": 12 }, { "type": "Button", "props": { "x": 45, "width": 379, "var": "btnSubmit", "stateNum": 1, "skin": "comp/btn_1.png", "sizeGrid": "0,50,0,50", "labelSize": 40, "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "谁的声音", "height": 89, "bottom": 40 }, "compId": 13 }, { "type": "Button", "props": { "x": 45, "width": 289, "var": "v3", "stateNum": 1, "skin": "comp/btn_1.png", "sizeGrid": "0,50,0,50", "labelSize": 40, "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "3", "height": 89, "bottom": 159 }, "compId": 14 }, { "type": "Button", "props": { "width": 287, "var": "v4", "stateNum": 1, "skin": "comp/btn_1.png", "sizeGrid": "0,50,0,50", "right": 45, "labelSize": 40, "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "4", "height": 89, "bottom": 159 }, "compId": 15 }, { "type": "Button", "props": { "x": 45, "width": 289, "var": "v1", "stateNum": 1, "skin": "comp/btn_1.png", "sizeGrid": "0,50,0,50", "labelSize": 40, "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "1", "height": 89, "bottom": 279 }, "compId": 16 }, { "type": "Button", "props": { "width": 287, "var": "v2", "stateNum": 1, "skin": "comp/btn_1.png", "sizeGrid": "0,50,0,50", "right": 45, "labelSize": 40, "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "2", "height": 89, "bottom": 279 }, "compId": 17 }], "loadList": ["comp/btn_1.png", "comp/btn_2.png"], "loadList3D": [] };
         ui.PicToVoiceUI = PicToVoiceUI;
         REG("ui.PicToVoiceUI", PicToVoiceUI);
         class VoiceToPicUI extends Laya.View {
             constructor() {
                 super();
-                this.referenceClass = [Laya.View];
+                this.referenceClass = [Laya.Box, Laya.Image, Laya.List, Laya.Button, Laya.View,
+                ];
             }
             createChildren() {
                 super.createChildren();
                 this.createView(VoiceToPicUI.uiView);
             }
         }
-        VoiceToPicUI.uiView = { "type": "View", "props": { "width": 100, "height": 100 }, "loadList": [], "loadList3D": [] };
+        VoiceToPicUI.uiView = { "type": "View", "props": { "width": 720, "top": 0, "bottom": 0 }, "compId": 2, "child": [{ "type": "Box", "props": { "y": 160, "x": 10, "width": 700, "var": "bigBox", "top": 160, "right": 10, "left": 10, "height": 190, "bottom": 160 }, "compId": 8, "child": [{ "type": "Image", "props": { "var": "bigImg", "centerY": 0, "centerX": 0 }, "compId": 9 }] }, { "type": "List", "props": { "y": 160, "x": 0, "var": "list", "top": 160, "spaceY": 4, "spaceX": 4, "selectEnable": true, "right": 0, "repeatY": 2, "repeatX": 2, "left": 0, "bottom": 160 }, "compId": 7 }, { "type": "Button", "props": { "y": 50, "width": 260, "var": "lblzq", "stateNum": 1, "skin": "comp/btn_1.png", "sizeGrid": "0,50,0,50", "right": 60, "mouseEnabled": false, "labelSize": 35, "labelColors": "#000000,#000000,#ffffff", "label": "正确：0", "height": 89 }, "compId": 3 }, { "type": "Button", "props": { "y": 50, "width": 260, "var": "lblcuo", "stateNum": 1, "skin": "comp/btn_2.png", "sizeGrid": "0,50,0,50", "mouseEnabled": false, "left": 60, "labelSize": 35, "labelColors": "#000000,#000000,#ffffff", "label": "错误：0", "height": 89 }, "compId": 4 }, { "type": "Button", "props": { "width": 211, "var": "btnNext", "stateNum": 1, "skin": "comp/btn_1.png", "sizeGrid": "0,50,0,50", "right": 45, "labelSize": 40, "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "下一题", "height": 89, "bottom": 40 }, "compId": 5 }, { "type": "Button", "props": { "x": 45, "width": 379, "var": "btnVoice", "stateNum": 1, "skin": "comp/btn_1.png", "sizeGrid": "0,50,0,50", "labelSize": 40, "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "谁的声音", "height": 89, "bottom": 40 }, "compId": 6 }, { "type": "Button", "props": { "width": 224, "var": "btnName", "stateNum": 1, "skin": "comp/btn_1.png", "sizeGrid": "0,50,0,50", "labelSize": 40, "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "height": 89, "centerX": 0, "bottom": 161 }, "compId": 11 }], "loadList": ["comp/btn_1.png", "comp/btn_2.png"], "loadList3D": [] };
         ui.VoiceToPicUI = VoiceToPicUI;
         REG("ui.VoiceToPicUI", VoiceToPicUI);
     })(ui || (ui = {}));
@@ -115,6 +116,8 @@ window.Laya=window.Laya||{};
     class DataManager {
     }
     DataManager.nameToPicNum = { zq: 0, cw: 0 };
+    DataManager.voiceToPicNum = { zq: 0, cw: 0 };
+    DataManager.picToVoiceNum = { zq: 0, cw: 0 };
 
     var REG$1 = Laya.ClassUtils.regClass;
     class NameToPicUI extends Laya.View {
@@ -128,7 +131,7 @@ window.Laya=window.Laya||{};
             this.createView(NameToPicUI.uiView);
         }
     }
-    NameToPicUI.uiView = { "type": "View", "props": { "width": 720, "top": 0, "bottom": 0 }, "compId": 2, "child": [{ "type": "Button", "props": { "x": 57, "width": 379, "var": "btnName", "stateNum": 1, "skin": "comp/btn_1.png", "sizeGrid": "0,50,0,50", "labelSize": 40, "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "苹果", "height": 89, "bottom": 40 }, "compId": 4 }, { "type": "Button", "props": { "x": 480, "width": 211, "var": "btnNext", "stateNum": 1, "skin": "comp/btn_1.png", "sizeGrid": "0,50,0,50", "labelSize": 40, "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "下一题", "height": 89, "bottom": 40 }, "compId": 5 }, { "type": "Button", "props": { "y": 39, "width": 260, "var": "lblzq", "stateNum": 1, "skin": "comp/btn_1.png", "sizeGrid": "0,50,0,50", "right": 60, "mouseEnabled": false, "labelSize": 35, "labelColors": "#000000,#000000,#ffffff", "label": "正确：0", "height": 89 }, "compId": 6 }, { "type": "Button", "props": { "y": 39, "width": 260, "var": "lblcuo", "stateNum": 1, "skin": "comp/btn_2.png", "sizeGrid": "0,50,0,50", "mouseEnabled": false, "left": 60, "labelSize": 35, "labelColors": "#000000,#000000,#ffffff", "label": "错误：0", "height": 89 }, "compId": 7 }, { "type": "List", "props": { "var": "list", "top": 140, "spaceY": 10, "spaceX": 10, "selectEnable": true, "right": 10, "repeatY": 2, "repeatX": 2, "left": 10, "bottom": 160 }, "compId": 11 }, { "type": "Box", "props": { "var": "bigBox", "top": 140, "right": 10, "left": 10, "bottom": 160 }, "compId": 12, "child": [{ "type": "Image", "props": { "var": "bigImg", "centerY": 0, "centerX": 0 }, "compId": 13 }] }], "loadList": ["comp/btn_1.png", "comp/btn_2.png"], "loadList3D": [] };
+    NameToPicUI.uiView = { "type": "View", "props": { "width": 720, "top": 0, "bottom": 0 }, "compId": 2, "child": [{ "type": "Button", "props": { "y": 50, "width": 260, "var": "lblzq", "stateNum": 1, "skin": "comp/btn_1.png", "sizeGrid": "0,50,0,50", "right": 60, "mouseEnabled": false, "labelSize": 35, "labelColors": "#000000,#000000,#ffffff", "label": "正确：0", "height": 89 }, "compId": 6 }, { "type": "Button", "props": { "y": 50, "width": 260, "var": "lblcuo", "stateNum": 1, "skin": "comp/btn_2.png", "sizeGrid": "0,50,0,50", "mouseEnabled": false, "left": 60, "labelSize": 35, "labelColors": "#000000,#000000,#ffffff", "label": "错误：0", "height": 89 }, "compId": 7 }, { "type": "Button", "props": { "width": 211, "var": "btnNext", "stateNum": 1, "skin": "comp/btn_1.png", "sizeGrid": "0,50,0,50", "right": 45, "labelSize": 40, "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "下一题", "height": 89, "bottom": 40 }, "compId": 5 }, { "type": "Button", "props": { "y": 471, "x": 45, "width": 379, "var": "btnName", "stateNum": 1, "skin": "comp/btn_1.png", "sizeGrid": "0,50,0,50", "labelSize": 40, "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "苹果", "height": 89, "bottom": 40 }, "compId": 4 }, { "type": "List", "props": { "var": "list", "top": 160, "spaceY": 4, "spaceX": 4, "selectEnable": true, "right": 0, "repeatY": 2, "repeatX": 2, "left": 0, "bottom": 160 }, "compId": 11 }, { "type": "Box", "props": { "var": "bigBox", "top": 160, "right": 10, "left": 10, "bottom": 160 }, "compId": 12, "child": [{ "type": "Image", "props": { "var": "bigImg", "centerY": 0, "centerX": 0 }, "compId": 13 }] }], "loadList": ["comp/btn_1.png", "comp/btn_2.png"], "loadList3D": [] };
     REG$1("ui.NameToPicUI", NameToPicUI);
     class PicItemUI extends Laya.View {
         constructor() {
@@ -153,42 +156,158 @@ window.Laya=window.Laya||{};
             this.createView(PicListUI.uiView);
         }
     }
-    PicListUI.uiView = { "type": "View", "props": { "width": 720, "runtime": "script/GameUI.ts", "height": 1440 }, "compId": 1, "child": [{ "type": "Panel", "props": { "x": 0, "width": 720, "var": "panel", "vScrollBarSkin": "comp/vscroll.png", "top": 0, "bottom": 150 }, "compId": 44, "child": [{ "type": "VBox", "props": { "y": 0, "x": 0, "width": 720, "var": "vs", "space": 25, "align": "left" }, "compId": 29 }] }, { "type": "Panel", "props": { "x": 0, "width": 720, "height": 150, "hScrollBarSkin": "comp/vscroll.png", "bottom": 0 }, "compId": 45, "child": [{ "type": "Box", "props": { "x": 0, "width": 750, "var": "tab", "height": 150 }, "compId": 35, "child": [{ "type": "Button", "props": { "y": 0, "x": 0, "toggle": true, "skin": "comp/tab.png", "selected": true, "labelSize": 20, "labelPadding": "50", "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "认识人物" }, "compId": 42, "child": [{ "type": "Sprite", "props": { "y": 8, "x": 25, "texture": "comp/ren.png", "mouseEnabled": false }, "compId": 43 }] }, { "type": "Button", "props": { "y": 0, "x": 150, "toggle": true, "skin": "comp/tab.png", "labelSize": 20, "labelPadding": "50", "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "动物声音" }, "compId": 40, "child": [{ "type": "Sprite", "props": { "y": 8, "x": 25, "width": 100, "texture": "comp/anim.png", "height": 100, "disabled": true }, "compId": 41 }] }, { "type": "Button", "props": { "y": 0, "x": 300, "toggle": true, "skin": "comp/tab.png", "labelSize": 20, "labelPadding": "50", "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "水果蔬菜" }, "compId": 36, "child": [{ "type": "Sprite", "props": { "y": 8, "x": 25, "texture": "comp/bru.png", "mouseEnabled": false }, "compId": 37 }] }, { "type": "Button", "props": { "y": 0, "x": 450, "toggle": true, "skin": "comp/tab.png", "labelSize": 20, "labelPadding": "50", "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "交通工具" }, "compId": 38, "child": [{ "type": "Sprite", "props": { "y": 8, "x": 25, "width": 100, "texture": "comp/car.png", "mouseEnabled": false, "height": 100 }, "compId": 39 }] }, { "type": "Button", "props": { "y": 0, "x": 600, "toggle": true, "skin": "comp/tab.png", "labelSize": 20, "labelPadding": "50", "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "名称识图" }, "compId": 46, "child": [{ "type": "Sprite", "props": { "y": 8, "x": 25, "width": 100, "texture": "comp/game1.png", "mouseEnabled": false, "height": 100 }, "compId": 47 }] }, { "type": "Button", "props": { "y": 0, "x": 750, "toggle": true, "skin": "comp/tab.png", "labelSize": 20, "labelPadding": "50", "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "看图辨声" }, "compId": 48, "child": [{ "type": "Sprite", "props": { "y": 8, "x": 25, "width": 100, "texture": "comp/game2.png", "mouseEnabled": false, "height": 100 }, "compId": 49 }] }, { "type": "Button", "props": { "y": 0, "x": 900, "toggle": true, "skin": "comp/tab.png", "labelSize": 20, "labelPadding": "50", "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "听声识图" }, "compId": 50, "child": [{ "type": "Sprite", "props": { "y": 8, "x": 25, "width": 100, "texture": "comp/game3.png", "mouseEnabled": false, "height": 100 }, "compId": 51 }] }] }] }], "loadList": ["comp/vscroll.png", "comp/tab.png", "comp/ren.png", "comp/anim.png", "comp/bru.png", "comp/car.png", "comp/game1.png", "comp/game2.png", "comp/game3.png"], "loadList3D": [] };
+    PicListUI.uiView = { "type": "View", "props": { "width": 720, "runtime": "script/GameUI.ts", "height": 1440 }, "compId": 1, "child": [{ "type": "Panel", "props": { "x": 0, "width": 720, "var": "panel", "vScrollBarSkin": "comp/vscroll.png", "top": 0, "bottom": 150 }, "compId": 44, "child": [{ "type": "VBox", "props": { "y": 0, "x": 0, "width": 720, "var": "vs", "space": 25, "align": "left" }, "compId": 29 }] }, { "type": "Panel", "props": { "x": 0, "width": 720, "height": 150, "hScrollBarSkin": "comp/vscroll.png", "bottom": 0 }, "compId": 45, "child": [{ "type": "Box", "props": { "x": 0, "width": 1050, "var": "tab", "height": 150 }, "compId": 35, "child": [{ "type": "Button", "props": { "y": 0, "x": 0, "toggle": true, "skin": "comp/tab.png", "selected": true, "labelSize": 20, "labelPadding": "50", "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "认识人物" }, "compId": 42, "child": [{ "type": "Sprite", "props": { "y": 8, "x": 25, "texture": "comp/ren.png", "mouseEnabled": false }, "compId": 43 }] }, { "type": "Button", "props": { "y": 0, "x": 150, "toggle": true, "skin": "comp/tab.png", "labelSize": 20, "labelPadding": "50", "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "动物声音" }, "compId": 40, "child": [{ "type": "Sprite", "props": { "y": 8, "x": 25, "width": 100, "texture": "comp/anim.png", "height": 100, "disabled": true }, "compId": 41 }] }, { "type": "Button", "props": { "y": 0, "x": 300, "toggle": true, "skin": "comp/tab.png", "labelSize": 20, "labelPadding": "50", "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "水果蔬菜" }, "compId": 36, "child": [{ "type": "Sprite", "props": { "y": 8, "x": 25, "texture": "comp/bru.png", "mouseEnabled": false }, "compId": 37 }] }, { "type": "Button", "props": { "y": 0, "x": 450, "toggle": true, "skin": "comp/tab.png", "labelSize": 20, "labelPadding": "50", "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "交通工具" }, "compId": 38, "child": [{ "type": "Sprite", "props": { "y": 8, "x": 25, "width": 100, "texture": "comp/car.png", "mouseEnabled": false, "height": 100 }, "compId": 39 }] }, { "type": "Button", "props": { "y": 0, "x": 600, "toggle": true, "skin": "comp/tab.png", "labelSize": 20, "labelPadding": "50", "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "名称识图" }, "compId": 46, "child": [{ "type": "Sprite", "props": { "y": 8, "x": 25, "width": 100, "texture": "comp/game1.png", "mouseEnabled": false, "height": 100 }, "compId": 47 }] }, { "type": "Button", "props": { "y": 0, "x": 750, "toggle": true, "skin": "comp/tab.png", "labelSize": 20, "labelPadding": "50", "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "看图辨声" }, "compId": 48, "child": [{ "type": "Sprite", "props": { "y": 8, "x": 25, "width": 100, "texture": "comp/game2.png", "mouseEnabled": false, "height": 100 }, "compId": 49 }] }, { "type": "Button", "props": { "y": 0, "x": 900, "toggle": true, "skin": "comp/tab.png", "labelSize": 20, "labelPadding": "50", "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "听声识图" }, "compId": 50, "child": [{ "type": "Sprite", "props": { "y": 8, "x": 25, "width": 100, "texture": "comp/game3.png", "mouseEnabled": false, "height": 100 }, "compId": 51 }] }] }] }], "loadList": ["comp/vscroll.png", "comp/tab.png", "comp/ren.png", "comp/anim.png", "comp/bru.png", "comp/car.png", "comp/game1.png", "comp/game2.png", "comp/game3.png"], "loadList3D": [] };
     REG$1("ui.PicListUI", PicListUI);
     class PicToVoiceUI extends Laya.View {
         constructor() {
             super();
-            this.referenceClass = [Laya.View];
+            this.referenceClass = [Laya.Box, Laya.Image, Laya.Button, Laya.View];
         }
         createChildren() {
             super.createChildren();
             this.createView(PicToVoiceUI.uiView);
         }
     }
-    PicToVoiceUI.uiView = { "type": "View", "props": { "width": 100, "height": 100 }, "loadList": [], "loadList3D": [] };
+    PicToVoiceUI.uiView = { "type": "View", "props": { "width": 720, "top": 0, "bottom": 0 }, "compId": 2, "child": [{ "type": "Box", "props": { "y": 160, "x": 10, "width": 700, "var": "bigBox", "top": 160, "right": 10, "left": 10, "bottom": 400 }, "compId": 9, "child": [{ "type": "Image", "props": { "var": "bigImg", "centerY": 0, "centerX": 0 }, "compId": 10 }] }, { "type": "Button", "props": { "y": 50, "width": 260, "var": "lblzq", "stateNum": 1, "skin": "comp/btn_1.png", "sizeGrid": "0,50,0,50", "right": 60, "mouseEnabled": false, "labelSize": 35, "labelColors": "#000000,#000000,#ffffff", "label": "正确：0", "height": 89 }, "compId": 7 }, { "type": "Button", "props": { "y": 50, "width": 260, "var": "lblcuo", "stateNum": 1, "skin": "comp/btn_2.png", "sizeGrid": "0,50,0,50", "mouseEnabled": false, "left": 60, "labelSize": 35, "labelColors": "#000000,#000000,#ffffff", "label": "错误：0", "height": 89 }, "compId": 8 }, { "type": "Button", "props": { "width": 224, "var": "btnName", "stateNum": 1, "skin": "comp/btn_1.png", "sizeGrid": "0,50,0,50", "labelSize": 40, "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "height": 89, "centerX": 0, "bottom": 403 }, "compId": 11 }, { "type": "Button", "props": { "width": 211, "var": "btnNext", "stateNum": 1, "skin": "comp/btn_1.png", "sizeGrid": "0,50,0,50", "right": 45, "labelSize": 40, "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "下一题", "height": 89, "bottom": 40 }, "compId": 12 }, { "type": "Button", "props": { "x": 45, "width": 379, "var": "btnSubmit", "stateNum": 1, "skin": "comp/btn_1.png", "sizeGrid": "0,50,0,50", "labelSize": 40, "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "谁的声音", "height": 89, "bottom": 40 }, "compId": 13 }, { "type": "Button", "props": { "x": 45, "width": 289, "var": "v3", "stateNum": 1, "skin": "comp/btn_1.png", "sizeGrid": "0,50,0,50", "labelSize": 40, "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "3", "height": 89, "bottom": 159 }, "compId": 14 }, { "type": "Button", "props": { "width": 287, "var": "v4", "stateNum": 1, "skin": "comp/btn_1.png", "sizeGrid": "0,50,0,50", "right": 45, "labelSize": 40, "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "4", "height": 89, "bottom": 159 }, "compId": 15 }, { "type": "Button", "props": { "x": 45, "width": 289, "var": "v1", "stateNum": 1, "skin": "comp/btn_1.png", "sizeGrid": "0,50,0,50", "labelSize": 40, "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "1", "height": 89, "bottom": 279 }, "compId": 16 }, { "type": "Button", "props": { "width": 287, "var": "v2", "stateNum": 1, "skin": "comp/btn_1.png", "sizeGrid": "0,50,0,50", "right": 45, "labelSize": 40, "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "2", "height": 89, "bottom": 279 }, "compId": 17 }], "loadList": ["comp/btn_1.png", "comp/btn_2.png"], "loadList3D": [] };
     REG$1("ui.PicToVoiceUI", PicToVoiceUI);
     class VoiceToPicUI extends Laya.View {
         constructor() {
             super();
-            this.referenceClass = [Laya.View];
+            this.referenceClass = [Laya.Box, Laya.Image, Laya.List, Laya.Button, Laya.View,
+            ];
         }
         createChildren() {
             super.createChildren();
             this.createView(VoiceToPicUI.uiView);
         }
     }
-    VoiceToPicUI.uiView = { "type": "View", "props": { "width": 100, "height": 100 }, "loadList": [], "loadList3D": [] };
+    VoiceToPicUI.uiView = { "type": "View", "props": { "width": 720, "top": 0, "bottom": 0 }, "compId": 2, "child": [{ "type": "Box", "props": { "y": 160, "x": 10, "width": 700, "var": "bigBox", "top": 160, "right": 10, "left": 10, "height": 190, "bottom": 160 }, "compId": 8, "child": [{ "type": "Image", "props": { "var": "bigImg", "centerY": 0, "centerX": 0 }, "compId": 9 }] }, { "type": "List", "props": { "y": 160, "x": 0, "var": "list", "top": 160, "spaceY": 4, "spaceX": 4, "selectEnable": true, "right": 0, "repeatY": 2, "repeatX": 2, "left": 0, "bottom": 160 }, "compId": 7 }, { "type": "Button", "props": { "y": 50, "width": 260, "var": "lblzq", "stateNum": 1, "skin": "comp/btn_1.png", "sizeGrid": "0,50,0,50", "right": 60, "mouseEnabled": false, "labelSize": 35, "labelColors": "#000000,#000000,#ffffff", "label": "正确：0", "height": 89 }, "compId": 3 }, { "type": "Button", "props": { "y": 50, "width": 260, "var": "lblcuo", "stateNum": 1, "skin": "comp/btn_2.png", "sizeGrid": "0,50,0,50", "mouseEnabled": false, "left": 60, "labelSize": 35, "labelColors": "#000000,#000000,#ffffff", "label": "错误：0", "height": 89 }, "compId": 4 }, { "type": "Button", "props": { "width": 211, "var": "btnNext", "stateNum": 1, "skin": "comp/btn_1.png", "sizeGrid": "0,50,0,50", "right": 45, "labelSize": 40, "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "下一题", "height": 89, "bottom": 40 }, "compId": 5 }, { "type": "Button", "props": { "x": 45, "width": 379, "var": "btnVoice", "stateNum": 1, "skin": "comp/btn_1.png", "sizeGrid": "0,50,0,50", "labelSize": 40, "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "label": "谁的声音", "height": 89, "bottom": 40 }, "compId": 6 }, { "type": "Button", "props": { "width": 224, "var": "btnName", "stateNum": 1, "skin": "comp/btn_1.png", "sizeGrid": "0,50,0,50", "labelSize": 40, "labelFont": "SimHei", "labelColors": "#000000,#000000,#ffffff", "height": 89, "centerX": 0, "bottom": 161 }, "compId": 11 }], "loadList": ["comp/btn_1.png", "comp/btn_2.png"], "loadList3D": [] };
     REG$1("ui.VoiceToPicUI", VoiceToPicUI);
+
+    class GameControl {
+        constructor() {
+            this.preNameToPic = {};
+            this.voiceToPicPool = [1, 3];
+        }
+        static get instance() {
+            if (!GameControl._instance) {
+                GameControl._instance = new GameControl();
+            }
+            return GameControl._instance;
+        }
+        getOneNameToPicByType() {
+            var type = Math.floor(Math.random() * 4);
+            var dic = DataManager.jsonData;
+            var arr = dic[type];
+            var temp = arr.concat();
+            var returnArr = [];
+            for (var i = 0; i < 4; i++) {
+                var indx = Math.floor(temp.length * Math.random());
+                if (i == 0) {
+                    while (type == this.preNameToPic.type && indx == this.preNameToPic.index) {
+                        indx = Math.floor(temp.length * Math.random());
+                    }
+                    this.preNameToPic.type = type;
+                    this.preNameToPic.index = indx;
+                }
+                var a1 = temp.splice(indx, 1);
+                returnArr.push(a1[0]);
+            }
+            return returnArr;
+        }
+        getOneVoiceToPicByType() {
+            var type = this.voiceToPicPool[Math.floor(Math.random() * 2)];
+            var dic = DataManager.jsonData;
+            var arr = dic[type];
+            var temp = arr.concat();
+            var returnArr = [];
+            for (var i = 0; i < 4; i++) {
+                var indx = Math.floor(temp.length * Math.random());
+                if (i == 0) {
+                    while (type == this.preNameToPic.type && indx == this.preNameToPic.index) {
+                        indx = Math.floor(temp.length * Math.random());
+                    }
+                    this.preNameToPic.type = type;
+                    this.preNameToPic.index = indx;
+                }
+                var a1 = temp.splice(indx, 1);
+                returnArr.push(a1[0]);
+            }
+            return returnArr;
+        }
+    }
 
     class PicToVoice extends PicToVoiceUI {
         constructor() {
             super();
+            this.allBtn = [this.v1, this.v2, this.v3, this.v4];
+            this.on(Laya.Event.DISPLAY, this, this.onAddtoStage);
+            this.btnName.on(Laya.Event.CLICK, this, this.sayName);
+            this.btnNext.on(Laya.Event.CLICK, this, this.onPlayNext);
+            this.v1.on(Laya.Event.CLICK, this, this.onPlayVoice);
+            this.v2.on(Laya.Event.CLICK, this, this.onPlayVoice);
+            this.v3.on(Laya.Event.CLICK, this, this.onPlayVoice);
+            this.v4.on(Laya.Event.CLICK, this, this.onPlayVoice);
+            this.btnSubmit.on(Laya.Event.CLICK, this, this.onClick);
         }
-    }
-
-    class VoiceToPic extends VoiceToPicUI {
-        constructor() {
-            super();
+        onAddtoStage() {
+            this.btnName.visible = false;
+            var arr = GameControl.instance.getOneVoiceToPicByType();
+            this.firstVO = arr[0];
+            this.sayName();
+            this.btnName.label = this.firstVO.name;
+            this.bigImg.skin = this.firstVO.img;
+            if (this.bigImg.source) {
+                var bmpscal = this.bigImg.source.width / this.bigImg.source.height;
+                var boxscal = this.bigBox.width / this.bigBox.height;
+                if (bmpscal > boxscal) {
+                    this.bigImg.width = this.bigBox.width;
+                    this.bigImg.height = this.bigImg.width / bmpscal;
+                }
+                else {
+                    this.bigImg.height = this.bigBox.height;
+                    this.bigImg.width = this.bigImg.height * bmpscal;
+                }
+            }
+            for (var i = 0; i < 4; i++) {
+                var index = Math.floor(arr.length * Math.random());
+                var btn = this["v" + (i + 1)];
+                btn.visible = true;
+                btn.dataSource = arr.splice(index, 1)[0];
+            }
+        }
+        onClick() {
+            if (this.selectBtn.dataSource == this.firstVO) {
+                this.lblzq.label = "正确：" + ++DataManager.picToVoiceNum.zq;
+                for (var button of this.allBtn) {
+                    if (button != this.selectBtn) {
+                        button.visible = false;
+                    }
+                }
+                Laya.SoundManager.playSound("res/sound/duile.mp3");
+            }
+            else {
+                this.lblcuo.label = "错误：" + ++DataManager.picToVoiceNum.cw;
+                Laya.SoundManager.playSound("res/sound/budui.mp3");
+            }
+        }
+        sayName() {
+            Laya.SoundManager.playSound(this.firstVO.sound);
+        }
+        onPlayVoice(e) {
+            var btn = this.selectBtn = e.currentTarget;
+            for (var button of this.allBtn) {
+                if (button == btn) {
+                    button.skin = "comp/btn_2.png";
+                }
+                else {
+                    button.skin = "comp/btn_1.png";
+                }
+            }
+            Laya.SoundManager.playSound(btn.dataSource.voice);
+        }
+        onPlayNext() {
+            this.onAddtoStage();
         }
     }
 
@@ -225,35 +344,85 @@ window.Laya=window.Laya||{};
         }
     }
 
-    class GameControl {
+    class VoiceToPic extends VoiceToPicUI {
         constructor() {
-            this.preNameToPic = {};
+            super();
+            this.list.itemRender = GamePicItem;
+            this.list.renderHandler = new Laya.Handler(this, this.onRender);
+            this.on(Laya.Event.DISPLAY, this, this.onAddtoStage);
+            this.btnVoice.on(Laya.Event.CLICK, this, this.onPlayVoice);
+            this.btnNext.on(Laya.Event.CLICK, this, this.onPlayNext);
+            this.list.on(Laya.Event.RESIZE, this, this.onResize);
+            this.btnName.on(Laya.Event.CLICK, this, this.onPlayNameSound);
         }
-        static get instance() {
-            if (!GameControl._instance) {
-                GameControl._instance = new GameControl();
-            }
-            return GameControl._instance;
-        }
-        getOneNameToPicByType() {
-            var type = Math.floor(Math.random() * 4);
-            var dic = DataManager.jsonData;
-            var arr = dic[type];
-            var temp = arr.concat();
-            var returnArr = [];
+        onAddtoStage() {
+            this.bigImg.visible = false;
+            this.list.visible = true;
+            this.btnName.visible = false;
+            var arr = GameControl.instance.getOneVoiceToPicByType();
+            this.firstVO = arr[0];
+            this.onPlayVoice();
+            this.dataArr = [];
             for (var i = 0; i < 4; i++) {
-                var indx = Math.floor(temp.length * Math.random());
-                if (i == 0) {
-                    while (type == this.preNameToPic.type && indx == this.preNameToPic.index) {
-                        indx = Math.floor(temp.length * Math.random());
-                    }
-                    this.preNameToPic.type = type;
-                    this.preNameToPic.index = indx;
-                }
-                var a1 = temp.splice(indx, 1);
-                returnArr.push(a1[0]);
+                var index = Math.floor(arr.length * Math.random());
+                this.dataArr.push(arr.splice(index, 1)[0]);
             }
-            return returnArr;
+            this.list.dataSource = this.dataArr;
+        }
+        onClick(index) {
+            if (this.dataArr[index] == this.firstVO) {
+                this.lblzq.label = "正确：" + ++DataManager.voiceToPicNum.zq;
+                this.bigImg.x = this.list.x;
+                this.bigImg.y = this.list.y;
+                this.bigImg.skin = this.firstVO.img;
+                this.bigImg.visible = true;
+                this.list.visible = false;
+                if (this.bigImg.source) {
+                    var bmpscal = this.bigImg.source.width / this.bigImg.source.height;
+                    var boxscal = this.bigBox.width / this.bigBox.height;
+                    if (bmpscal > boxscal) {
+                        this.bigImg.width = this.bigBox.width;
+                        this.bigImg.height = this.bigImg.width / bmpscal;
+                    }
+                    else {
+                        this.bigImg.height = this.bigBox.height;
+                        this.bigImg.width = this.bigImg.height * bmpscal;
+                    }
+                }
+                this.btnName.visible = true;
+                this.btnName.label = this.firstVO.name;
+                Laya.SoundManager.playSound("res/sound/duile.mp3");
+                Laya.Laya.timer.once(900, this, this.onPlayNameSound);
+            }
+            else {
+                this.lblcuo.label = "错误：" + ++DataManager.voiceToPicNum.cw;
+                Laya.SoundManager.playSound("res/sound/budui.mp3");
+            }
+        }
+        onPlayVoice() {
+            Laya.SoundManager.playSound(this.firstVO.voice);
+        }
+        onPlayNameSound() {
+            Laya.SoundManager.playSound(this.firstVO.sound);
+        }
+        onPlayNext() {
+            this.onAddtoStage();
+        }
+        onRender(cell, index) {
+            var w = Math.floor((this.list.width - this.list.spaceX) / 2);
+            var h = Math.floor((this.list.height - this.list.spaceY) / 2);
+            cell.width = w;
+            cell.height = h;
+            cell.on(Laya.Event.CLICK, this, this.onClick, [index]);
+        }
+        onResize() {
+            var w = Math.floor((this.list.width - this.list.spaceX) / 2);
+            var h = Math.floor((this.list.height - this.list.spaceY) / 2);
+            for (var i = 0; i < 4; i++) {
+                var cell = this.list.getCell(i);
+                cell.width = w;
+                cell.height = h;
+            }
         }
     }
 
