@@ -37,6 +37,7 @@ export class PicList extends PicListUI {
         super.createChildren();
         this.tab.on(Event.CLICK, this, this.onTabclick);
         this.panel.vScrollBar.visible = false;
+        this.tabPanel.hScrollBar.visible = false;
         this.panel.vScrollBar.changeHandler = new Handler(this, this.onChange);
         this.topspace = new UIComponent();
         this.topspace.width = this.topspace.height = 50;
