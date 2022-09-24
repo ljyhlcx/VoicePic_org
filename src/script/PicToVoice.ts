@@ -45,6 +45,7 @@ export class PicToVoice extends PicToVoiceUI {
             var index = Math.floor(arr.length * Math.random());
             var btn: Button = this["v" + (i + 1)] as Button;
             btn.visible = true;
+            btn.skin = "comp/btn_1.png";
             btn.dataSource = arr.splice(index, 1)[0];
         }
 

@@ -76,6 +76,10 @@ export class PicList extends PicListUI {
         return this._selectedIndex;
     }
     private onTabSelect(index: number): void {
+        if (index < 3)
+            this.tabPanel.hScrollBar.value = 0
+        else if (index > 3)
+            this.tabPanel.hScrollBar.value = this.tabPanel.hScrollBar.max;
         this.panel.vScrollBar.stopScroll();
         this.panel.vScrollBar.value = 0;
         this.vs.removeChildren();
