@@ -48,7 +48,7 @@ class Main {
 		// AtlasInfoManager.enable("fileconfig.json", Handler.create(this, this.onConfigLoaded));
 		var loadList: any[] = [{ url: "res/atlas/comp.json", type: Loader.ATLAS }];
 		if (!DataManager.jsonData)
-			loadList.push({ url: "config.json", type: Loader.TEXT });
+			loadList.push({ url: "res/configList.json", type: Loader.TEXT });
 		Laya.loader.load(loadList, Handler.create(this, this.onConfigLoaded));
 	}
 	/**加载单个包*/
@@ -108,7 +108,7 @@ class Main {
 		if (DataManager.jsonData)
 			list.dataSource = DataManager.jsonData;
 		else {
-			var str: string = Laya.loader.getRes("config.json");
+			var str: string = Laya.loader.getRes("res/configList.json");
 			if (str) {
 				DataManager.jsonData = JSON.parse(str);
 				list.dataSource = DataManager.jsonData;

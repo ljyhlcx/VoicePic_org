@@ -749,7 +749,7 @@ window.Laya=window.Laya||{};
             }
             var loadList = [{ url: "res/atlas/comp.json", type: Laya.Loader.ATLAS }];
             if (!DataManager.jsonData)
-                loadList.push({ url: "config.json", type: Laya.Loader.TEXT });
+                loadList.push({ url: "res/configList.json", type: Laya.Loader.TEXT });
             Laya.Laya.loader.load(loadList, Laya.Handler.create(this, this.onConfigLoaded));
         }
         loadSinglePackage(sname, callback, errCount = 0) {
@@ -806,7 +806,7 @@ window.Laya=window.Laya||{};
             if (DataManager.jsonData)
                 list.dataSource = DataManager.jsonData;
             else {
-                var str = Laya.Laya.loader.getRes("config.json");
+                var str = Laya.Laya.loader.getRes("res/configList.json");
                 if (str) {
                     DataManager.jsonData = JSON.parse(str);
                     list.dataSource = DataManager.jsonData;
