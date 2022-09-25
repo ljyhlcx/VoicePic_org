@@ -25,6 +25,7 @@ export class PicToVoice extends PicToVoiceUI {
         this.btnSubmit.on(Event.CLICK, this, this.onClick);
     }
     private onAddtoStage(): void {
+        SoundManager.stopAllSound();
         var arr: PicVO[] = GameControl.instance.getOneVoiceToPicByType();
         this.firstVO = arr[0];
         this.sayName();
@@ -68,6 +69,7 @@ export class PicToVoice extends PicToVoiceUI {
         SoundManager.playSound(this.firstVO.sound);
     }
     private onPlayVoice(e: Event): void {
+        SoundManager.stopAllSound();
         var btn: Button = this.selectBtn = e.currentTarget as Button;
         for (var button of this.allBtn) {
             if (button == btn) {

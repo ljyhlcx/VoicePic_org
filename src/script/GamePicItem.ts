@@ -32,7 +32,9 @@ export class GamePicItem extends Box {
         this.onResize();
     }
     public set dataSource(val: PicVO) {
-        this.img.skin = val.img;
-        this.visible = true;
+        if (val) {
+            this.img.skin = val.img;
+            this.visible = true;
+        }
     }
 }

@@ -24,6 +24,8 @@ export class VoiceToPic extends VoiceToPicUI {
         this.btnName.on(Event.CLICK, this, this.onPlayNameSound);
     }
     private onAddtoStage(): void {
+        Laya.timer.clear(this, this.onPlayNameSound);
+        SoundManager.stopAllSound();
         this.bigImg.visible = false;
         this.list.visible = true;
         this.btnName.visible = false;

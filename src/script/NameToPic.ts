@@ -21,6 +21,7 @@ export class NameToPic extends NameToPicUI {
         this.list.on(Event.RESIZE, this, this.onResize);
     }
     private onAddtoStage(): void {
+        SoundManager.stopAllSound();
         this.bigImg.visible = false;
         this.list.visible = true;
         var arr: PicVO[] = GameControl.instance.getOneNameToPicByType();
